@@ -1,0 +1,23 @@
+{
+  "segments": [
+    "virtual_env",
+    "username",
+    "ssh",
+    "cwd",
+    "git",
+    "hg",
+    "battery",
+    "jobs",
+    "root"
+  ],
+  "theme": "~/.config/powerline-shell/themes/personal_theme_v1.py",
+  "vcs": {
+    "show_symbol": "true"
+  },
+  "cwd": {
+    "max_depth": 4
+  },
+  "hostname": {
+    "colorized": "true"
+  }
+}

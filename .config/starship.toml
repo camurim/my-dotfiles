@@ -1,0 +1,71 @@
+# Use custom format
+format = """
+[┌─○ ](bold green) $username\
+$hostname\
+$shlvl\
+$kubernetes\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$dart\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$purescript\
+$python\
+$ruby\
+$rust\
+$swift\
+$terraform\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$env_var\
+$crystal\
+$cmd_duration\
+$custom\
+$lua\
+$jobs\
+$battery\
+$time\
+$status\
+$line_break\
+[└─](bold green)$character"""
+
+[character]
+success_symbol = "[►](bold green) "
+error_symbol = "[►](bold red) "
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+#scan_timeout = 10
+
+# Disable the newline at the start of the prompt
+#add_newline = false
+
+[java]
+symbol = "☕  "
+
+[jobs]
+symbol = "⭐ "
+threshold = 1
+format = "[$symbol$number]($style)"

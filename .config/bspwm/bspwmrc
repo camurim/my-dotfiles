@@ -1,0 +1,177 @@
+#!/usr/bin/env bash
+
+USER=${USER:-carlos}
+HOME=${HOME:-/home/$USER}
+
+# ░█▀▀░▀█▀░█▀█░█▀▄░▀█▀░█░█░█▀█
+# ░▀▀█░░█░░█▀█░█▀▄░░█░░█░█░█▀▀
+# ░▀▀▀░░▀░░▀░▀░▀░▀░░▀░░▀▀▀░▀░░
+
+sxhkd &
+
+feh --bg-fill $HOME/.config/bspwm/wallpaper.png &
+wal -i $HOME/.config/bspwm/wallpaper.png -q
+
+currentGnomeBackground=$(gsettings get org.gnome.desktop.background picture-uri | sed "s/['\"]//g")
+if [ "$currentGnomeBackground" != "file:///home/$USER/.config/bspwm/wallpaper.png" ]; then
+	gsettings set org.gnome.desktop.background picture-uri "file:///home/$USER/.config/bspwm/wallpaper.png" 2> /dev/null
+fi
+
+xsetroot -cursor_name left_ptr &
+
+numlockx on
+
+unclutter &
+
+pgrep compton
+
+if [ $? -eq 1 ]; then
+	pkill -USR1 -x compton
+fi
+
+compton --experimental-backends &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+
+$HOME/.config/polybar/launch.sh --forest &
+
+dropbox running
+
+if [ $? -eq 0 ]; then
+	dropbox start &
+fi
+
+pgrep motrix
+
+if [ $? -eq 1 ]; then
+	motrix --rpc-secret &
+fi
+
+pgrep conky
+
+if [ $? -eq 1 ]; then
+	conky -b -c $HOME/.config/conkyrc &
+fi
+
+ss -tuln | grep 7531
+
+if [ $? -eq 1 ]; then
+	play-with-mpv > /dev/null 2>&1 &
+fi
+
+pgrep gnome-screensaver
+
+if [ $? -eq 1 ]; then
+	gnome-screensaver &
+fi
+
+pgrep xss-lock
+
+if [ $? -eq 1 ]; then
+	xset s on
+	xset s 600 # 10 minutos de inatividade
+	xss-lock -l -- /usr/bin/gnome-screensaver-command --lock &
+fi
+
+pgrep transmission-daemon
+
+if [ $? -eq 1 ]; then
+	transmission-daemon -c "$HOME/_junkdrawer"
+fi
+
+# ░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀
+# ░█░░░█░█░█░█░█▀▀░░█░░█░█
+# ░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀▀▀
+
+bspc config border_width         2
+bspc config window_gap           4
+bspc config top_padding          30
+
+bspc config normal_border_color  "#000000"
+bspc config focused_border_color "#FFFFFF"
+bspc config urgent_border_color "#FF0000" 
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config automatic_scheme     alternate
+bspc config initial_polarity     second_child
+bspc config pointer_modifier     shift
+bspc config pointer_action1      move
+bspc config pointer_action2      resize_side
+bspc config pointer_action3      resize_corner
+bspc config click_to_focus       none
+
+bspc config focus_follows_pointer      true
+bspc config history_aware_focus        true
+bspc config remove_dissabled_monitors  true
+bspc config remove_unplugged_monitors  true
+bspc config merge_unplugged_monitors   true
+bspc config merge_overlapping_monitors true
+
+# ░█▀▄░█░█░█░░░█▀▀░█▀▀
+# ░█▀▄░█░█░█░░░█▀▀░▀▀█
+# ░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀
+
+bspc rule -a Brave-browser desktop=I
+bspc rule -a Firefox desktop=I
+bspc rule -a qutebrowser desktop=I
+bspc rule -a Luakit desktop=I
+bspc rule -a "Tor Browser" desktop=I
+bspc rule -a obsidian desktop=III
+bspc rule -a gimp desktop=III state=floating follow=on
+bspc rule -a Code desktop=IV
+bspc rule -a Emacs state=tiled desktop=IV
+bspc rule -a Emacs27 state=tiled desktop=IV
+bspc rule -a krusader desktop=V
+bspc rule -a Filezilla desktop=V
+bspc rule -a Eclipse desktop=VI
+bspc rule -a SWT desktop=VII
+bspc rule -a DBEaver desktop=VII
+bspc rule -a Steam state=tiled manage=on layer=normal desktop=VIII follow=off
+bspc rule -a deadcells state=fullscreen manage=on layer=above desktop=VIII follow=off
+bspc rule -a Postman desktop=VIII 
+bspc rule -a libreoffice desktop=IX
+bspc rule -a obs state=floating desktop=X
+bspc rule -a eDEX-UI manage=on layer=above desktop=X follow=on
+bspc rule -a pritunl state=floating follow=off desktop=X
+bspc rule -a mplayer state=floating
+bspc rule -a mpv state=floating
+bspc rule -a Parlatype state=floating follow=off
+bspc rule -a Magnus follow=off state=floating
+bspc rule -a "Emoji Picker" follow=off state=floating
+bspc rule -a colorpicker state=floating follow=off manage=on layer=above
+bspc rule -a Gpick state=floating follow=off manage=on layer=above
+bspc rule -a Screenkey manage=off
+bspc rule -a Blueman-manager state=floating
+bspc rule -a Gnome-font-viewer state=floating
+bspc rule -a "VirtualBox Manager" state=floating
+bspc rule -a Virt-manager state=floating
+bspc rule -a Eog state=floating
+bspc rule -a scrcpy state=floating
+bspc rule -a Transmission-gtk state=floating
+bspc rule -a MYKI state=floating
+bspc rule -a Lutris state=floating desktop=IX follow=off
+bspc rule -a "org-tlauncher-tlauncher-rmo-TLauncher" state=floating follow=off desktop=IX
+bspc rule -a "Minecraft* 1.18.1" desktop=IX follow=off
+
+# ░█░░░█▀█░█░█░█▀█░█░█░▀█▀░█▀▀
+# ░█░░░█▀█░░█░░█░█░█░█░░█░░▀▀█
+# ░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀▀░░▀░░▀▀▀
+
+### Browsers
+bsp-layout set tall I
+### Terminais
+bsp-layout set even II
+### Obsidian
+bsp-layout set wide III
+### Code
+bsp-layout set wide IV
+### Krusader
+bsp-layout set wide V
+### Eclipse
+bsp-layout set wide VI
+### DBEaver
+bsp-layout set wide VII
+### LibreOffice
+bsp-layout set tall IX
