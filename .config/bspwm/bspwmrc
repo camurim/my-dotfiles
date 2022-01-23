@@ -128,6 +128,7 @@ bspc rule -a Filezilla desktop=V
 bspc rule -a Eclipse desktop=VI
 bspc rule -a SWT desktop=VII
 bspc rule -a DBEaver desktop=VII
+bspc rule -a marktext desktop=VII
 bspc rule -a Steam state=tiled manage=on layer=normal desktop=VIII follow=off
 bspc rule -a deadcells state=fullscreen manage=on layer=above desktop=VIII follow=off
 bspc rule -a Postman desktop=VIII 
@@ -154,6 +155,7 @@ bspc rule -a MYKI state=floating
 bspc rule -a Lutris state=floating desktop=IX follow=off
 bspc rule -a "org-tlauncher-tlauncher-rmo-TLauncher" state=floating follow=off desktop=IX
 bspc rule -a "Minecraft* 1.18.1" desktop=IX follow=off
+bspc rule -a epsonscan2 desktop=X follow=off
 
 # ░█░░░█▀█░█░█░█▀█░█░█░▀█▀░█▀▀
 # ░█░░░█▀█░░█░░█░█░█░█░░█░░▀▀█
