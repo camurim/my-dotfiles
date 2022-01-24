@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+export DISPLAY=:0
+
+AUTOREMOTEKEY="fzzbKQ2Rs04:APA91bFAYhptWt8Zj-P3kuNAGpUpn7lffGTGCoLxZbFapjh4becdnTbbDyK0SuCkzGiWxIQB248R6xWGqrO3r30c_3vld21F5RNThLRo8FHNzXYiKRrNkaEUjHJFMAojtjFJrh7unZV7"
+
+DURATION=10
+
+# define geometry
+BARX=1140
+BARY=35
+BARW=220
+BARH=30
+
+# colors
+BAR_BG='#9F25194B'
+BAR_FG='#ffffffff'
+
+BAR_FONT='roboto-medium'
+BAROPT="-g ${BARW}x${BARH}+${BARX}+${BARY} -B${BAR_BG} -f ${BAR_FONT}"
+
+currentBatLvl=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep 'percentage' | awk '{print $2}' | sed -e 's/\%//')
+currentBatState=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep 'state' | awk '{print $2}')
+
+if [[ $currentBatLvl -lt 31 && $currentBatState == 'discharging' ]] || [[ $currentBatLvl -gt 79 && $currentBatState == 'charging' ]]; then
+    (echo "Nível da bateria: ${currentBatLvl}%"; sleep ${DURATION}) | lemonbar ${BAROPT} &
+    curl --data-urlencode "message=$currentBatLvl" "https://autoremotejoaomgcd.appspot.com/sendmessage?key=$AUTOREMOTEKEY"
+fi
+
+exit 0
