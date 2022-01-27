@@ -3,6 +3,7 @@ function fish_greeting
         if test $termcnt -lt 3
             neofetch
         else
-            colorscript random
+            #colorscript random
+            pfetch
         end
 end

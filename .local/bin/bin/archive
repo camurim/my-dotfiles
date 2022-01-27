@@ -1,0 +1,57 @@
+#!/bin/bash
+# move arquivos com mais de 3 dias de idade para seu arquivamento definitivo
+# augusto campos - efetividade.net - 2007
+
+USER=${USER:-"carlos"}
+WORKDIR="/home/$USER/Documentos/docs"
+
+# define o diretório base da organização por categoria
+DIRBASE="/home/$USER/Documentos/docs-archive"
+
+# se não existirem, cria os diretórios e subdiretórios associados
+[ ! -d "$DIRBASE" ] && mkdir -p "$DIRBASE"
+[ ! -d "$DIRBASE/media" ] && mkdir "$DIRBASE/media"
+[ ! -d "$DIRBASE/media/audio" ] && mkdir "$DIRBASE/audio"
+[ ! -d "$DIRBASE/media/video" ] && mkdir "$DIRBASE/video"
+[ ! -d "$DIRBASE/media/images" ] && mkdir "$DIRBASE/images"
+[ ! -d "$DIRBASE/compressed" ] && mkdir "$DIRBASE/compressed"
+[ ! -d "$DIRBASE/texts" ] && mkdir "$DIRBASE/texts"
+
+# lista de extensoes para cada categoria de conteudo.
+# o primeiro item de cada lista é o subdiretório
+#   onde serão gravados os arquivos correspondentes
+export GRAFICOS="$DIRBASE/media/images cdr gif xcf jpg jpeg cbr eps bmp wbz ico png xcf svg svgz dia kra ora"
+export ARCHIVES="$DIRBASE/compressed rar zip arj gz bz2 tar z tgz iso rpm deb exe pdb prc torrent skz"
+export AUDIO="$DIRBASE/media/audio ogg mp3 wav wma rm wav au mpg mpe ra ram mid amr 3gp"
+export VIDEO="$DIRBASE/media/video wmv srt swf mpg mpeg mp4 avi mov"
+export DOCS="$DIRBASE/texts html htm shtml odt ods ppt pptx xml xls xlsx mysql csv chm chm doc docx php cgi pdf ps rtf sql cf log dat sx sh opml txt txt~ html~ asta odp gan vym smmx"
+
+
+####
+#
+# Voce não deveria precisar editar nada abaixo daqui
+#
+####
+
+function findopts_iname {
+  echo "$*" | awk '{
+    dir=$1
+    $1=""
+    split($0,pattern)
+    for (i in pattern) {
+      args=args " -iname \"*."pattern[i]"\" -o "
+    }
+    gsub(/ -o $/,"",args)
+    comando="find -maxdepth 1 -mtime +3 \\(" args " \\) -exec mv --backup=numbered --verbose {} \""dir"\" \\;"
+    print "\n\n\n====\n"comando" --- "dir"\n====\n"
+    system( comando )
+  }'
+}
+
+cd "$WORKDIR"
+
+findopts_iname $GRAFICOS
+findopts_iname $ARCHIVES
+findopts_iname $AUDIO
+findopts_iname $VIDEO
+findopts_iname $DOCS

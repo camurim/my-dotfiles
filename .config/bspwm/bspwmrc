@@ -150,6 +150,7 @@ bspc rule -a "VirtualBox Manager" state=floating
 bspc rule -a Virt-manager state=floating
 bspc rule -a Eog state=floating
 bspc rule -a scrcpy state=floating
+bspc rule -a Gromit-mpx state=floating
 bspc rule -a Transmission-gtk state=floating
 bspc rule -a MYKI state=floating
 bspc rule -a Lutris state=floating desktop=IX follow=off
