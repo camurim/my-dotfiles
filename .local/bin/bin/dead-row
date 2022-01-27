@@ -1,6 +1,0 @@
-#!/bin/bash
-# Replace the line below with areas you want to clean.
-USER=${USER:-"carlos"}
-PATHTOCLEAN="/home/$USER/Documentos/dead-row"
-DAYSOLD="30"
-find $PATHTOCLEAN -mtime +$DAYSOLD -exec rm -Rf {} \;

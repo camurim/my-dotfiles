@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-DISPLAY=:0
-
-text=$(zenity --entry --title="Shout" --text="Informe o texto")
-
-if [[ $? -eq 0 && ! -z $text ]]; then
-    toilet -w 200 -f 'ANSI Shadow' --gay -E tga "$text" | convert tga:- -background '#594a72' -alpha remove -alpha off png:- | xclip -t image/png -selection clipboard
-fi

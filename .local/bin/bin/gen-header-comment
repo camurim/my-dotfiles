@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-if [ $# -lt 1 ]; then
-    echo "Sintaxe: $(basename $0) <COMMENTARY>" >&2
-    exit 1
-fi
-
-toilet -f pagga $1 | sed 's/^/#/' | xclip -selection clipboard

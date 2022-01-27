@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-DISPLAY=:0
-
-text=$(zenity --entry --title="Commentary" --text="Input the commentary")
-
-if [[ $? -eq 0 && ! -z $text ]]; then
-    toilet -f pagga $text | sed 's/^/#/' | xclip -selection clipboard
-fi
