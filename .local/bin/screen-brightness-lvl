@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+currentBrightness=$(xrandr --verbose | awk '/Brightness/ { print $2; exit }')
+
+newBrightness=$(bc <<< "$currentBrightness + $1")
+
+if [[ $(bc -l <<< "$newBrightness > 0.1") -eq 1 && $(bc -l <<< "$newBrightness < 1.1") -eq 1 ]]; then
+    xrandr --output eDP-1 --brightness $newBrightness
+fi

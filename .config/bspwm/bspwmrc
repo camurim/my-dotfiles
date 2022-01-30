@@ -21,6 +21,8 @@ xsetroot -cursor_name left_ptr &
 
 numlockx on
 
+#xset r off
+
 unclutter &
 
 pgrep compton
@@ -77,6 +79,12 @@ pgrep transmission-daemon
 
 if [ $? -eq 1 ]; then
 	transmission-daemon -c "$HOME/_junkdrawer"
+fi
+
+pgrep gromit-mpx
+
+if [ $? -eq 1 ]; then
+	gromit-mpx &
 fi
 
 # ░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀
@@ -151,6 +159,7 @@ bspc rule -a Virt-manager state=floating
 bspc rule -a Eog state=floating
 bspc rule -a scrcpy state=floating
 bspc rule -a Gromit-mpx state=floating
+bspc rule -a nuclear state=floating follow=off
 bspc rule -a Transmission-gtk state=floating
 bspc rule -a MYKI state=floating
 bspc rule -a Lutris state=floating desktop=IX follow=off

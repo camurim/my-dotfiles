@@ -69,11 +69,16 @@ super + r
 
 # Brilho da tela
 super + {plus,minus}
-	$HOME/scripts/chbrightness.sh {0.1,-0.1}
+	$HOME/.local/bin/screen-brightness-lvl {0.1,-0.1}
 
 # Copia para o clipboard imagem com mensagem chamativa
 super + F4
-	$HOME/scripts/shoutcbdlg.sh
+	$HOME/.local/bin/shoutcbdlg
+
+# Gera cabeçalho para comentários de scripts do shell, Python, Perl, etc...
+super + F5
+	$HOME/.local/bin/gen-header-comment-dlg
+
 
 # ░█▀▀░█▀▀░█▀▄░█▀█░▀█▀░█▀▀░█░█░█▀█░█▀█░█▀▄░█▀▀
 # ░▀▀█░█░░░█▀▄░█▀█░░█░░█░░░█▀█░█▀▀░█▀█░█░█░▀▀█
