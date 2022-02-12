@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+dailyRandomQuote=$(curl -s api.quotable.io/random)
+quote=$(echo $dailyRandomQuote | jq -r ".content")
+author=$(echo $dailyRandomQuote | jq -r ".author")
+
+echo -e "\"$quote\"\n\n - $author"

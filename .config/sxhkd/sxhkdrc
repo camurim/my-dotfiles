@@ -96,9 +96,9 @@ super + F7
 super + F8
 	tdrop -ma -w 70% -h 70% -y 20% -x 17% gnome-terminal --hide-menubar -e cmus
 
-# Bashtop
+# BTM
 super + F9
-	tdrop -ma -w 70% -h 70% -y 20% -x 17% alacritty --class=alacritty --title=bashtop -e bashtop
+	tdrop -ma -w 70% -h 70% -y 20% -x 17% alacritty --class=alacritty --title=btm -e btm
 
 # Quicknotes
 super + F10

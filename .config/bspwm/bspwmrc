@@ -91,12 +91,17 @@ fi
 # ░█░░░█░█░█░█░█▀▀░░█░░█░█
 # ░▀▀▀░▀▀▀░▀░▀░▀░░░▀▀▀░▀▀▀
 
-bspc config border_width         2
-bspc config window_gap           4
+gap=8
+
+bspc config border_width         4
+bspc config window_gap           $gap
 bspc config top_padding          30
+bspc config left_padding		 -$gap
+bspc config right_padding		 -$gap
+bspc config bottom_padding		 -$gap
 
 bspc config normal_border_color  "#000000"
-bspc config focused_border_color "#FFFFFF"
+bspc config focused_border_color "#130F54"
 bspc config urgent_border_color "#FF0000" 
 
 bspc config split_ratio          0.52
@@ -161,6 +166,7 @@ bspc rule -a scrcpy state=floating
 bspc rule -a Gromit-mpx state=floating
 bspc rule -a nuclear state=floating follow=off
 bspc rule -a Transmission-gtk state=floating
+bspc rule -a Deadbeef state=floating
 bspc rule -a MYKI state=floating
 bspc rule -a Lutris state=floating desktop=IX follow=off
 bspc rule -a "org-tlauncher-tlauncher-rmo-TLauncher" state=floating follow=off desktop=IX
