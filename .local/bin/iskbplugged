@@ -9,15 +9,11 @@ isMasterKbEnabled=$(xinput --list-props $masterKbId | grep -w 'Device Enabled' |
 isSlaveKbPlugged=$(xinput --list | grep -w "id=$slaveKbId")
 
 if [ $isMasterKbEnabled -eq 1 ]; then
-  logger "Master kb enabled!"
   if [ ! -z "$isSlaveKbPlugged" ]; then
-    logger "Slave kb plugged!"
     xinput set-int-prop $masterKbId "Device Enabled" 8 0
   fi
 else
-  logger "Master kb disabled!"
   if [ -z "$isSlaveKbPlugged" ]; then
-    logger "Slave kb unplugged!"
     xinput set-int-prop $masterKbId "Device Enabled" 8 1
   fi
 fi

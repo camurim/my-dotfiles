@@ -8,13 +8,10 @@ currentBatLvl=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep 'p
 if [[ $currentBatState == 'charging' ]]; then
     currentBrightness=$(xrandr --verbose | awk '/Brightness/ { print $2; exit }')
 
-
     if [ $(bc -l <<< "$currentBrightness == 1.0") -ne 1 ]; then
         xrandr --output eDP-1 --brightness 1.0
     fi
 else
-  logger "Current Battery Level: $currentBatLvl"
-
   case $((
         (currentBatLvl >= 60) * 1 +
         (currentBatLvl >= 30 && currentBatLvl < 60) * 2 +

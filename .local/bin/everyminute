@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+export DISPLAY=:0
+
+MASTERKBID=15
+SLAVEKBID=16
+
+## Verify Battery Power Level
+
+powerInformation=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0)
+currentBatState=$(echo "$powerInformation" | grep 'state' | awk '{print $2}')
+currentBatLvl=$(echo "$powerInformation" | grep 'percentage' | awk '{print $2}' | sed -e 's/\%//')
+
+if [[ $currentBatState == 'charging' ]]; then
+    currentBrightness=$(xrandr --verbose | awk '/Brightness/ { print $2; exit }')
+
+    if [ $(bc -l <<< "$currentBrightness == 1.0") -ne 1 ]; then
+        xrandr --output eDP-1 --brightness 1.0
+    fi
+else
+  case $((
+        (currentBatLvl >= 60) * 1 +
+        (currentBatLvl >= 30 && currentBatLvl < 60) * 2 +
+        (currentBatLvl < 30 && currentBatLvl > 10) * 3 +
+        (currentBatLvl <= 10) * 4)) in
+        (1) xrandr --output eDP-1 --brightness 0.7;;
+        (2) xrandr --output eDP-1 --brightness 0.6;;
+        (3) xrandr --output eDP-1 --brightness 0.5;;
+        (4) logger "Turning off notebook due to low battery level" && shutdown -h now;;
+        (0) echo "None of the above";;
+  esac
+fi
+
+## Verify if external keyboard is plugged
+
+isMasterKbEnabled=$(xinput --list-props $MASTERKBID | grep -w 'Device Enabled' | awk '{print $4}')
+isSlaveKbPlugged=$(xinput --list | grep -w "id=$SLAVEKBID")
+
+if [ $isMasterKbEnabled -eq 1 ]; then
+  if [ ! -z "$isSlaveKbPlugged" ]; then
+    xinput set-int-prop $MASTERKBID "Device Enabled" 8 0
+  fi
+else
+  if [ -z "$isSlaveKbPlugged" ]; then
+    xinput set-int-prop $MASTERKBID "Device Enabled" 8 1
+  fi
+fi
+
+exit 0

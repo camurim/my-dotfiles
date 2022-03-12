@@ -75,11 +75,11 @@ if [ $? -eq 1 ]; then
 	xss-lock -l -- /usr/bin/gnome-screensaver-command --lock &
 fi
 
-pgrep transmission-daemon
+#pgrep transmission-daemon
 
-if [ $? -eq 1 ]; then
-	transmission-daemon -c "$HOME/_junkdrawer"
-fi
+#if [ $? -eq 1 ]; then
+#	transmission-daemon -c "$HOME/_junkdrawer"
+#fi
 
 pgrep gromit-mpx
 
