@@ -84,6 +84,10 @@ super + F5
 # ░▀▀█░█░░░█▀▄░█▀█░░█░░█░░░█▀█░█▀▀░█▀█░█░█░▀▀█
 # ░▀▀▀░▀▀▀░▀░▀░▀░▀░░▀░░▀▀▀░▀░▀░▀░░░▀░▀░▀▀░░▀▀▀
 
+# Tetris
+super + F3
+	tdrop -ma -w 55% -h 60% -y 20% -x 17% gnome-terminal --hide-menubar -e bastet
+
 # File manager
 super + F6
 	tdrop -ma -w 70% -h 70% -y 20% -x 17% thunar
