@@ -139,6 +139,7 @@ bspc rule -a Emacs27 state=tiled desktop=IV
 bspc rule -a krusader desktop=V
 bspc rule -a Filezilla desktop=V
 bspc rule -a Eclipse desktop=VI
+bspc rule -a Typora desktop=VI state=fullscreen follow=off
 bspc rule -a SWT desktop=VII
 bspc rule -a DBEaver desktop=VII
 bspc rule -a marktext desktop=VII
@@ -152,6 +153,8 @@ bspc rule -a pritunl state=floating follow=off desktop=X
 bspc rule -a mplayer state=floating
 bspc rule -a mpv state=floating
 bspc rule -a Parlatype state=floating follow=off
+bspc rule -a feh state=floating follow=off
+bspc rule -a keepassxc state=floating follow=off
 bspc rule -a Magnus follow=off state=floating
 bspc rule -a "Emoji Picker" follow=off state=floating
 bspc rule -a colorpicker state=floating follow=off manage=on layer=above
