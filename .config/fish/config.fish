@@ -350,6 +350,9 @@ alias tips="lbrynet txo spend --type=support --is_not_my_input --blocking"
 # Loop command
 alias loop="loop-rs"
 
+# Visidata
+alias vd="vd --csv-delimiter"
+
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
 #░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░░░░▀░

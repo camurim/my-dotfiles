@@ -144,6 +144,7 @@ bspc rule -a SWT desktop=VII
 bspc rule -a DBEaver desktop=VII
 bspc rule -a marktext desktop=VII
 bspc rule -a Steam state=tiled manage=on layer=normal desktop=VIII follow=off
+bspc rule -a retroarch state=tiled manage=on layer=normal desktop=IX follow=off
 bspc rule -a deadcells state=fullscreen manage=on layer=above desktop=VIII follow=off
 bspc rule -a Postman desktop=VIII 
 bspc rule -a libreoffice desktop=IX
