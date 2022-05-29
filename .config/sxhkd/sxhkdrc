@@ -86,7 +86,8 @@ super + F5
 
 # Tetris
 super + F3
-	tdrop -ma -w 55% -h 60% -y 20% -x 17% gnome-terminal --hide-menubar -e bastet
+	tdrop -a -w 44% -h 68% -y 20% -x 30% higan "$HOME/Games/emulators/nes/roms/Tetris (USA).zip"
+#	tdrop -ma -w 55% -h 60% -y 20% -x 17% gnome-terminal --hide-menubar -e bastet
 
 # File manager
 super + F6

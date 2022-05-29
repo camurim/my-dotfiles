@@ -221,6 +221,20 @@ function org-search -d "send a search string to org-mode"
     printf $output
 end
 
+# Controls vsftpd service
+function ftpd --argument stat -d "Controls vsftpd service"
+         switch $stat
+            case status
+                 sudo systemctl status vsftpd
+            case start
+                 sudo systemctl start vsftpd
+            case stop
+                 sudo systemctl stop vsftpd
+            case '*'
+                 echo "Incorrect parameter!"
+         end
+end
+
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
 #░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 #░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀

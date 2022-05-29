@@ -156,6 +156,7 @@ bspc rule -a mpv state=floating
 bspc rule -a Parlatype state=floating follow=off
 bspc rule -a feh state=floating follow=off
 bspc rule -a keepassxc state=floating follow=off
+bspc rule -a Hiro state=floating follow=off
 bspc rule -a Magnus follow=off state=floating
 bspc rule -a "Emoji Picker" follow=off state=floating
 bspc rule -a colorpicker state=floating follow=off manage=on layer=above
