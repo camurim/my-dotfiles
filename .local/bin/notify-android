@@ -19,6 +19,6 @@ else
     message=$1
 fi
 
-curl --data-urlencode "message=$message" "https://autoremotejoaomgcd.appspot.com/sendmessage?key=$AUTOREMOTEKEY" && notify-send "Notify" "Notification sent: $1" || notify-send "Notify" "Notification error!"
+curl --data-urlencode "message=$message" "https://autoremotejoaomgcd.appspot.com/sendmessage?key=$AUTOREMOTEKEY" && notify-send "Notify" "Notification sent: $message" || notify-send "Notify" "Notification error!"
 
 exit 0
