@@ -14,9 +14,11 @@ AUTOREMOTEKEY="$(cat $HOME/.autoremoteapikey)"
 
 if [ $# -lt 1 ]; then
 	printf "${RED}Syntax: $(basename $0) <MESAGE>${NC}\n\n" 1>&2
-    exit 1
+    message=$(xclip -o)
+else
+    message=$1
 fi
 
-curl --data-urlencode "message=$1" "https://autoremotejoaomgcd.appspot.com/sendmessage?key=$AUTOREMOTEKEY" && notify-send "Notify" "Notification sent: $1" || notify-send "Notify" "Notification error!"
+curl --data-urlencode "message=$message" "https://autoremotejoaomgcd.appspot.com/sendmessage?key=$AUTOREMOTEKEY" && notify-send "Notify" "Notification sent: $1" || notify-send "Notify" "Notification error!"
 
 exit 0
