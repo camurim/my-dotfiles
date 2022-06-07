@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+USER=${USER:-$(whoami)}
+HOME=${HOME:-/home/$USER}
+SCRIPTNAME=$(basename $0)
+
+# Cores
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+BOLDRED='\033[1;31m'
+NC='\033[0m'
+
+if [ $# -lt 1 ]; then
+    printf "${RED}SINTAXE: $SCRIPTNAME <URL>${NC}" >&2
+    exit 1
+fi
+
+name=$(echo $1 | sed -e 's/https\:\/\///g')
+id=$(xdo id -n $name)
+
+if [ -z "$id" ]; then
+    bspc rule -a "Brave-browser" --one-shot state=floating follow=off desktop=newest
+    brave-browser --new-window --app="$1"
+else
+  action='hide';
+  if [[ $(xprop -id $id | awk '/window state: / {print $3}') == 'Withdrawn' ]]; then
+    action='show';
+  fi
+  xdo $action -n $name
+fi
+
+exit 0

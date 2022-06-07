@@ -124,7 +124,11 @@ super + F10
 
 # Netflix
 super + F11
-	tdrop-netflix
+	tdrop-webapp "https://www.netflix.com"
+
+# YouTube
+super + F12
+	tdrop-webapp "https://www.youtube.com"
 
 # ░█▀▀░▀█▀░█▀█░▀█▀░█▀▀░░░█░█▀▀░█░░░█▀█░█▀▀░█▀▀
 # ░▀▀█░░█░░█▀█░░█░░█▀▀░▄▀░░█▀▀░█░░░█▀█░█░█░▀▀█
