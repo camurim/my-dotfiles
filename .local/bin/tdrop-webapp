@@ -16,11 +16,12 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
+bspc rule -a "Brave-browser" --one-shot state=floating follow=off desktop=focused
+
 name=$(echo $1 | sed -e 's/https\:\/\///g')
 id=$(xdo id -n $name)
 
 if [ -z "$id" ]; then
-    bspc rule -a "Brave-browser" --one-shot state=floating follow=off desktop=newest
     brave-browser --new-window --app="$1"
 else
   action='hide';
