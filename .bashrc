@@ -244,6 +244,9 @@ alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/mas
 # Unlock LBRY tips
 alias tips='lbrynet txo spend --type=support --is_not_my_input --blocking'
 
+# Visidata
+alias vd="vd --csv-delimiter"
+
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi

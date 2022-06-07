@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+name="www.netflix.com"
+id=$(xdo id -n $name)
+
+if [ -z "$id" ]; then
+    bspc rule -a "Brave-browser" --one-shot state=floating follow=off desktop=newest
+    brave-browser --new-window --app="https://www.netflix.com"
+else
+  action='hide';
+  if [[ $(xprop -id $id | awk '/window state: / {print $3}') == 'Withdrawn' ]]; then
+    action='show';
+  fi
+  xdo $action -n $name
+fi
