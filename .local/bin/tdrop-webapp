@@ -18,7 +18,7 @@ fi
 
 bspc rule -a "Brave-browser" --one-shot state=floating follow=off desktop=focused
 
-name=$(echo $1 | sed -e 's/https\:\/\///g')
+name=$(echo $1 | sed -e 's/https\:\/\///g; s/\/$//g')
 id=$(xdo id -n $name)
 
 if [ -z "$id" ]; then
