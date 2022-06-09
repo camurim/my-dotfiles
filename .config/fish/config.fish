@@ -272,7 +272,7 @@ end
 # Download and cut video
 function dwAndCutVid --argument url --argument start --argument end --argument output -d "Download and cut video"
          if test (count $argv) -lt 4 -o "$argv[1]" = "--help"
-            printf "%b" "$EM_RED\e0USAGE: dwAndCutVid <URL> <START> <END> <OUTPUT_FILE>$COLOR_REST"
+            printf "%b" "$EM_R\e0USAGE: dwAndCutVid <URL> <START> <END> <OUTPUT_FILE>$COLOR_RESET"
             return 1
          end
          yt-dlp -f mp4 "$url" -o - | ffmpeg -f mp4 -i - -ss "$start" -to "$end" -c:v copy "$output"
