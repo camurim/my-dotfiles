@@ -332,7 +332,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 
 # adding flags
-alias df="df -h | grep --color='none' '\/dev\/sd'"     # human-readable sizes
+alias df="df -h | sed -ne '1p' -e '/\/dev\/sd/p'"      # human-readable sizes
 alias free='free -m'                                   # show sizes in MB
 
 # ps
