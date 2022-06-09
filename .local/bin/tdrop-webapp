@@ -12,7 +12,7 @@ BOLDRED='\033[1;31m'
 NC='\033[0m'
 
 if [ $# -lt 1 ]; then
-    printf "${RED}SINTAXE: $SCRIPTNAME <URL>${NC}" >&2
+    printf "${RED}SINTAXE: $SCRIPTNAME <URL>${NC}\n" >&2
     exit 1
 fi
 
