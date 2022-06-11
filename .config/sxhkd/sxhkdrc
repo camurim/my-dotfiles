@@ -81,7 +81,6 @@ super + c
 	$HOME/.local/bin/notify-android
 
 # Ajuda de teclas de atalho
-
 super + F1
 	zenity --info --text="SUPER + ESC\t\t\tReload sxhkdrc\nSUPER + ALT + q\t\tEnd bspwm\nSUPER + ALT + r\t\tReload bspwm\nSUPER + r\t\t\tWireless Network Manager\nSUPER + c\t\t\tNotificação Android\nSUPER + F2\t\t\tKeepassXC\nSUPER + F3\t\t\tTetris\nSUPER + F4\t\t\tMensagem chamativa\nSUPER + F5\t\t\tGera comentário\nSUPER + F6\t\t\tGerenciador de arquivos\nSUPER + F7\t\t\tTerminal\nSUPER + F8\t\t\tCMUS\nSUPER + F9\t\t\tBTM\nSUPER + F10\t\t\tQuicknotes" --title="Shortcuts" --width=400 --height=330
 
