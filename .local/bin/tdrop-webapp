@@ -16,10 +16,13 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
+name=$(echo $1 | sed -e 's/https\:\/\///g; s/\/$//g')
+
 bspc rule -a "Brave-browser" --one-shot state=floating follow=off desktop=focused
 
-name=$(echo $1 | sed -e 's/https\:\/\///g; s/\/$//g')
 id=$(xdo id -n $name)
+
+echo $id
 
 if [ -z "$id" ]; then
     brave-browser --new-window --app="$1"

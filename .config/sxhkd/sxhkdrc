@@ -47,9 +47,14 @@ super + g
 # ░█▀█░█▀▀░█▀▀░█░░░░█░░█░░░█▀█░░█░░░█░░█░█░█░█░▀▀█
 # ░▀░▀░▀░░░▀░░░▀▀▀░▀▀▀░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀▀░▀░▀░▀▀▀
 
-# Screenshot
+# Screenshot (fullscreen)
 Print
-	scrot -s '/home/carlos/Imagens/captures/%Y-%m-%d_$wx$h.png' -e 'xclip -selection clipboard -t image/png $f'
+	scrot '/home/carlos/Imagens/captures/%Y-%m-%d_$wx$h.png' -e 'xclip -selection clipboard -t image/png $f'
+
+# Screenshot (selection)
+alt + Print
+	flameshot gui -p '/home/carlos/Imagens/captures/'
+	#scrot -s '/home/carlos/Imagens/captures/%Y-%m-%d_$wx$h.png' -e 'xclip -selection clipboard -t image/png $f'
 
 # Browser padrão
 alt + b
@@ -122,13 +127,21 @@ super + F9
 super + F10
 	tdrop -ma -w 70% -h 70% -y 20% -x 17% ghostwriter "$HOME/Dropbox/obsidian_vaults/principal/03 - Others/Quicknote.md"
 
-# Netflix
+# YouTube
 super + F11
+	tdrop-webapp "https://www.youtube.com"
+
+# Netflix
+super + F12
 	tdrop-webapp "https://www.netflix.com"
 
-# YouTube
-super + F12
-	tdrop-webapp "https://www.youtube.com"
+# Udemy
+super + Print
+	tdrop-webapp "https://www.udemy.com"
+
+# Search selected text on Google
+super + alt + F1
+	google-selected
 
 # ░█▀▀░▀█▀░█▀█░▀█▀░█▀▀░░░█░█▀▀░█░░░█▀█░█▀▀░█▀▀
 # ░▀▀█░░█░░█▀█░░█░░█▀▀░▄▀░░█▀▀░█░░░█▀█░█░█░▀▀█

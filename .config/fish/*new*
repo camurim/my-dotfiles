@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+urlencode() {
+  local LC_ALL=C
+  local string="$*"
+  local length="${#string}"
+  local char
+
+  for (( i = 0; i < length; i++ )); do
+    char="${string:i:1}"
+    if [[ "$char" == [a-zA-Z0-9.~_-] ]]; then
+      printf "$char" 
+    else
+      printf '%%%02X' "'$char" 
+    fi
+  done
+  printf '\n' # opcional
+}
+
+name='www.google.com__search'
+ids=$(xdo id -n $name)
+
+if [ -z "$ids" ]; then
+    search=$(xclip -sel p -o | xclip -i -sel c -f )
+    
+    [ $(pgrep -c xclip) -gt 0 ] &&  killall -9 xclip
+    
+    search=$(urlencode $search)
+    
+    notify-send "Google" "Searching $search"
+    
+    if [ ! -z $search ]; then
+        brave-browser --new-window --app="https://www.google.com/search?q=$search" &
+    fi
+else
+    action='show';
+    if [[ $(echo $ids | xargs -I .id -n 1 xprop -id .id | awk '/window state: / {print $3}') == 'Normal' ]]; then
+        action='hide';
+    fi
+    xdo $action -n $name
+fi
+
+exit 0
