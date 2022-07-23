@@ -298,6 +298,35 @@ function stopwatch -d "Stopwatch"
     end
 end
 
+# Convert URL to Markdown file
+function url2markdown --argument url --argument out -d "URL to Markdown"
+    if test -z "$url"
+        echo "Usage: url2markdown <url|path> [outfile.md]"
+        echo ""
+        echo "  Converts the specified URL (or path) to Markdown using Pandoc."
+        echo ""
+        echo "  If [outfile.md] (arg 2) is not specified..."
+        echo ""
+        echo "    - basename of url|path is used (arg 1)"
+        echo "    - whitepsaces replaced with underscores"
+        echo "    - control characters replaced with underscores"
+        echo "    - convert to lowercase"
+        echo "    - existing file extension replaced with .md"
+        return 1
+    end
+
+    set -l outfile
+
+    if test -z "$out"
+        set outfile (basename "$url" | sed -E 's/[_[:blank:]]+/_/g' | sed -E 's/[_[:cntrl:]]+/_/g' | tr '[:upper:]' '[:lower:]')
+        set outfile (echo $outfile | sed 's/\.[^.]*$//').md
+    else
+        set outfile "$out"
+    end
+
+    pandoc --standalone --from html "$url" --to markdown --output "$outfile"
+end
+
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
 #░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 #░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
@@ -430,6 +459,9 @@ alias loop="loop-rs"
 
 # Visidata
 alias vd="vd --csv-delimiter"
+
+# Clima
+alias clima="curl 'wttr.in/Fortaleza?m2&lang=pt-br'"
 
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░

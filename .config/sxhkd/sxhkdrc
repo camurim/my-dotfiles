@@ -60,9 +60,9 @@ alt + Print
 alt + b
 	brave-browser
 
-# Krusader (gerenciador de arquivos)
+# Thunar (gerenciador de arquivos)
 alt + f
-	krusader
+	thunar
 
 # Emacs (editor de código)
 alt + c
