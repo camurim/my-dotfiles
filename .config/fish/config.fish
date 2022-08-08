@@ -42,6 +42,7 @@ set -U BG_W "\033[47m"
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
 set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $HOME/.wakatime/wakatime-cli $fish_user_paths
+eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
 #░█▀▀░▄▀▄░█▀▀░█░█░█▀▄░░█░
