@@ -270,8 +270,26 @@ function ftpd --argument stat -d "Controls vsftpd service"
          end
 end
 
+# Download single video
+function dlVideo --argument url --argument output -d "Download video"
+         if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
+            printf "%b" "$EM_R\e0USAGE: dlVideo <URL> <OUTPUT_FILE>$COLOR_RESET"
+            return 1
+         end
+         yt-dlp -f mp4 -i "$url" -o - | ffmpeg -f mp4 -i - -o "$output"
+end
+
+# Download playlist
+function dlPlaylist --argument url --argument output -d "Download Playlist"
+         if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
+            printf "%b" "$EM_R\e0USAGE: dlPlaylist <URL> <OUTPUT_FILE>$COLOR_RESET"
+            return 1
+         end
+         yt-dlp -f mp4 --yes-playlist -i "$url" {$output}"_%(playlist_index)03d.%(ext)s"
+end
+
 # Download and cut video
-function dwAndCutVid --argument url --argument start --argument end --argument output -d "Download and cut video"
+function dlAndCutVideo --argument url --argument start --argument end --argument output -d "Download and cut video"
          if test (count $argv) -lt 4 -o "$argv[1]" = "--help"
             printf "%b" "$EM_R\e0USAGE: dwAndCutVid <URL> <START> <END> <OUTPUT_FILE>$COLOR_RESET"
             return 1
@@ -335,7 +353,7 @@ end
 
 function sudo
          if test argv[1] = "apt"
-            command sudo nala $argv[2..(count $argv)]
+            command sudo nala $argv[1..(count $argv)]
          else
             command sudo $argv
          end
@@ -491,7 +509,7 @@ end
 #░█░░░█░█░█░░░█░█░█▀▄░░░█▀▀░█▀█░█░░░█░░░█▀▀░░█░░░░█▀▄░░█░░░░█▄█░█▀▀
 #░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░░░▀░░░▀░▀░▀▀▀░▀▀▀░▀▀▀░░▀░░░░▀▀░░░▀░░░░▀░▀░▀░░
 
-setxkbmap -layout br,apl,br -variant abnt2,dyalog -option grp:switch
+#setxkbmap -layout br,apl,br -variant abnt2,dyalog -option grp:switch
 wal -i ~/.config/bspwm/wallpaper.png -q
 
 #░█▀▀░▀▀█░█▀▀░░░█░█░█▀▀░█░█░░░█▀▄░▀█▀░█▀█░█▀▄░▀█▀░█▀█░█▀▀
