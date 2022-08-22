@@ -41,8 +41,7 @@ set -U BG_W "\033[47m"
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $HOME/.wakatime/wakatime-cli $fish_user_paths
-eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $fish_user_paths
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
 #░█▀▀░▄▀▄░█▀▀░█░█░█▀▄░░█░
@@ -270,93 +269,13 @@ function ftpd --argument stat -d "Controls vsftpd service"
          end
 end
 
-# Download single video
-function dlVideo --argument url --argument output -d "Download video"
-         if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
-            printf "%b" "$EM_R\e0USAGE: dlVideo <URL> <OUTPUT_FILE>$COLOR_RESET"
-            return 1
-         end
-         yt-dlp -f mp4 -i "$url" -o - | ffmpeg -f mp4 -i - -o "$output"
-end
-
-# Download playlist
-function dlPlaylist --argument url --argument output -d "Download Playlist"
-         if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
-            printf "%b" "$EM_R\e0USAGE: dlPlaylist <URL> <OUTPUT_FILE>$COLOR_RESET"
-            return 1
-         end
-         yt-dlp -f mp4 --yes-playlist -i "$url" {$output}"_%(playlist_index)03d.%(ext)s"
-end
-
 # Download and cut video
-function dlAndCutVideo --argument url --argument start --argument end --argument output -d "Download and cut video"
+function dwAndCutVid --argument url --argument start --argument end --argument output -d "Download and cut video"
          if test (count $argv) -lt 4 -o "$argv[1]" = "--help"
             printf "%b" "$EM_R\e0USAGE: dwAndCutVid <URL> <START> <END> <OUTPUT_FILE>$COLOR_RESET"
             return 1
          end
          yt-dlp -f mp4 "$url" -o - | ffmpeg -f mp4 -i - -ss "$start" -to "$end" -c:v copy "$output"
-end
-
-# Countdown timer
-function countdown --argument cnt -d "Countdown"
-    set start (math (date '+%s') + $cnt)
-    while test $start -ge (date +%s)
-        set time (math $start - (date +%s))
-        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
-        sleep 0.1
-    end
-end
-
-# Stopwatch timer
-function stopwatch -d "Stopwatch"
-    set start (date +%s)
-    while test true
-        set time (math (date +%s) - $start)
-        printf '%s\r' (date -u -d "@$time" +%H:%M:%S)
-        sleep 0.1
-    end
-end
-
-# Convert URL to Markdown file
-function url2markdown --argument url --argument out -d "URL to Markdown"
-    if test -z "$url"
-        echo "Usage: url2markdown <url|path> [outfile.md]"
-        echo ""
-        echo "  Converts the specified URL (or path) to Markdown using Pandoc."
-        echo ""
-        echo "  If [outfile.md] (arg 2) is not specified..."
-        echo ""
-        echo "    - basename of url|path is used (arg 1)"
-        echo "    - whitepsaces replaced with underscores"
-        echo "    - control characters replaced with underscores"
-        echo "    - convert to lowercase"
-        echo "    - existing file extension replaced with .md"
-        return 1
-    end
-
-    set -l outfile
-
-    if test -z "$out"
-        set outfile (basename "$url" | sed -E 's/[_[:blank:]]+/_/g' | sed -E 's/[_[:cntrl:]]+/_/g' | tr '[:upper:]' '[:lower:]')
-        set outfile (echo $outfile | sed 's/\.[^.]*$//').md
-    else
-        set outfile "$out"
-    end
-
-    pandoc --standalone --from html "$url" --to markdown --output "$outfile"
-end
-
-# Nala
-function apt
-         command nala $argv
-end
-
-function sudo
-         if test argv[1] = "apt"
-            command sudo nala $argv[1..(count $argv)]
-         else
-            command sudo $argv
-         end
 end
 
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
@@ -492,9 +411,6 @@ alias loop="loop-rs"
 # Visidata
 alias vd="vd --csv-delimiter"
 
-# Clima
-alias clima="curl 'wttr.in/Fortaleza?m2&lang=pt-br'"
-
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
 #░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░░░░▀░
@@ -509,13 +425,7 @@ end
 #░█░░░█░█░█░░░█░█░█▀▄░░░█▀▀░█▀█░█░░░█░░░█▀▀░░█░░░░█▀▄░░█░░░░█▄█░█▀▀
 #░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░░░▀░░░▀░▀░▀▀▀░▀▀▀░▀▀▀░░▀░░░░▀▀░░░▀░░░░▀░▀░▀░░
 
-#setxkbmap -layout br,apl,br -variant abnt2,dyalog -option grp:switch
+setxkbmap -layout br,apl,br -variant abnt2,dyalog -option grp:switch
 wal -i ~/.config/bspwm/wallpaper.png -q
-
-#░█▀▀░▀▀█░█▀▀░░░█░█░█▀▀░█░█░░░█▀▄░▀█▀░█▀█░█▀▄░▀█▀░█▀█░█▀▀
-#░█▀▀░▄▀░░█▀▀░░░█▀▄░█▀▀░░█░░░░█▀▄░░█░░█░█░█░█░░█░░█░█░█░█
-#░▀░░░▀▀▀░▀░░░░░▀░▀░▀▀▀░░▀░░░░▀▀░░▀▀▀░▀░▀░▀▀░░▀▀▀░▀░▀░▀▀▀
-
-fzf_key_bindings
 
 cd $HOME
