@@ -359,6 +359,13 @@ function sudo
          end
 end
 
+# Today Note
+function todaynote
+         set VAULTTODAY ~/Dropbox/obsidian_vaults/principal/00\ -\ Daily\ Notes/
+         set DATE (date '+%Y-%m-%d')
+         glow $VAULTTODAY$DATE.md
+end
+
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
 #░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 #░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
@@ -373,6 +380,14 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
+
+# Directories shortcuts
+alias junk='cd ~/_junkdrawer && ls'
+alias docs='cd ~/Documentos/docs && ls'
+alias src='cd ~/src && ls'
+alias scripts='cd ~/scripts && ls'
+alias projs='cd ~/Documentos/projects && ls'
+alias configfish='cd ~/.config/fish && ls'
 
 # Disable and enable notebook internal keyboard
 alias disablekb='xinput set-int-prop 15 "Device Enabled" 8 0'
@@ -406,6 +421,13 @@ alias aptupd='sudo apt update'
 alias aptupg='sudo apt upgrade'
 alias aptin='sudo apt install'
 alias aptrm='sudo apt remove'
+
+# Changing "cat" to "batcat"
+alias cat='batcat'
+
+# ip aliases
+alias localip="ip a | grep 'inet 172' | awk '{ print $2 }' | sed -e '2d' $argv;"
+alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 # confirm before overwriting something
 alias cp="cp -i"
@@ -494,6 +516,24 @@ alias vd="vd --csv-delimiter"
 
 # Clima
 alias clima="curl 'wttr.in/Fortaleza?m2&lang=pt-br'"
+
+# PrettyPing
+alias ping='prettyping'
+
+# ScreenFetch
+alias screenfetch='command screenfetch 2>/dev/null $argv;'
+
+# Cointop
+alias cointop='TERM=xterm-256color command cointop'
+
+# NCCM
+alias nccm='TERM=xterm-256color command nccm'
+
+# Kitty Kittens
+alias icat='kitty +kitten icat --place 1x1@95x0'
+
+# TODO.TXT
+alias t='todo.sh'
 
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
