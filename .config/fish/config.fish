@@ -426,8 +426,8 @@ alias aptrm='sudo apt remove'
 alias cat='batcat'
 
 # ip aliases
-alias localip="ip a | grep 'inet 172' | awk '{ print $2 }' | sed -e '2d' $argv;"
-alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip='ip a | grep \'inet 192\' | awk \'{ print $2 }\' | sed -e \'2d\''
+alias publicip='curl ifconfig.me'
 
 # confirm before overwriting something
 alias cp="cp -i"
