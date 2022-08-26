@@ -60,9 +60,9 @@ alt + Print
 alt + b
 	brave-browser
 
-# Krusader (gerenciador de arquivos)
+# Thunar (gerenciador de arquivos)
 alt + f
-	krusader
+	thunar
 
 # Emacs (editor de código)
 alt + c
@@ -99,7 +99,7 @@ super + F5
 
 # KeepassXC
 super + F2
-	tdrop -a -w 44% -h 68% -y 20% -x 30% keepassxc
+	tdrop -a -w 60% -h 70% -y 20% -x 20% keepassxc
 
 # Tetris
 super + F3
@@ -108,7 +108,7 @@ super + F3
 
 # File manager
 super + F6
-	tdrop -ma -w 70% -h 70% -y 20% -x 17% thunar
+	tdrop -ma -w 70% -h 70% -y 20% -x 17% nautilus
 
 # Shell
 super + F7
