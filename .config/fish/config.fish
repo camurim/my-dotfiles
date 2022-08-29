@@ -276,7 +276,7 @@ function dlVideo --argument url --argument output -d "Download video"
             printf "%b" "$EM_R\e0USAGE: dlVideo <URL> <OUTPUT_FILE>$COLOR_RESET"
             return 1
          end
-         yt-dlp -f mp4 -i "$url" -o - | ffmpeg -f mp4 -i - -o "$output"
+         yt-dlp -f mp4 -i "$url" -o - | ffmpeg -f mp4 -i - "$output"
 end
 
 # Download playlist
@@ -285,7 +285,7 @@ function dlPlaylist --argument url --argument output -d "Download Playlist"
             printf "%b" "$EM_R\e0USAGE: dlPlaylist <URL> <OUTPUT_FILE>$COLOR_RESET"
             return 1
          end
-         yt-dlp -f mp4 --yes-playlist -i "$url" {$output}"_%(playlist_index)03d.%(ext)s"
+         yt-dlp -f mp4 --yes-playlist -i "$url" -o {$output}"_%(playlist_index)03d.%(ext)s"
 end
 
 # Download and cut video
@@ -357,6 +357,17 @@ function sudo
          else
             command sudo $argv
          end
+end
+
+# Record screen
+function recordScreen --argument path
+         if test (count $argv) -lt 1
+            printf "%b" "$EM_R\e0USAGE: recordScreen <PATH> $COLOR_RESET"
+            return 1
+         end
+         sleep 10s
+         notify-send "Record Screen" "Starting"
+         ffmpeg -video_size 1366x768 -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default $path
 end
 
 # Today Note
