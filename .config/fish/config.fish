@@ -150,10 +150,6 @@ function spark -d "sparkline generator"
     '
 end
 
-#░█▀▀░█░█░█▀█░█▀▀░▀█▀░▀█▀░█▀█░█▀█░█▀▀
-#░█▀▀░█░█░█░█░█░░░░█░░░█░░█░█░█░█░▀▀█
-#░▀░░░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀░▀▀▀░▀░▀░▀▀▀
-
 # Spark functions
 function letters
     cat $argv | awk -vFS='' '{for(i=1;i<=NF;i++){ if($i~/[a-zA-Z]/) { w[tolower($i)]++} } }END{for(i in w) print i,w[i]}' | sort | cut -c 3- | spark | lolcat
@@ -162,6 +158,25 @@ end
 
 function commits
     git log --author="$argv" --format=format:%ad --date=short | uniq -c | awk '{print $1}' | spark | lolcat
+end
+
+#░█▀▀░█░█░█▀█░█▀▀░▀█▀░▀█▀░█▀█░█▀█░█▀▀
+#░█▀▀░█░█░█░█░█░░░░█░░░█░░█░█░█░█░▀▀█
+#░▀░░░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀░▀▀▀░▀░▀░▀▀▀
+
+# Navigation function
+function up --argument limit
+         if test \( -z "$limit" \) -o \( $limit -le 0 \)
+            set limit 1
+         end
+
+         for i in (seq $limit)
+            set d "../$d"
+         end
+
+         if test (cd "$d")
+            echo "Couldn't go up $limit dirs.";
+        end
 end
 
 # Functions needed for !! and !$
@@ -183,6 +198,7 @@ function __history_previous_command_arguments
     commandline -i '$'
   end
 end
+
 # The bindings for !! and !$
 if [ $fish_key_bindings = "fish_vi_key_bindings" ];
   bind -Minsert ! __history_previous_command
@@ -365,9 +381,11 @@ function recordScreen --argument path
             printf "%b" "$EM_R\e0USAGE: recordScreen <PATH> $COLOR_RESET"
             return 1
          end
+         set videosize (xdpyinfo | grep 'dimensions:' |  awk '{print $2}')
+         notify-send "Record Screen" "The recording will start in 10 seconds"
          sleep 10s
-         notify-send "Record Screen" "Starting"
-         ffmpeg -video_size 1366x768 -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default $path
+         notify-send "Record Screen" "Recording..."
+         ffmpeg -video_size $videosize -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default $path
 end
 
 # Today Note
