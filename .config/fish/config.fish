@@ -176,7 +176,7 @@ function up --argument limit
 
          if test (cd "$d")
             echo "Couldn't go up $limit dirs.";
-        end
+         end
 end
 
 # Functions needed for !! and !$
