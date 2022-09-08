@@ -166,7 +166,7 @@ end
 
 # Navigation function
 function up --argument limit
-         if test \( -z "$limit" \) -o \( $limit -le 0 \)
+         if test \( -z "$limit" \) -o \( "$limit" -le 0 \)
             set limit 1
          end
 
