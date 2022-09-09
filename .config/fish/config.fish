@@ -164,7 +164,8 @@ end
 #░█▀▀░█░█░█░█░█░░░░█░░░█░░█░█░█░█░▀▀█
 #░▀░░░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀░▀▀▀░▀░▀░▀▀▀
 
-# Navigation function
+### Navigation function
+# usage: up <limit>
 function up --argument limit
          if test \( -z "$limit" \) -o \( "$limit" -le 0 \)
             set limit 1
@@ -176,6 +177,47 @@ function up --argument limit
 
          if test (cd "$d")
             echo "Couldn't go up $limit dirs.";
+         end
+end
+
+### ARCHIVE EXTRACTION
+# usage: ex <file>
+function ex --argument file
+         if test -f $file
+            switch $file
+                   case '*.tar.bz2'
+                        tar xjf $file
+                   case '*.tar.gz'
+                        tar xzf $file
+                   case '*.bz2'
+                        bunzip2 $file
+                   case '*.rar'
+                        unrar x $file
+                   case '*.gz'
+                        gunzip $file
+                   case '*.tar'
+                        tar xf $file
+                   case '*.tbz2'
+                        tar xjf $file
+                   case '*.tgz'
+                        tar xzf $file
+                   case '*.zip'
+                        unzip $file
+                   case '*.Z'
+                        uncompress $file
+                   case '*.7z'
+                        7z x $file
+                   case '*.deb'
+                        ar x $file
+                   case '*.tar.xz'
+                        tar xf $file
+                   case '*.tar.zst'
+                        unzstd $file
+                   case '*'
+                        echo "'$file' cannot be extracted via ex()"
+            end
+         else
+            echo "'$file' is not a valid file"
          end
 end
 
@@ -286,6 +328,10 @@ function ftpd --argument stat -d "Controls vsftpd service"
          end
 end
 
+###
+### yt-dlp functions
+###
+
 # Download single video
 function dlVideo --argument url --argument output -d "Download video"
          if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
@@ -303,6 +349,10 @@ function dlPlaylist --argument url --argument output -d "Download Playlist"
          end
          yt-dlp -f mp4 --yes-playlist -i "$url" -o {$output}"_%(playlist_index)03d.%(ext)s"
 end
+
+###
+### Timer functions
+###
 
 # Download and cut video
 function dlAndCutVideo --argument url --argument start --argument end --argument output -d "Download and cut video"
@@ -362,7 +412,10 @@ function url2markdown --argument url --argument out -d "URL to Markdown"
     pandoc --standalone --from html "$url" --to markdown --output "$outfile"
 end
 
-# Nala
+###
+### Nala functions
+###
+
 function apt
          command nala $argv
 end
