@@ -350,6 +350,28 @@ function dlPlaylist --argument url --argument output -d "Download Playlist"
          yt-dlp -f mp4 --yes-playlist -i "$url" -o {$output}"_%(playlist_index)03d.%(ext)s"
 end
 
+# Download and resize to 640p
+function dlVideo640p --argument url --argument output
+         if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
+            printf "%b" "$EM_R\e0USAGE: dlVideo <URL> <OUTPUT_FILE>$COLOR_RESET"
+            return 1
+         end
+         yt-dlp -f mp4 -i "$url" -o - | ffmpeg -f mp4 -i - -vf scale=640:480 "$output"
+end
+
+# Record screen
+function recordScreen --argument path
+         if test (count $argv) -lt 1
+            printf "%b" "$EM_R\e0USAGE: recordScreen <PATH> $COLOR_RESET"
+            return 1
+         end
+         set videosize (xdpyinfo | grep 'dimensions:' |  awk '{print $2}')
+         notify-send "Record Screen" "The recording will start in 10 seconds"
+         sleep 10s
+         notify-send "Record Screen" "Recording..."
+         ffmpeg -video_size $videosize -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default $path
+end
+
 ###
 ### Timer functions
 ###
@@ -428,18 +450,9 @@ function sudo
          end
 end
 
-# Record screen
-function recordScreen --argument path
-         if test (count $argv) -lt 1
-            printf "%b" "$EM_R\e0USAGE: recordScreen <PATH> $COLOR_RESET"
-            return 1
-         end
-         set videosize (xdpyinfo | grep 'dimensions:' |  awk '{print $2}')
-         notify-send "Record Screen" "The recording will start in 10 seconds"
-         sleep 10s
-         notify-send "Record Screen" "Recording..."
-         ffmpeg -video_size $videosize -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default $path
-end
+###
+### Obsidian Vaults functions
+###
 
 # Today Note
 function todaynote
