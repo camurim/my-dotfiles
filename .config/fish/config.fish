@@ -350,6 +350,15 @@ function dlPlaylist --argument url --argument output -d "Download Playlist"
          yt-dlp -f mp4 --yes-playlist -i "$url" -o {$output}"_%(playlist_index)03d.%(ext)s"
 end
 
+# Download and cut video
+function dlAndCutVideo --argument url --argument start --argument end --argument output -d "Download and cut video"
+         if test (count $argv) -lt 4 -o "$argv[1]" = "--help"
+            printf "%b" "$EM_R\e0USAGE: dwAndCutVid <URL> <START> <END> <OUTPUT_FILE>$COLOR_RESET"
+            return 1
+         end
+         yt-dlp -f mp4 "$url" -o - | ffmpeg -f mp4 -i - -ss "$start" -to "$end" -c:v copy "$output"
+end
+
 # Download and resize to 640p
 function dlVideo640p --argument url --argument output
          if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
@@ -357,6 +366,15 @@ function dlVideo640p --argument url --argument output
             return 1
          end
          yt-dlp -f mp4 -i "$url" -o - | ffmpeg -f mp4 -i - -vf scale=640:480 "$output"
+end
+
+# Cut vídeo
+function cutVideo --argument ipath --argument start --argument end --argument opath -d "Cut video file"
+         if test (count $argv) -lt 4 -o "$argv[1]" = "--help"
+            printf "%b" "$EM_R\e0USAGE: cutVideo <INPUT_FILE> <START> <END> <OUTPUT_FILE>$COLOR_RESET"
+            return 1
+         end
+         ffmpeg -f mp4 -i "$ipath" -ss "$start" -to "$end" -c:v copy "$opath"
 end
 
 # Record screen
@@ -375,15 +393,6 @@ end
 ###
 ### Timer functions
 ###
-
-# Download and cut video
-function dlAndCutVideo --argument url --argument start --argument end --argument output -d "Download and cut video"
-         if test (count $argv) -lt 4 -o "$argv[1]" = "--help"
-            printf "%b" "$EM_R\e0USAGE: dwAndCutVid <URL> <START> <END> <OUTPUT_FILE>$COLOR_RESET"
-            return 1
-         end
-         yt-dlp -f mp4 "$url" -o - | ffmpeg -f mp4 -i - -ss "$start" -to "$end" -c:v copy "$output"
-end
 
 # Countdown timer
 function countdown --argument cnt -d "Countdown"
@@ -520,9 +529,10 @@ alias aptrm='sudo apt remove'
 # Changing "cat" to "batcat"
 alias cat='batcat'
 
-# ip aliases
+# Network aliases
 alias localip='ip a | grep \'inet 192\' | awk \'{ print $2 }\' | sed -e \'2d\''
 alias publicip='curl ifconfig.me'
+alias openports='sudo lsof -i -P -n | grep LISTEN'
 
 # confirm before overwriting something
 alias cp="cp -i"
