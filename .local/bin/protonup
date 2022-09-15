@@ -1,12 +1,8 @@
 #!/usr/bin/python3
-# EASY-INSTALL-ENTRY-SCRIPT: 'protonup==0.1.4','console_scripts','protonup'
-__requires__ = 'protonup==0.1.4'
+# -*- coding: utf-8 -*-
 import re
 import sys
-from pkg_resources import load_entry_point
-
+from protonup import main
 if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
-    sys.exit(
-        load_entry_point('protonup==0.1.4', 'console_scripts', 'protonup')()
-    )
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
