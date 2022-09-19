@@ -41,7 +41,7 @@ set -U BG_W "\033[47m"
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $HOME/.wakatime/wakatime-cli $fish_user_paths
+set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $HOME/.wakatime $HOME/.local/share/coursier/bin
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
@@ -484,6 +484,8 @@ alias ...='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
+
+alias z='zoxide'
 
 # Directories shortcuts
 alias junk='cd ~/_junkdrawer && ls'
