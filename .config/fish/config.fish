@@ -485,15 +485,14 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
-alias z='zoxide'
-
 # Directories shortcuts
-alias junk='cd ~/_junkdrawer && ls'
-alias docs='cd ~/Documentos/docs && ls'
-alias src='cd ~/src && ls'
-alias scripts='cd ~/scripts && ls'
-alias projs='cd ~/Documentos/projects && ls'
-alias configfish='cd ~/.config/fish && ls'
+alias junk='z ~/_junkdrawer && ls'
+alias docs='z ~/Documentos/docs && ls'
+alias src='z ~/src && ls'
+alias sql="z ~/src/sql && ls"
+alias scripts='z ~/scripts && ls'
+alias projs='z ~/Documentos/projects && ls'
+alias configfish='z ~/.config/fish && ls'
 
 # Disable and enable notebook internal keyboard
 alias disablekb='xinput set-int-prop 15 "Device Enabled" 8 0'
@@ -513,6 +512,7 @@ alias ls='exa -lh --sort=mod -r --long --header --icons --color=always'
 alias la='exa -a --color=always --group-directories-first'  # all files and dirs
 alias ll='exa -l --color=always --group-directories-first'  # long format
 alias lt='exa -aT --color=always --group-directories-first' # tree listing
+alias l='exa --sort=mod -r --icons --color=always'
 alias l.='exa -a | egrep "^\."'
 
 # Colorize grep output (good for log files)
@@ -661,6 +661,12 @@ end
 
 #setxkbmap -layout br,apl,br -variant abnt2,dyalog -option grp:switch
 wal -i ~/.config/bspwm/wallpaper.png -q
+
+#░▀█▀░█▀█░█▀▀░▀█▀░█▀█░█░░░█░░░░░▀▀█░█▀█░█░█░▀█▀░█▀▄░█▀▀
+#░░█░░█░█░▀▀█░░█░░█▀█░█░░░█░░░░░▄▀░░█░█░▄▀▄░░█░░█░█░█▀▀
+#░▀▀▀░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░▀▀▀░░░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀░░▀▀▀
+
+zoxide init fish | source
 
 #░█▀▀░▀▀█░█▀▀░░░█░█░█▀▀░█░█░░░█▀▄░▀█▀░█▀█░█▀▄░▀█▀░█▀█░█▀▀
 #░█▀▀░▄▀░░█▀▀░░░█▀▄░█▀▀░░█░░░░█▀▄░░█░░█░█░█░█░░█░░█░█░█░█
