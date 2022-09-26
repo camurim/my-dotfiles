@@ -228,6 +228,18 @@ function vw --argument file
             switch $file
                    case '*.txt'
                         cat $file
+                   case '*.json'
+                        cat $file
+                   case '*.js'
+                        cat $file
+                   case '*.java'
+                        cat $file
+                   case '*.c'
+                        cat $file
+                   case '*.cpp'
+                        cat $file
+                   case '*.scala'
+                        cat $file
                    case '*.pdf'
                         evince $file &
                    case '*.md'
