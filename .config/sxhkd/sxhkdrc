@@ -124,7 +124,7 @@ super + F9
 
 # Quicknotes
 super + F10
-	tdrop -ma -w 70% -h 70% -y 20% -x 17% ghostwriter "$HOME/Dropbox/obsidian_vaults/principal/03 - Others/Quicknote.md"
+	tdrop -ma -w 45% -h 70% -y 20% -x 25% ghostwriter "$HOME/Dropbox/obsidian_vaults/principal/03 - Others/Quicknote.md"
 
 # YouTube
 super + F11
