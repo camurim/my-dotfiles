@@ -230,6 +230,8 @@ function vw --argument file
                         cat $file
                    case '*.pdf'
                         evince $file &
+                   case '*.md'
+                        glow $file
                    case '*.mp4'
                         mpv $file &
                    case '*.mkv'
