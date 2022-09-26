@@ -229,15 +229,15 @@ function vw --argument file
                    case '*.txt'
                         cat $file
                    case '*.pdf'
-                        evince $file
+                        evince $file &
                    case '*.mp4'
-                        mpv $file
+                        mpv $file &
                    case '*.mkv'
-                        vlc $file
+                        vlc $file &
                    case '*.mp3'
-                        deadbeef $file
+                        deadbeef $file &
                    case '*.flac'
-                        deadbeef $file
+                        deadbeef $file &
                    case '*'
                         echo "'$file' cannot be viewed by vw()"
             end
