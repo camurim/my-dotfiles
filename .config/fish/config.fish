@@ -221,6 +221,27 @@ function ex --argument file
          end
 end
 
+### VIEW FILE
+# usage: vw <file>
+function vw --argument file
+         if test -f $file
+            switch $file
+                   case '*.txt'
+                        cat $file
+                   case '*.pdf'
+                        evice $file
+                   case '*.mp4'
+                        mpv $file
+                   case '*.mkv'
+                        vlc $file
+                   case '*'
+                        echo "'$file' cannot be viewed by vw()"
+            end
+         else
+            echo "'$file' is not a valid file"
+         end
+end
+
 # Functions needed for !! and !$
 function __history_previous_command
   switch (commandline -t)
