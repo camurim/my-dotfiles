@@ -244,6 +244,8 @@ function vw --argument file
                         evince $file &
                    case '*.md'
                         glow $file
+                   case '*.csv'
+                        command vd --csv-delimiter=';' $file
                    case '*.mp4'
                         mpv $file &
                    case '*.mkv'
