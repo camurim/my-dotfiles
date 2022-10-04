@@ -401,13 +401,25 @@ function dlAndCutVideo --argument url --argument start --argument end --argument
 end
 
 # Download and resize to 640p
-function dlVideo640p --argument url --argument output
+function dlVideo360p --argument url --argument output
          if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
-            printf "%b" "$EM_R\e0USAGE: dlVideo <URL> <OUTPUT_FILE>$COLOR_RESET"
+            printf "%b" "$EM_R\e0USAGE: dlVideo360p <URL> <OUTPUT_FILE>$COLOR_RESET"
             return 1
          end
          yt-dlp -f mp4 -i "$url" -o - | ffmpeg -f mp4 -i - -vf scale=640:480 "$output"
 end
+
+function dlVideo240p --argument url --argument output
+         if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
+            printf "%b" "$EM_R\e0USAGE: dlVideo240p <URL> <OUTPUT_FILE>$COLOR_RESET"
+            return 1
+         end
+         yt-dlp -f mp4 -i "$url" -o - | ffmpeg -f mp4 -i - -vf scale=426:240 "$output"
+end
+
+###
+### ffmpeg functions
+###
 
 # Cut vídeo
 function cutVideo --argument ipath --argument start --argument end --argument opath -d "Cut video file"
@@ -416,6 +428,64 @@ function cutVideo --argument ipath --argument start --argument end --argument op
             return 1
          end
          ffmpeg -f mp4 -i "$ipath" -ss "$start" -to "$end" -c:v copy "$opath"
+end
+
+# Resize videos to 360p
+function resizeVideo360p --argument input --argument output
+         if test (count $argv) -eq 1
+            if test "$argv[1]" = "--help"
+               printf "%b" "$EM_R\e0USAGE: resizeVideo360p <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
+               return 1
+            else
+                if test ! -e $input
+                   printf "%b" "$EM_R\e0FILE $input DOES NOT EXISTS$COLOR_REST"
+                   return 1
+                end
+
+                set output (basename $input)
+                set output (echo $output | sed 's/\.[^.]*$//')
+                set output {$output}_360p.mp4
+            end
+         else if test (count $argv) -lt 1
+            printf "%b" "$EM_R\e0USAGE: resizeVideo360p <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
+            return 1
+         else if test (count $argv) -gt 1
+            if test ! -e $input
+                printf "%b" "$EM_R\e0FILE $input DOES NOT EXISTS$COLOR_REST"
+                return 1
+            end
+         end
+
+         ffmpeg -f mp4 -i "$input" -vf scale=640:480 "$output"
+end
+
+# Resize videos to 240p
+function resizeVideo240p --argument input --argument output
+         if test (count $argv) -eq 1
+            if test "$argv[1]" = "--help"
+               printf "%b" "$EM_R\e0USAGE: resizeVideo240p <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
+               return 1
+            else
+                if test ! -e $input
+                   printf "%b" "$EM_R\e0FILE $input DOES NOT EXISTS$COLOR_REST"
+                   return 1
+                end
+
+                set output (basename $input)
+                set output (echo $output | sed 's/\.[^.]*$//')
+                set output {$output}_240p.mp4
+            end
+         else if test (count $argv) -lt 1
+            printf "%b" "$EM_R\e0USAGE: resizeVideo240p <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
+            return 1
+         else if test (count $argv) -gt 1
+            if test ! -e $input
+                printf "%b" "$EM_R\e0FILE $input DOES NOT EXISTS$COLOR_REST"
+                return 1
+            end
+         end
+
+         ffmpeg -f mp4 -i "$input" -vf scale=426:240 "$output"
 end
 
 # Record screen
