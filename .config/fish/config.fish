@@ -33,6 +33,24 @@ set -U BG_M "\033[45m"
 set -U BG_C "\033[46m"
 set -U BG_W "\033[47m"
 
+#░█▀▀░█▀▄░█▀▀░█▀▀░▀█▀░▀█▀░█▀█░█▀▀
+#░█░█░█▀▄░█▀▀░█▀▀░░█░░░█░░█░█░█░█
+#░▀▀▀░▀░▀░▀▀▀░▀▀▀░░▀░░▀▀▀░▀░▀░▀▀▀
+
+function fish_greeting
+        set termcnt (pgrep -c (basename (readlink -f (which x-terminal-emulator))))
+        if test $termcnt -lt 2
+            neofetch
+        else
+            set cols (tput cols)
+            if test $cols -lt 100
+               pfetch
+            else
+               colorscript random
+            end
+        end
+end
+
 #░█▀█░█▀█░▀█▀░█░█
 #░█▀▀░█▀█░░█░░█▀█
 #░▀░░░▀░▀░░▀░░▀░▀
@@ -246,6 +264,16 @@ function vw --argument file
                         glow $file
                    case '*.csv'
                         command vd --csv-delimiter=';' $file
+                   case '*.CSV'
+                        command vd --csv-delimiter=',' $file
+                   case '*.odt'
+                        odt2txt $file | batcat -
+                   case '*.ods'
+                        libreoffice --infilter="Text(encoded):44,34,76" --convert-to _new.csv $file --outdir /tmp/ && command vd --csv-delimiter=',' /tmp/(echo $file | sed 's/\.[^.]*$//')._new.csv
+                   case '*.xls'
+                        libreoffice --infilter="Text(encoded):44,34,76" --convert-to _new.csv $file --outdir /tmp/ && command vd --csv-delimiter=',' /tmp/(echo $file | sed 's/\.[^.]*$//')._new.csv
+                   case '*.xlsx'
+                        libreoffice --infilter="Text(encoded):44,34,76" --convert-to _new.csv $file --outdir /tmp/ && command vd --csv-delimiter=',' /tmp/(echo $file | sed 's/\.[^.]*$//')._new.csv
                    case '*.mp4'
                         mpv $file &
                    case '*.mkv'
