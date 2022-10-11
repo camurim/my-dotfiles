@@ -522,11 +522,26 @@ function recordScreen --argument path
             printf "%b" "$EM_R\e0USAGE: recordScreen <PATH> $COLOR_RESET"
             return 1
          end
+
          set videosize (xdpyinfo | grep 'dimensions:' |  awk '{print $2}')
-         notify-send "Record Screen" "The recording will start in 10 seconds"
-         sleep 10s
-         notify-send "Record Screen" "Recording..."
-         ffmpeg -video_size $videosize -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default $path
+
+         set name "Timeout"
+         set thetime 10
+         set increasefactor (math $thetime / 100)
+         set unit "s"
+
+         begin
+            set counter 0
+            while test $counter -le 100
+                  echo $counter
+                  sleep {$increasefactor}{$unit}
+                  set counter (math $counter + 1)
+            end
+         end | zenity --progress --title="$name" --text="The recording will start in 10 seconds" --percentage=0 --auto-close
+
+         if test $status -eq 0
+            ffmpeg -video_size $videosize -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default $path
+         end
 end
 
 ###
