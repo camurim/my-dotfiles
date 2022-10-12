@@ -267,7 +267,7 @@ function vw --argument file
                    case '*.CSV'
                         command vd --csv-delimiter=',' $file
                    case '*.odt'
-                        odt2txt $file | batcat -
+                        odt2txt $file | bat -
                    case '*.ods'
                         libreoffice --infilter="Text(encoded):44,34,76" --convert-to _new.csv $file --outdir /tmp/ && command vd --csv-delimiter=',' /tmp/(echo $file | sed 's/\.[^.]*$//')._new.csv
                    case '*.xls'
@@ -682,8 +682,8 @@ alias aptupg='sudo apt upgrade'
 alias aptin='sudo apt install'
 alias aptrm='sudo apt remove'
 
-# Changing "cat" to "batcat"
-alias cat='batcat'
+# Changing "cat" to "bat"
+alias cat='bat'
 
 # Network aliases
 alias localip='ip a | grep \'inet 192\' | awk \'{ print $2 }\' | sed -e \'2d\''

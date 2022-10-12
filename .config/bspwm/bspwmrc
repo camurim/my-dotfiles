@@ -137,7 +137,8 @@ bspc rule -a Code desktop=IV
 bspc rule -a Emacs state=tiled desktop=IV
 bspc rule -a Emacs27 state=tiled desktop=IV
 bspc rule -a krusader desktop=V
-bspc rule -a Filezilla desktop=V
+bspc rule -a Thunar desktop=V
+bspc rule -a Filezilla desktop=VI
 bspc rule -a Eclipse desktop=VI
 bspc rule -a Typora desktop=VI state=fullscreen follow=off
 bspc rule -a SWT desktop=VII
@@ -161,6 +162,7 @@ bspc rule -a Magnus follow=off state=floating
 bspc rule -a "Emoji Picker" follow=off state=floating
 bspc rule -a colorpicker state=floating follow=off manage=on layer=above
 bspc rule -a Gpick state=floating follow=off manage=on layer=above
+bspc rule -a TelegramDesktop state=floating follow=off manage=on
 bspc rule -a Screenkey manage=off
 bspc rule -a Blueman-manager state=floating
 bspc rule -a Gnome-font-viewer state=floating
@@ -172,6 +174,7 @@ bspc rule -a Gromit-mpx state=floating
 bspc rule -a nuclear state=floating follow=off
 bspc rule -a Transmission-gtk state=floating
 bspc rule -a Deadbeef state=floating
+bspc rule -a "Org.gnome.Nautilus" state=floating
 bspc rule -a MYKI state=floating
 bspc rule -a Lutris state=floating desktop=IX follow=off
 bspc rule -a "org-tlauncher-tlauncher-rmo-TLauncher" state=floating follow=off desktop=IX
@@ -190,7 +193,7 @@ bsp-layout set even II
 bsp-layout set wide III
 ### Code
 bsp-layout set wide IV
-### Krusader
+### Thunar
 bsp-layout set wide V
 ### Eclipse
 bsp-layout set wide VI
