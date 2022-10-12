@@ -540,7 +540,11 @@ function recordScreen --argument path
          end | zenity --progress --title="$name" --text="The recording will start in 10 seconds" --percentage=0 --auto-close
 
          if test $status -eq 0
-            ffmpeg -video_size $videosize -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default $path
+            #ffmpeg -video_size $videosize -framerate 25 -f x11grab -i :0.0 -f pulse -ac 2 -i default $path
+            ffmpeg -video_size $videosize -framerate 25 -f x11grab -i :0.0 \
+            -f pulse -thread_queue_size 512k -i alsa_input.pci-0000_00_1f.3.analog-stereo \
+            -f pulse -thread_queue_size 512k -i alsa_output.pci-0000_00_1f.3.analog-stereo.monitor \
+            -filter_complex "[1]volume=+30dB;[1:a:0][2:a:0]amix=2[aout]" -map 0:V:0 -map "[aout]" $path
          end
 end
 
