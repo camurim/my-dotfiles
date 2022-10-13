@@ -276,7 +276,7 @@ function vw --argument file
                         feh $file &
                    case '*.jpg'
                         feh $file &
-                  case '*.gif'
+                   case '*.gif'
                         feh $file &
                    case '*.xlsx'
                         libreoffice --infilter="Text(encoded):44,34,76" --convert-to _new.csv $file --outdir /tmp/ && command vd --csv-delimiter=',' /tmp/(echo $file | sed 's/\.[^.]*$//')._new.csv
@@ -338,8 +338,8 @@ end
 function copy
     set count (count $argv | tr -d \n)
     if test "$count" = 2; and test -d "$argv[1]"
-	set from (echo $argv[1] | trim-right /)
-	set to (echo $argv[2])
+    	set from (echo $argv[1] | trim-right /)
+	    set to (echo $argv[2])
         command cp -r $from $to
     else
         command cp $argv
