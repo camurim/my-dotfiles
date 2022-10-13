@@ -272,6 +272,12 @@ function vw --argument file
                         libreoffice --infilter="Text(encoded):44,34,76" --convert-to _new.csv $file --outdir /tmp/ && command vd --csv-delimiter=',' /tmp/(echo $file | sed 's/\.[^.]*$//')._new.csv
                    case '*.xls'
                         libreoffice --infilter="Text(encoded):44,34,76" --convert-to _new.csv $file --outdir /tmp/ && command vd --csv-delimiter=',' /tmp/(echo $file | sed 's/\.[^.]*$//')._new.csv
+                   case '*.png'
+                        feh $file &
+                   case '*.jpg'
+                        feh $file &
+                  case '*.gif'
+                        feh $file &
                    case '*.xlsx'
                         libreoffice --infilter="Text(encoded):44,34,76" --convert-to _new.csv $file --outdir /tmp/ && command vd --csv-delimiter=',' /tmp/(echo $file | sed 's/\.[^.]*$//')._new.csv
                    case '*.mp4'
