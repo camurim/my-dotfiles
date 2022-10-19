@@ -178,6 +178,7 @@ bspc rule -a "Org.gnome.Nautilus" state=floating
 bspc rule -a MYKI state=floating
 bspc rule -a Lutris state=floating desktop=IX follow=off
 bspc rule -a "org-tlauncher-tlauncher-rmo-TLauncher" state=floating follow=off desktop=IX
+bspc rule -a KLatexFormula state=floating
 bspc rule -a "Minecraft* 1.18.1" desktop=IX follow=off
 bspc rule -a epsonscan2 desktop=X follow=off
 
