@@ -39,7 +39,7 @@ set -U BG_W "\033[47m"
 
 function fish_greeting
         set termcnt (pgrep -c (basename (readlink -f (which x-terminal-emulator))))
-        if test $termcnt -lt 2
+        if test $termcnt -lt 3
             neofetch
         else
             set cols (tput cols)
@@ -289,11 +289,16 @@ function vw --argument file
                    case '*.flac'
                         deadbeef $file &
                    case '*'
-                        echo "'$file' cannot be viewed by vw()"
+                        xdg-open $file &
             end
          else
             echo "'$file' is not a valid file"
          end
+end
+
+# CheatSheets
+function cheat --argument cmd
+         curl "https://cheat.sh/{$cmd}"
 end
 
 # Functions needed for !! and !$
@@ -666,6 +671,7 @@ alias disablekb='xinput set-int-prop 15 "Device Enabled" 8 0'
 alias enablekb='xinput set-int-prop 15 "Device Enabled" 8 1'
 
 # vim and emacs
+alias e='nvim'
 alias vim='nvim'
 alias em='/usr/bin/emacs -nw'
 alias emacs="emacsclient -c -a 'emacs'"
@@ -689,6 +695,7 @@ alias fgrep='fgrep --color=auto'
 alias grepfc='grep -rnw . -e '
 
 # apt alias
+alias i='sudo apt install'
 alias aptup='sudo apt update && sudo apt upgrade'
 alias aptupd='sudo apt update'
 alias aptupg='sudo apt upgrade'
