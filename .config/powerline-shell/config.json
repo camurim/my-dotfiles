@@ -1,5 +1,6 @@
 {
   "segments": [
+    "time",
     "virtual_env",
     "username",
     "ssh",
@@ -15,7 +16,7 @@
     "show_symbol": "true"
   },
   "cwd": {
-    "max_depth": 4
+    "max_depth": 3
   },
   "hostname": {
     "colorized": "true"
