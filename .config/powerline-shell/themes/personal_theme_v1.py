@@ -30,7 +30,7 @@ class Color(DefaultColor):
     JOBS_BG = 8
 
     CMD_PASSED_FG = 15
-    CMD_PASSED_BG = 67
+    CMD_PASSED_BG = 62
     CMD_FAILED_FG = 15
     CMD_FAILED_BG = 88
 

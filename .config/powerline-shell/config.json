@@ -2,7 +2,6 @@
   "segments": [
     "time",
     "virtual_env",
-    "username",
     "ssh",
     "cwd",
     "git",
