@@ -713,7 +713,10 @@ alias openports='sudo lsof -i -P -n | grep LISTEN'
 # confirm before overwriting something
 alias cp="cp -i"
 alias mv='mv -i'
-alias rm='rm -i'
+alias rmf='rm -i'
+
+# Trash instead of rm
+alias rm="trash"
 
 # adding flags
 alias df="df -h | sed -ne '1p' -e '/\/dev\/sd/p'"      # human-readable sizes
