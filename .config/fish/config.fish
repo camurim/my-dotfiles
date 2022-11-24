@@ -644,6 +644,16 @@ function todaynote
          glow $VAULTTODAY$DATE.md
 end
 
+# Generate image with text
+function text2Image --argument text --argument output
+         if test (count $argv) -lt 2
+            printf "%b" "$EM_R\e0USAGE: text2Image <TEXT> <OUTPUT_IMAGE> $COLOR_RESET"
+            return 1
+         end
+
+         convert -font "Code-New-Roman-Bold-Nerd-Font-Complete-Mono" -pointsize 20 -fill green -draw "text 10,205  \"$text\"" $HOME/Imagens/image.png $output
+end
+
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
 #░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 #░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
