@@ -43,11 +43,11 @@ if [ $? -eq 0 ]; then
 	dropbox start &
 fi
 
-pgrep motrix
+#pgrep motrix
 
-if [ $? -eq 1 ]; then
-	motrix --rpc-secret &
-fi
+#if [ $? -eq 1 ]; then
+#	motrix --rpc-secret &
+#fi
 
 pgrep conky
 
@@ -86,6 +86,9 @@ pgrep gromit-mpx
 if [ $? -eq 1 ]; then
 	gromit-mpx &
 fi
+
+# Map CAPS to SUPER
+setxkbmap -option caps:super
 
 # ░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀
 # ░█░░░█░█░█░█░█▀▀░░█░░█░█
