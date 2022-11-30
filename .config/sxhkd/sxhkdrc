@@ -92,6 +92,12 @@ super + F4
 super + F5
 	$HOME/.local/bin/gen-header-comment-dlg
 
+# Snippets e bookmarks
+super + Insert
+	$HOME/.local/bin/add-snippet
+
+super + Home
+	xdotool type $(grep -v '^#' ~/.local/share/snippets | dmenu -i -l 50 | cut -d' ' -f1)
 
 # ░█▀▀░█▀▀░█▀▄░█▀█░▀█▀░█▀▀░█░█░█▀█░█▀█░█▀▄░█▀▀
 # ░▀▀█░█░░░█▀▄░█▀█░░█░░█░░░█▀█░█▀▀░█▀█░█░█░▀▀█
