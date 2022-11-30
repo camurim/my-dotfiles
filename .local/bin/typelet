@@ -1,0 +1,444 @@
+#!/usr/bin/env bash
+
+set -eu
+
+# shellcheck disable=SC2034
+VERSION="0.4.5"
+FONT="standard"
+COLOROP=2
+SPEED="0.0"
+TMP_FILE="/tmp/typelet-file"
+SPACEOP=0
+SCRIPT_NAME=$(basename "$0")
+
+readlinkf() {
+    [ "${1:-}" ] || return 1
+    max_symlinks=40
+    CDPATH='' # to avoid changing to an unexpected directory
+
+    target=$1
+    [ -e "${target%/}" ] || target=${1%"${1##*[!/]}"} # trim trailing slashes
+    [ -d "${target:-/}" ] && target="$target/"
+
+    cd -P . 2>/dev/null || return 1
+    while [ "$max_symlinks" -ge 0 ] && max_symlinks=$((max_symlinks - 1)); do
+        if [ ! "$target" = "${target%/*}" ]; then
+            case $target in
+            /*) cd -P "${target%/*}/" 2>/dev/null || break ;;
+            *) cd -P "./${target%/*}" 2>/dev/null || break ;;
+            esac
+            target=${target##*/}
+        fi
+
+        if [ ! -L "$target" ]; then
+            target="${PWD%/}${target:+/}${target}"
+            printf '%s\n' "${target:-/}"
+            return 0
+        fi
+        link=$(ls -dl -- "$target" 2>/dev/null) || break
+        target=${link#*" $target -> "}
+    done
+    return 1
+}
+
+self=$(readlinkf "$0")
+script_dir=${self%/*}
+
+# shellcheck disable=SC1091
+. "${script_dir}/lib/getoptions.sh"
+
+number() { case $OPTARG in *[!0-9]*) return 1 ;; esac; }
+
+check_cmd() {
+    if [[ ! $(command -v "$1") ]]; then
+        if [[ $1 = "code" ]]; then
+            app="VS Code"
+        else
+            app=$1
+        fi
+        echo "It seems like you don't have ${app}."
+        echo "Please install ${app}."
+        exit 1
+    fi
+}
+
+check_cmd figlet
+check_cmd curl
+
+# Repeat given char N times using shell function
+repeat() {
+    local start end str range
+    start=1
+    end=${1:-80}
+    str="${2:-=}"
+    range=$(seq $start "$end")
+    for i in $range; do echo -n "${str}"; done
+}
+
+find_inteval() {
+    case $1 in
+    SLOW)
+        SPEED=0.0$(((RANDOM % 9) + 1))
+        ;;
+    MEDIUM)
+        SPEED=0.00$(((RANDOM % 9) + 1))
+        ;;
+    FAST)
+        SPEED=0.000$(((RANDOM % 9) + 1))
+        ;;
+    *)
+        usage
+        exit
+        ;;
+    esac
+}
+
+find_color_num() {
+    case $1 in
+    BLACK)
+        COLOROP=0
+        ;;
+    RED)
+        COLOROP=1
+        ;;
+    GREEN)
+        COLOROP=2
+        ;;
+    YELLOW)
+        COLOROP=3
+        ;;
+    BLUE)
+        COLOROP=4
+        ;;
+    MAGENTA)
+        COLOROP=5
+        ;;
+    CYAN)
+        COLOROP=6
+        ;;
+    WHITE)
+        COLOROP=7
+        ;;
+    *)
+        usage
+        exit
+        ;;
+    esac
+}
+
+create_raw() {
+    regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+    if [[ ${1} =~ $regex ]]; then
+        if [[ $(curl --silent --head --fail "${1}/raw") ]]; then
+            # echo "URL exists: ${1}/raw"
+            echo "$(curl -L --silent "${1}/raw")"
+        else
+            echo "URL does not exist: ${1}"
+        fi
+    else
+        echo "Link not valid."
+    fi
+}
+
+fn_save_to_local() {
+    echo "Saving from gist to a local."
+    echo "URL: $1"
+    if [ "$1" ]; then
+        url=$1
+        create_raw "$url" >$TMP_FILE
+        echo "Saved to the local file."
+        echo "Now you can print it."
+        exit
+    else
+        echo "Please provide your list URL."
+        exit 1
+    fi
+}
+
+fn_create() {
+    echo "Creating $1 with $FONT font."
+    touch $TMP_FILE
+    figlet -f "$FONT" "$1" >$TMP_FILE
+    cat $TMP_FILE
+}
+
+fn_add() {
+    echo "Adding $1 with $FONT font."
+    figlet -f "$FONT" "$1" >>$TMP_FILE
+    echo
+    echo
+    cat $TMP_FILE
+    # fn_replace
+}
+
+fn_add_spaces() {
+    case $1 in *[!0-9]*) return 1 ;; esac
+    SPACEOP=$1
+    # adding spaces in front of all lines
+    if ((SPACEOP > 0)); then
+        echo "adding spaces..."
+        SPACE_NUM=$(repeat "$SPACEOP" " ")
+
+        sed -i -e "s/^/$SPACE_NUM/" $TMP_FILE
+        cat $TMP_FILE
+    fi
+}
+
+fn_empty() {
+    echo >>$TMP_FILE
+}
+
+fn_read() {
+    cat "$TMP_FILE"
+}
+
+fn_print() {
+    echo
+    echo
+    COLOR=$(echo "$COLOR" | tr '[:lower:]' '[:upper:]')
+    INTERVAL=$(echo "$INTERVAL" | tr '[:lower:]' '[:upper:]')
+    find_inteval "$INTERVAL"
+    find_color_num "$COLOR"
+    word=$(cat $TMP_FILE)
+    tput setaf "$COLOROP"
+    for ((i = 0; i <= ${#word}; i++)); do
+        printf '%s' "${word:$i:1}"
+        sleep "$SPEED"
+    done
+    tput sgr0
+    echo
+    echo
+    sleep 1
+}
+
+fn_open() {
+    if [ "$EDITOR" = "vscode" ]; then
+        EDITOR="code"
+    fi
+    check_cmd "$EDITOR" || {
+        echo "You don't have $EDITOR."
+        exit
+    }
+    "${EDITOR:-vi}" $TMP_FILE
+}
+
+fn_save_to_gist() {
+    check_cmd gh
+    echo "Saving to gist ..."
+    gh gist create -w -p -f "my-tylet" -d "Created by tylet." <$TMP_FILE || exit
+}
+
+# shellcheck disable=SC1083
+parser_definition() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} [command] [options...] [arguments...]"
+    msg -- '' 'Options:'
+    disp :usage -h --help
+    disp VERSION --version
+
+    msg -- '' 'Commands: '
+    msg -- 'Use command -h for a command help.'
+    cmd create -- "Creates a word/line."
+    cmd add -- "Adds a word/line."
+    cmd space -- "Adds spaces."
+    cmd read -- "Reads the Typelet file."
+    cmd empty -- "Add a empty line."
+    cmd print -- "Prints the Typelet file."
+    cmd open -- "Opens the Typelet file with an editor."
+    cmd gist -- "Creates a Gist."
+    cmd url -- "Saves a Gist to your Typelet file using a Gist URL."
+
+    msg -- '' 'Examples:
+
+Create a new with the default font: 
+    typelet create Go
+
+Create a new with the banner font: 
+    typelet create JavaScript -f banner 
+
+Add a line: 
+    typelet add New Line
+
+Use -f font-name to change the font: 
+    typelet add Bash -f banner
+
+Add a empty line: 
+    typelet empty
+
+Add spaces in front of all lines: 
+    typelet space 30
+
+Add spaces in front of a line : 
+    typelet create "      PHP"
+
+Display what you have so far:
+    typelet read
+
+Print with the default setting:
+    typelet print
+
+Print with different speed and color:
+    typelet print --color cyan -i fast
+
+Manually edit Typelet file:
+    typelet open
+
+Save it to Gist:
+    typelet gist
+
+Save to the local from a Gist:
+    typelet url your-gist-url
+
+Display the version:
+    typelet -v
+
+Display help:
+    typelet -h
+'
+}
+
+# shellcheck disable=SC1083
+parser_definition_create() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} create [options] [arguments]"
+    msg -- 'Options:'
+    param FONT -f --font init:="standard" -- "accepts --font fontname / --font=fontname"
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_add() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} add [options] [arguments]"
+    msg -- 'Options:'
+    param FONT -f --font init:="standard" -- "accepts --font fontname / --font=fontname"
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_space() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} space [number]"
+    msg -- 'Adds spaces in front of all lines.'
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_read() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} read"
+    msg -- 'Reads and prints a Typelet file.'
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_empty() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} empty"
+    msg -- 'Adds a empty line.'
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_print() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} print [options...] [arguments...]"
+    msg -- 'Prints the Typelet file.'
+    msg -- 'For color, use black|red|green|yellow|blue|magenta|cyan|white.'
+    msg -- 'For interval, use slow|medium|fast.'
+    msg -- '' 'Options:'
+    param COLOR -c --color init:="GREEN" pattern:"black | red | green | yellow | blue | magenta | cyan | white" -- "accepts --color value / --color=value"
+    param INTERVAL -i --inter init:="medium" pattern:"slow | medium | fast " -- "accepts --inter value / --inter=value"
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_open() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} open [option] [argument]"
+    msg -- 'Open the Typelet file with an editor.'
+    param EDITOR -e --editor init:="vi" pattern:"vi | emacs | vscode " -- "accepts --editor value / --editor=value"
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_gist() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} gist"
+    msg -- 'Create a public Gist with the Typelet file.'
+    disp :usage -h --help
+}
+
+# shellcheck disable=SC1083
+parser_definition_url() {
+    setup REST help:usage abbr:true -- \
+        "Usage: ${2##*/} url <Gist-URL>"
+    msg -- 'Save a Gist to the local Typelet file.'
+    disp :usage -h --help
+}
+
+eval "$(getoptions parser_definition parse "$0") exit 1"
+parse "$@"
+eval "set -- $REST"
+
+if [ $# -gt 0 ]; then
+    cmd=$1
+    shift
+    case $cmd in
+    create)
+        eval "$(getoptions parser_definition_create parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_create "$@"
+        ;;
+    add)
+        eval "$(getoptions parser_definition_add parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_add "$@"
+        ;;
+    space)
+        eval "$(getoptions parser_definition_space parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_add_spaces "$@"
+        ;;
+    read)
+        eval "$(getoptions parser_definition_read parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_read
+        ;;
+    empty)
+        eval "$(getoptions parser_definition_empty parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_empty
+        ;;
+    print)
+        eval "$(getoptions parser_definition_print parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_print
+        ;;
+    open)
+        eval "$(getoptions parser_definition_open parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_open
+        ;;
+    gist)
+        eval "$(getoptions parser_definition_gist parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_save_to_gist
+        ;;
+    url)
+        eval "$(getoptions parser_definition_url parse "$0")"
+        parse "$@"
+        eval "set -- $REST"
+        fn_save_to_local "$@"
+        ;;
+    --) ;; # no subcommand, arguments only
+    esac
+fi

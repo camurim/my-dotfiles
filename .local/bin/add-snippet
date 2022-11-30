@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+snippet=$(xclip -o)
+file="$HOME/.local/share/snippets"
+
+if grep -q "^$snippet" "$file"; then
+	notify-send "Oops." "Already bookmarked!"
+else
+	notify-send "Bookmark added" "$snippet is now saved to $file!"
+	echo "$snippet" >> "$file"
+fi
