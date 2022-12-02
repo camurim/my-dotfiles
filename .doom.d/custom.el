@@ -10,6 +10,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(defun run-buffer ()
+  (interactive)
+  (shell-command (concat "python " buffer-file-name)))
+(global-set-key (kbd "<f5>") 'run-buffer)
+
 (require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
-(global-set-key [f7] 'neotree-change-root)
+(global-set-key [f7] 'neotree-toggle)
+(global-set-key [f8] 'neotree-change-root)
+(global-set-key [f9] '+eshell/toggle )
