@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import instaloader
-from getpass import getpass
+import configparser
 import os
 import re
 import sys
@@ -9,38 +9,45 @@ import sys
 try:
     url = sys.argv[1]
 except IndexError:
-    print("Forma de uso:\n\n", sys.argv[0], "URL\n\nInforme uma URL válida\n\n")
-    sys.exit()
+    print("Usage:\n\n", sys.argv[0], "<URL>\n\n")
+    sys.exit(1)
 
-#diretório de download
-downloadDir = '/home/fabio/Downloads'
+homePath = os.environ['HOME']
+
+# Configuration file
+configFile = homePath + '/.instapass'
+config = configparser.ConfigParser()
+config.read(configFile)
+
+downloadDir = homePath + '/_junkdrawer'
+
 os.chdir(downloadDir)
 
 loader = instaloader.Instaloader(
-  download_pictures=True,
-  download_videos=True,
-  download_video_thumbnails=False,
-  download_geotags=False,
-  download_comments=False,
-  save_metadata=False,
-  compress_json=False,
-  filename_pattern='{profile}_{mediaid}'
-  )
+    download_pictures=True,
+    download_videos=True,
+    download_video_thumbnails=False,
+    download_geotags=False,
+    download_comments=False,
+    save_metadata=False,
+    compress_json=False,
+    filename_pattern='{profile}_{mediaid}'
+)
 
-#o login é opcional, necessário somente no
-#caso de download de posts de contas privadas
-#comente as próximas 3 linhas caso esteja
-#fazendo download de posts de contas públicas
-username = input('Usuário: ')
-password = getpass('Senha: ')
-loader.login(username,password)
+if os.path.exists(configFile):
+    username = config.get('Authentication','username')
+    password = config.get('Authentication','password')
+    loader.login(username,password)
 
 #extrair "short_code" da URL
 #exemplo: https://www.instagram.com/p/CCfeQV-AssF/
-expr = r'\/p\/([^\/]*)/'
+expr = r'\/p|reel\/([^\/]*)/'
 found = re.search(expr, url)
 
 if found:
-  print("Baixando ", found.group(1), "...")
-  post = instaloader.Post.from_shortcode(loader.context, found.group(1))
-  loader.download_post(post, ".")
+    print("Downloading ", found.group(1), "...")
+    post = instaloader.Post.from_shortcode(loader.context, found.group(1))
+    loader.download_post(post, 'instagram')
+    sys.exit(0)
+else:
+    sys.exit(1)
