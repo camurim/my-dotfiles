@@ -220,6 +220,8 @@ function ex --argument file
                         gunzip $file
                    case '*.tar'
                         tar xf $file
+                   case '*.tbz'
+                        tar xjf $file
                    case '*.tbz2'
                         tar xjf $file
                    case '*.tgz'
