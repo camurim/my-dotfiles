@@ -656,6 +656,11 @@ function text2Image --argument text --argument output
          convert -font "Code-New-Roman-Bold-Nerd-Font-Complete-Mono" -pointsize 20 -fill green -draw "text 10,205  \"$text\"" $HOME/Imagens/image.png $output
 end
 
+# Get Key Codes
+function getkeycode
+         xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'
+end
+
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
 #░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 #░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
