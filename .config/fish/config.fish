@@ -812,7 +812,7 @@ alias tb="nc termbin.com 9999"
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
 
 # the terminal bad apple
-alias badapple='CACA_DRIVER=ncurses mpv -vo=caca https://youtu.be/9lNZ_Rnr7Jc 2>/dev/null'
+alias badapple='CACA_DRIVER=ncurses mpv --profile=low-latency -vo=caca https://youtu.be/9lNZ_Rnr7Jc 2>/dev/null'
 
 # Unlock LBRY tips
 alias tips="lbrynet txo spend --type=support --is_not_my_input --blocking"
