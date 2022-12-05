@@ -82,7 +82,7 @@ super + c
 
 # Ajuda de teclas de atalho
 super + F1
-	zenity --info --text="SUPER + ESC\t\t\tReload sxhkdrc\nSUPER + ALT + q\t\tEnd bspwm\nSUPER + ALT + r\t\tReload bspwm\nSUPER + r\t\t\tWireless Network Manager\nSUPER + c\t\t\tNotificação Android\nSUPER + F2\t\t\tKeepassXC\nSUPER + F3\t\t\tTetris\nSUPER + F4\t\t\tMensagem chamativa\nSUPER + F5\t\t\tGera comentário\nSUPER + F6\t\t\tGerenciador de arquivos\nSUPER + F7\t\t\tTerminal\nSUPER + F8\t\t\tCMUS\nSUPER + F9\t\t\tBTM\nSUPER + F10\t\t\tQuicknotes" --title="Shortcuts" --width=400 --height=330
+	zenity --info --text="SUPER + ESC\t\t\tReload sxhkdrc\nSUPER + ALT + q\t\tEnd bspwm\nSUPER + ALT + r\t\tReload bspwm\nSUPER + r\t\t\tWireless Network Manager\nSUPER + c\t\t\tNotificação Android\nSUPER + F2\t\t\tKeepassXC\nSUPER + F3\t\t\tTetris\nSUPER + F4\t\t\tMensagem chamativa\nSUPER + F5\t\t\tGera comentário\nSUPER + F6\t\t\tGerenciador de arquivos\nSUPER + F7\t\t\tTerminal\nSUPER + F8\t\t\tCMUS\nSUPER + F9\t\t\tbtop\nSUPER + F10\t\t\tQuicknotes" --title="Shortcuts" --width=400 --height=330
 
 # Copia para o clipboard imagem com mensagem chamativa
 super + F4
@@ -103,30 +103,33 @@ super + Home
 # ░▀▀█░█░░░█▀▄░█▀█░░█░░█░░░█▀█░█▀▀░█▀█░█░█░▀▀█
 # ░▀▀▀░▀▀▀░▀░▀░▀░▀░░▀░░▀▀▀░▀░▀░▀░░░▀░▀░▀▀░░▀▀▀
 
+# Terminal
+ctrl + apostrophe
+	tdrop -ma -w 70% -h 70% -y 20% -x 17% kitty --class=kitty --title=Terminal
+
 # KeepassXC
 super + F2
 	tdrop -a -w 60% -h 70% -y 20% -x 20% keepassxc
 
-# Tetris
-super + F3
-	tdrop -a -w 44% -h 68% -y 20% -x 30% higan "$HOME/Games/emulators/nes/roms/tetrisgym.nes"
-#	tdrop -ma -w 55% -h 60% -y 20% -x 17% gnome-terminal --hide-menubar -e bastet
-
 # File manager
-super + F6
+super + F3
 	tdrop -ma -w 70% -h 70% -y 20% -x 17% nautilus
 
-# Shell
+# Tetris
+super + F6
+	tdrop -a -w 44% -h 68% -y 20% -x 30% higan "$HOME/Games/emulators/nes/roms/tetrisgym.nes"
+
+# Twitter
 super + F7
-	tdrop -ma -w 70% -h 70% -y 20% -x 17% kitty --class=kitty --title=Terminal
+	tdrop -n 1 -ma -w 70% -h 70% -y 20% -x 17% gnome-terminal --hide-menubar -e rainbowstream
 
 # Cmus
 super + F8
-	tdrop -ma -w 70% -h 70% -y 20% -x 17% gnome-terminal --hide-menubar -e cmus
+	tdrop -n 2 -ma -w 70% -h 70% -y 20% -x 17% gnome-terminal --hide-menubar -e cmus
 
-# BTM
+# btop
 super + F9
-	tdrop -ma -w 70% -h 70% -y 20% -x 17% alacritty --class=alacritty --title=btm -e btm
+	tdrop -n 3 -ma -w 70% -h 70% -y 20% -x 17% gnome-terminal --hide-menubar -e btop
 
 # Quicknotes
 super + F10
