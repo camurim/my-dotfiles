@@ -54,7 +54,6 @@ Print
 # Screenshot (selection)
 alt + Print
 	flameshot gui -p '/home/carlos/Imagens/captures/'
-	#scrot -s '/home/carlos/Imagens/captures/%Y-%m-%d_$wx$h.png' -e 'xclip -selection clipboard -t image/png $f'
 
 # Browser padrão
 alt + b
@@ -82,7 +81,7 @@ super + c
 
 # Ajuda de teclas de atalho
 super + F1
-	zenity --info --text="SUPER + ESC\t\t\tReload sxhkdrc\nSUPER + ALT + q\t\tEnd bspwm\nSUPER + ALT + r\t\tReload bspwm\nSUPER + r\t\t\tWireless Network Manager\nSUPER + c\t\t\tNotificação Android\nSUPER + F2\t\t\tKeepassXC\nSUPER + F3\t\t\tTetris\nSUPER + F4\t\t\tMensagem chamativa\nSUPER + F5\t\t\tGera comentário\nSUPER + F6\t\t\tGerenciador de arquivos\nSUPER + F7\t\t\tTerminal\nSUPER + F8\t\t\tCMUS\nSUPER + F9\t\t\tbtop\nSUPER + F10\t\t\tQuicknotes" --title="Shortcuts" --width=400 --height=330
+	zenity --info --text="SUPER + ESC\t\t\tReload sxhkdrc\nSUPER + ALT + q\t\tEnd bspwm\nSUPER + ALT + r\t\tReload bspwm\nSUPER + r\t\t\tWireless Network Manager\nSUPER + c\t\t\tNotificação Android\nSUPER + F2\t\t\tKeepassXC\nSUPER + F3\t\t\tFile Manager\nSUPER + F4\t\t\tMensagem chamativa\nSUPER + F5\t\t\tGera comentário\nSUPER + F6\t\t\tTetris\nSUPER + F7\t\t\tTwitter\nSUPER + F8\t\t\tCMUS\nSUPER + F9\t\t\tbtop\nSUPER + F10\t\t\tQuicknotes" --title="Shortcuts" --width=400 --height=330
 
 # Copia para o clipboard imagem com mensagem chamativa
 super + F4
@@ -102,6 +101,10 @@ super + Home
 # ░█▀▀░█▀▀░█▀▄░█▀█░▀█▀░█▀▀░█░█░█▀█░█▀█░█▀▄░█▀▀
 # ░▀▀█░█░░░█▀▄░█▀█░░█░░█░░░█▀█░█▀▀░█▀█░█░█░▀▀█
 # ░▀▀▀░▀▀▀░▀░▀░▀░▀░░▀░░▀▀▀░▀░▀░▀░░░▀░▀░▀▀░░▀▀▀
+
+# Emacs
+super + z
+	tdrop -ma -w 70% -h 70% -y 20% -x 17% -l "bspc rule -a Emacs --one-shot state=floating desktop=focused" emacs
 
 # Terminal
 ctrl + apostrophe
