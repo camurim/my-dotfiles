@@ -16,6 +16,8 @@
   (shell-command (concat "python " buffer-file-name)))
 (global-set-key (kbd "<f5>") 'run-buffer)
 
+(global-set-key [f6] 'doom/open-scratch-buffer)
+
 (require 'neotree)
 (global-set-key [f7] 'neotree-toggle)
 (global-set-key [f8] 'neotree-change-root)
