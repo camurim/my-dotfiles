@@ -84,11 +84,11 @@ fi
 pgrep gromit-mpx
 
 if [ $? -eq 1 ]; then
-	gromit-mpx &
+	gromit-mpx --key F10 &
 fi
 
-# Map CAPS to SUPER
-setxkbmap -option caps:super
+# Map CAPS to SUPER and SCROLL LOCK to None
+setxkbmap -option caps:super,scroll_lock:none
 
 # ░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀
 # ░█░░░█░█░█░█░█▀▀░░█░░█░█
