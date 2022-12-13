@@ -88,6 +88,9 @@ set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 ### "nvim" as manpager
 # set -x MANPAGER "nvim -c 'set ft=man' -"
 
+## Java Variables
+set -x JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+
 #░█▀▀░█▄█░█▀█░█▀▀░█▀▀░░░█▀█░█▀▄░░░█░█░▀█▀░░░█▄█░█▀█░█▀▄░█▀▀
 #░█▀▀░█░█░█▀█░█░░░▀▀█░░░█░█░█▀▄░░░▀▄▀░░█░░░░█░█░█░█░█░█░█▀▀
 #░▀▀▀░▀░▀░▀░▀░▀▀▀░▀▀▀░░░▀▀▀░▀░▀░░░░▀░░▀▀▀░░░▀░▀░▀▀▀░▀▀░░▀▀▀
@@ -644,6 +647,16 @@ function todaynote
          set VAULTTODAY ~/Dropbox/obsidian_vaults/principal/00\ -\ Daily\ Notes/
          set DATE (date '+%Y-%m-%d')
          glow $VAULTTODAY$DATE.md
+end
+
+# Quicknote
+function quicknote
+         vim /home/carlos/Dropbox/obsidian_vaults/principal/03\ -\ Others/Quicknote.md
+end
+
+# Cheat Sheet function
+function cheat --argument cmd
+         curl "https://cheat.sh/{$cmd}"
 end
 
 # Generate image with text
