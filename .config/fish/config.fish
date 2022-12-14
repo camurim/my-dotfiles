@@ -863,6 +863,12 @@ alias webcam='mpv /dev/video1'
 # Twitter CLI client
 alias tw='rainbowstream'
 
+# Copy current path to clipboard
+alias copycurrpath='pwd | xclip -selection clipboard && notify-send "Clipboard" "Current path copied to clipboard!"'
+
+# YouTube Music TUI client
+alias ytmusic="ytui_music run"
+
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
 #░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░░░░▀░
