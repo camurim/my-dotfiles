@@ -3,11 +3,10 @@
 USER=${USER:-carlos}
 HOME=${HOME:-/home/$USER}
 
-# ░█▀▀░▀█▀░█▀█░█▀▄░▀█▀░█░█░█▀█
-# ░▀▀█░░█░░█▀█░█▀▄░░█░░█░█░█▀▀
-# ░▀▀▀░░▀░░▀░▀░▀░▀░░▀░░▀▀▀░▀░░
 
-sxhkd &
+#░█░█░█▀█░█░░░█░░░█▀█░█▀█░█▀█░█▀▀░█▀▄
+#░█▄█░█▀█░█░░░█░░░█▀▀░█▀█░█▀▀░█▀▀░█▀▄
+#░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░░░▀░▀░▀░░░▀▀▀░▀░▀
 
 feh --bg-fill $HOME/.config/bspwm/wallpaper.png &
 wal -i $HOME/.config/bspwm/wallpaper.png -q
@@ -16,6 +15,12 @@ currentGnomeBackground=$(gsettings get org.gnome.desktop.background picture-uri 
 if [ "$currentGnomeBackground" != "file:///home/$USER/.config/bspwm/wallpaper.png" ]; then
 	gsettings set org.gnome.desktop.background picture-uri "file:///home/$USER/.config/bspwm/wallpaper.png" 2> /dev/null
 fi
+
+# ░█▀▀░▀█▀░█▀█░█▀▄░▀█▀░█░█░█▀█
+# ░▀▀█░░█░░█▀█░█▀▄░░█░░█░█░█▀▀
+# ░▀▀▀░░▀░░▀░▀░▀░▀░░▀░░▀▀▀░▀░░
+
+sxhkd &
 
 xsetroot -cursor_name left_ptr &
 
@@ -87,8 +92,13 @@ if [ $? -eq 1 ]; then
 	gromit-mpx --key F10 &
 fi
 
+#░█░█░█▀▀░█░█░█▀▄░█▀█░█▀█░█▀▄░█▀▄░░░█▀▄░█▀▀░█▄█░█▀█░█▀█
+#░█▀▄░█▀▀░░█░░█▀▄░█░█░█▀█░█▀▄░█░█░░░█▀▄░█▀▀░█░█░█▀█░█▀▀
+#░▀░▀░▀▀▀░░▀░░▀▀░░▀▀▀░▀░▀░▀░▀░▀▀░░░░▀░▀░▀▀▀░▀░▀░▀░▀░▀░░
+
 # Map CAPS to SUPER and SCROLL LOCK to None
-setxkbmap -option caps:super,scroll_lock:none
+setxkbmap -option caps:super
+xmodmap -e 'keycode 78='
 
 # ░█▀▀░█▀█░█▀█░█▀▀░▀█▀░█▀▀
 # ░█░░░█░█░█░█░█▀▀░░█░░█░█
@@ -184,6 +194,7 @@ bspc rule -a "org-tlauncher-tlauncher-rmo-TLauncher" state=floating follow=off d
 bspc rule -a KLatexFormula state=floating
 bspc rule -a "Minecraft* 1.18.1" desktop=IX follow=off
 bspc rule -a epsonscan2 desktop=X follow=off
+bspc rule -a Protonvpn desktop=X state=floating follow=off
 
 # ░█░░░█▀█░█░█░█▀█░█░█░▀█▀░█▀▀
 # ░█░░░█▀█░░█░░█░█░█░█░░█░░▀▀█
