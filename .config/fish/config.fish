@@ -306,11 +306,6 @@ function vw --argument file
          end
 end
 
-# CheatSheets
-function cheat --argument cmd
-         curl "https://cheat.sh/{$cmd}"
-end
-
 # Functions needed for !! and !$
 function __history_previous_command
   switch (commandline -t)
