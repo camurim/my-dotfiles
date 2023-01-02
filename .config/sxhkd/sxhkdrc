@@ -108,7 +108,7 @@ super + z
 
 # Terminal
 ctrl + apostrophe
-	tdrop -ma -w 70% -h 70% -y 20% -x 17% kitty --class=kitty --title=Terminal
+	tdrop -n 0 -ma -w 70% -h 70% -y 20% -x 17% kitty --class=kitty --title=Terminal
 
 # KeepassXC
 super + F2
@@ -149,6 +149,10 @@ super + F12
 # Udemy
 super + Print
 	tdrop-webapp "https://www.udemy.com"
+
+# Newsboat
+super + Pause
+	tdrop -n 4 -ma -w 70% -h 70% -y 20% -x 17% gnome-terminal --hide-menubar -e newsboat
 
 # Search selected text on Google
 super + alt + F1

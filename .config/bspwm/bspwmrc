@@ -42,11 +42,11 @@ bspc monitor -d I II III IV V VI VII VIII IX X
 
 $HOME/.config/polybar/launch.sh --forest &
 
-dropbox running
+#dropbox running
 
-if [ $? -eq 0 ]; then
-	dropbox start &
-fi
+#if [ $? -eq 0 ]; then
+#	dropbox start &
+#fi
 
 #pgrep motrix
 
