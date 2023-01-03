@@ -59,7 +59,7 @@ end
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $HOME/.wakatime $HOME/.local/share/coursier/bin
+set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
@@ -67,9 +67,10 @@ eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 #░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░░▀░
 
 ## TODO.txt configuration
-set -x TODO_DIR /home/carlos/Dropbox/todo
+set -x TODO_DIR /home/carlos/google-drive/todo
 set -x TODO_FILE $TODO_DIR/todo.txt
 set -x DONE_FILE $TODO_DIR/done.txt
+set -x TODO_ACTIONS_DIR /home/carlos/.todo.actions.d
 
 #set fish_greeting                                 # Supresses fish's intro message
 set -x TERM "xterm-256color"                         # Sets the terminal type
@@ -930,6 +931,12 @@ function getkeycode
          xev | awk -F'[ )]+' '/^KeyPress/ { a[NR+2] } NR in a { printf "%-3s %s\n", $5, $8 }'
 end
 
+# Changes the modification date to the current date
+function now --argument file
+         set DATE (date '+%Y%m%d%H%M')
+         touch -t $DATE $file
+end
+
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
 #░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 #░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
@@ -1129,6 +1136,9 @@ alias ytmusic="ytui_music run"
 alias pg='pgcli'
 alias pgcmic='pgcli -h ARES -p 5432 -U postgres -d cmic'
 alias pgcadbolsa='pgcli -h ARES -p 5433 -U postgres -d cadbolsa'
+
+# Current Screen Resolution
+alias res="xdpyinfo | awk '/dimensions/{print $2}'"
 
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
