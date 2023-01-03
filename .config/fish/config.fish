@@ -937,6 +937,12 @@ function now --argument file
          touch -t $DATE $file
 end
 
+# Changes the modification date to yesterday
+function yesterday --argument file
+         set DATE (date '+%Y%m%d%H%M' -d 'yesterday')
+         touch -t $DATE $file
+end
+
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
 #░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 #░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
