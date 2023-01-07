@@ -63,10 +63,11 @@ ${color lightgrey}ALT + B           Brave
 ${color lightgrey}ALT + C           Emacs
 ${color lightgrey}ALT + F           Krusader
 
-${color lightgrey}SUPER + F6        File browser
-${color lightgrey}SUPER + F7        Terminal
+${color lightgrey}SUPER + F3        File browser
+${color lightgrey}SUPER + F6        Tetris
+${color lightgrey}SUPER + F7        Twitter
 ${color lightgrey}SUPER + F8        CMUS
-${color lightgrey}SUPER + F9        BTM
+${color lightgrey}SUPER + F9        btop
 ${color lightgrey}SUPER + F10       Quicknotes
 
 ${color lightgrey}SUPER + t         Tiled

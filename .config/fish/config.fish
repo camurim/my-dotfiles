@@ -640,14 +640,14 @@ end
 
 # Today Note
 function todaynote
-         set VAULTTODAY ~/Dropbox/obsidian_vaults/principal/00\ -\ Daily\ Notes/
+         set VAULTTODAY ~/google-drive/obsidian_vaults/principal/00\ -\ Daily\ Notes/
          set DATE (date '+%Y-%m-%d')
          glow $VAULTTODAY$DATE.md
 end
 
 # Quicknote
 function quicknote
-         vim /home/carlos/Dropbox/obsidian_vaults/principal/03\ -\ Others/Quicknote.md
+         vim /home/carlos/google-drive/obsidian_vaults/principal/03\ -\ Others/Quicknote.md
 end
 
 # Cheat Sheet function
