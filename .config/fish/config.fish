@@ -425,11 +425,12 @@ function grived --argument stat -d "Controls grive service"
                  systemctl --user stop grive@(systemd-escape /home/carlos/google-drive).service
             case restart
                  systemctl --user restart grive@(systemd-escape /home/carlos/google-drive).service
+            case log
+                 tail -n 5000 /var/log/syslog | grep 'grive'
             case '*'
                  echo "Incorrect parameter!"
          end
 end
-
 
 ###
 ### yt-dlp functions
