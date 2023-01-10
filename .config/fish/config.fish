@@ -414,6 +414,23 @@ function ftpd --argument stat -d "Controls vsftpd service"
          end
 end
 
+# Controls grive service
+function grived --argument stat -d "Controls grive service"
+         switch $stat
+            case status
+                 systemctl --user status grive@(systemd-escape /home/carlos/google-drive).service
+            case start
+                 systemctl --user start grive@(systemd-escape /home/carlos/google-drive).service
+            case stop
+                 systemctl --user stop grive@(systemd-escape /home/carlos/google-drive).service
+            case restart
+                 systemctl --user restart grive@(systemd-escape /home/carlos/google-drive).service
+            case '*'
+                 echo "Incorrect parameter!"
+         end
+end
+
+
 ###
 ### yt-dlp functions
 ###
