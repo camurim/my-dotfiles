@@ -418,13 +418,16 @@ end
 function grived --argument stat -d "Controls grive service"
          switch $stat
             case status
-                 systemctl --user status grive@(systemd-escape /home/carlos/google-drive).service
+                systemctl --user status grive@(systemd-escape /home/carlos/google-drive).service
             case start
-                 systemctl --user start grive@(systemd-escape /home/carlos/google-drive).service
+                killall -9 grive
+                systemctl --user start grive@(systemd-escape /home/carlos/google-drive).service
             case stop
-                 systemctl --user stop grive@(systemd-escape /home/carlos/google-drive).service
+                killall -9 grive
+                systemctl --user stop grive@(systemd-escape /home/carlos/google-drive).service
             case restart
-                 systemctl --user restart grive@(systemd-escape /home/carlos/google-drive).service
+                killall -9 grive
+                systemctl --user restart grive@(systemd-escape /home/carlos/google-drive).service
             case log
                  tail -n 5000 /var/log/syslog | grep 'grive'
             case '*'
