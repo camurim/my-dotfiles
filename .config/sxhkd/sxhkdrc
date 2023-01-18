@@ -122,6 +122,10 @@ super + F3
 super + F6
 	tdrop -a -w 44% -h 68% -y 20% -x 30% higan "$HOME/Games/emulators/nes/roms/tetrisgym.nes"
 
+# Chess
+super + alt + F6
+	tdrop -a -w 40% -h 50% -y 20% -x 30% gnome-chess
+
 # Twitter
 super + F7
 	tdrop -n 1 -ma -w 70% -h 70% -y 20% -x 17% gnome-terminal --hide-menubar -e rainbowstream
