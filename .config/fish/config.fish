@@ -982,6 +982,9 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
+# Clear screen
+alias c='clear'
+
 # Directories shortcuts
 alias junk='z ~/_junkdrawer && ls'
 alias docs='z ~/Documentos/docs && ls'
@@ -1166,6 +1169,9 @@ alias pgcadbolsa='pgcli -h ARES -p 5433 -U postgres -d cadbolsa'
 
 # Current Screen Resolution
 alias res="xdpyinfo | awk '/dimensions/{print $2}'"
+
+# wtfutil
+alias wtf="wtfutil"
 
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░

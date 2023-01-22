@@ -11,6 +11,8 @@
  ;; If there is more than one, they won't work right.
  )
 
+(global-set-key [f4] 'ielm)
+
 (defun run-buffer ()
   (interactive)
   (shell-command (concat "python " buffer-file-name)))
