@@ -610,6 +610,54 @@ function stopwatch -d "Stopwatch"
     end
 end
 
+# Pomodoro Timer
+function pomodoro --argument wb --argument task
+    if test (count $argv) -lt 2
+        printf "%b" "$EM_R\e0USAGE: pomodoro <trabalho or pausa> <TASK NUMBER> $COLOR_RESET"
+        return 1
+    end
+
+    set todotxt_task (sed -n {$task}p $TODO_FILE)
+
+    set WORK 1
+    set BREAK 2
+    set pomo_options 45 10
+
+	if [ $wb = 'trabalho' ]
+		set session $WORK
+	else if [ $wb = 'pausa' ]
+		set session $BREAK
+    else
+        printf "%b" "$EM_R\e0INVALID OPTION$COLOR_RESET"
+        return 1
+	end
+
+	echo "$wb: $todotxt_task"| lolcat
+	timer {$pomo_options[$session]}m -n $wb
+    notify-send --app-name="Pomodoro🍅" "Sessão $wb concluída 🍅"
+	spd-say "Sessão de $wb concluída!"
+
+    if test -f $POMODORO_FILE
+        set task_line (sed -n "/^"{$task}"/p" $POMODORO_FILE)
+
+        if test -n "$task_line"
+            if [ $wb = 'trabalho' ]
+               set task_time (echo $task_line | awk -F '|' '{print $3}')
+               sed -in "/^"{$task}"/d" $POMODORO_FILE
+
+               set worktime (math "$task_time + $pomo_options[$WORK]")
+               echo "$task|$todotxt_task|$worktime" >> $POMODORO_FILE
+            end
+        else
+            if [ $wb = 'trabalho' ]
+               echo "$task|$todotxt_task|$pomo_options[$WORK]" >> $POMODORO_FILE
+            end
+        end
+    else
+        echo "$task|$todotxt_task|$pomo_options[$WORK]" >> $POMODORO_FILE
+    end
+end
+
 # Convert URL to Markdown file
 function url2markdown --argument url --argument out -d "URL to Markdown"
     if test -z "$url"
