@@ -634,13 +634,13 @@ function pomodoro --argument wb --argument task
 	end
 
 	echo "$wb: $todotxt_task"| lolcat
-	timer {$pomo_options[$session]} -n $wb
+	timer {$pomo_options[$session]}m -n $wb
     notify-send --app-name="Pomodoro🍅" "Sessão $wb concluída 🍅"
 	spd-say "Sessão de $wb concluída!"
 
 	if [ $wb = 'trabalho' ]
         echo "pausa: $todotxt_task"| lolcat
-        timer {$pomo_options[$BREAK]} -n $wb
+        timer {$pomo_options[$BREAK]}m -n $wb
         notify-send --app-name="Pomodoro🍅" "Sessão pausa concluída 🍅"
         spd-say "Sessão de pausa concluída!"
 
