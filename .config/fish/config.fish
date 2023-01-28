@@ -71,6 +71,7 @@ set -x TODO_DIR /home/carlos/google-drive/todo
 set -x TODO_FILE $TODO_DIR/todo.txt
 set -x DONE_FILE $TODO_DIR/done.txt
 set -x TODO_ACTIONS_DIR /home/carlos/.todo.actions.d
+set -x POMODORO_FILE $TODO_DIR/pomo.txt
 
 #set fish_greeting                                 # Supresses fish's intro message
 set -x TERM "xterm-256color"                         # Sets the terminal type
@@ -633,28 +634,31 @@ function pomodoro --argument wb --argument task
 	end
 
 	echo "$wb: $todotxt_task"| lolcat
-	timer {$pomo_options[$session]}m -n $wb
+	timer {$pomo_options[$session]} -n $wb
     notify-send --app-name="Pomodoro🍅" "Sessão $wb concluída 🍅"
 	spd-say "Sessão de $wb concluída!"
 
-    if test -f $POMODORO_FILE
-        set task_line (sed -n "/^"{$task}"/p" $POMODORO_FILE)
+	if [ $wb = 'trabalho' ]
+        echo "pausa: $todotxt_task"| lolcat
+        timer {$pomo_options[$BREAK]} -n $wb
+        notify-send --app-name="Pomodoro🍅" "Sessão pausa concluída 🍅"
+        spd-say "Sessão de pausa concluída!"
 
-        if test -n "$task_line"
-            if [ $wb = 'trabalho' ]
-               set task_time (echo $task_line | awk -F '|' '{print $3}')
-               sed -in "/^"{$task}"/d" $POMODORO_FILE
+        if test -f $POMODORO_FILE
+            set task_line (sed -n "/^"{$task}"/p" $POMODORO_FILE)
 
-               set worktime (math "$task_time + $pomo_options[$WORK]")
-               echo "$task|$todotxt_task|$worktime" >> $POMODORO_FILE
+            if test -n "$task_line"
+                set task_time (echo $task_line | awk -F '|' '{print $3}')
+                sed -in "/^"{$task}"/d" $POMODORO_FILE
+
+                set worktime (math "$task_time + $pomo_options[$WORK]")
+                echo "$task|$todotxt_task|$worktime" >> $POMODORO_FILE
+            else
+                echo "$task|$todotxt_task|$pomo_options[$WORK]" >> $POMODORO_FILE
             end
         else
-            if [ $wb = 'trabalho' ]
-               echo "$task|$todotxt_task|$pomo_options[$WORK]" >> $POMODORO_FILE
-            end
+            echo "$task|$todotxt_task|$pomo_options[$WORK]" >> $POMODORO_FILE
         end
-    else
-        echo "$task|$todotxt_task|$pomo_options[$WORK]" >> $POMODORO_FILE
     end
 end
 
