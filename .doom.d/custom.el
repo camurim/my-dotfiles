@@ -11,16 +11,15 @@
  ;; If there is more than one, they won't work right.
  )
 
-(global-set-key [f4] 'ielm)
+(require 'neotree)
+(global-set-key [f4] 'neotree-toggle)
+(global-set-key [f5] 'neotree-change-root)
+
+(global-set-key [f6] 'ielm )
+(global-set-key [f7] '+eshell/toggle )
+(global-set-key [f8] 'doom/open-scratch-buffer)
 
 (defun run-buffer ()
   (interactive)
   (shell-command (concat "python " buffer-file-name)))
-(global-set-key (kbd "<f5>") 'run-buffer)
-
-(global-set-key [f6] 'doom/open-scratch-buffer)
-
-(require 'neotree)
-(global-set-key [f7] 'neotree-toggle)
-(global-set-key [f8] 'neotree-change-root)
-(global-set-key [f9] '+eshell/toggle )
+(global-set-key (kbd "<f9>") 'run-buffer)
