@@ -59,7 +59,7 @@ end
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin
+set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/go/bin
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
@@ -1014,6 +1014,23 @@ end
 function yesterday --argument file
          set DATE (date '+%Y%m%d%H%M' -d 'yesterday')
          touch -t $DATE $file
+end
+
+# Dicio and Sinonimous Functions
+function dicio --argument word
+	if test (count $argv) -lt 1 -o "$argv[1]" = "--help"
+        printf "%b" "$EM_R\e0USAGE: dicio <WORD>$COLOR_RESET"
+        return 1
+    end
+	curl -sS https://www.dicio.com.br/$word/ | pup "p.significado.textonovo text{}"
+end
+
+function sinonimo --argument word
+	if test (count $argv) -lt 1 -o "$argv[1]" = "--help"
+        printf "%b" "$EM_R\e0USAGE: sinonimo <WORD>$COLOR_RESET"
+        return 1
+    end
+	curl -sS https://www.sinonimos.com.br/$word/ | pup "div.content-detail text{}"
 end
 
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
