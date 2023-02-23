@@ -458,6 +458,15 @@ function dlPlaylist --argument url --argument output -d "Download Playlist"
          yt-dlp -f mp4 --yes-playlist -i "$url" -o {$output}"_%(playlist_index)03d.%(ext)s"
 end
 
+# Download audiobook
+function dlAudiobook --argument url --argument output
+         if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
+            printf "%b" "$EM_R\e0USAGE: dlAudiobook <URL> <OUTPUT_FILE>$COLOR_RESET"
+            return 1
+         end
+         yt-dlp --extract-audio --audio-format mp3 --yes-playlist -i "$url" -o {$output}"-%(title)s_%(playlist_index)03d.%(ext)s"
+end
+
 # Download and cut video
 function dlAndCutVideo --argument url --argument start --argument end --argument output -d "Download and cut video"
          if test (count $argv) -lt 4 -o "$argv[1]" = "--help"
