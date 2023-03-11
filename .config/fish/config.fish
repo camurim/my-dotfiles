@@ -1243,7 +1243,9 @@ alias ytmusic="ytui_music run"
 # Alias to pgcli
 alias pg='pgcli'
 alias pgcmic='pgcli -h ARES -p 5432 -U postgres -d cmic'
+alias pgcmicnovo='pgcli -h 172.27.39.168 -p 5432 -U postgres -d cmic'
 alias pgcadbolsa='pgcli -h ARES -p 5433 -U postgres -d cadbolsa'
+alias pgcadbolsanovo='pgcli -h 172.27.39.168 -p 5433 -U postgres -d cadbolsa'
 
 # Current Screen Resolution
 alias res="xdpyinfo | awk '/dimensions/{print $2}'"
