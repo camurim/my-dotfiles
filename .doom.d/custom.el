@@ -24,6 +24,8 @@
   (shell-command (concat "python " buffer-file-name)))
 (global-set-key (kbd "<f9>") 'run-buffer)
 
+(setq-default indent-tabs-mode t)
+
 ;; --------------------------------------------------------
 
 (defun malb/indent-fold-or-complete (&optional arg)
