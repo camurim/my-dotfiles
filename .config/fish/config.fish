@@ -564,6 +564,16 @@ function resizeVideo240p --argument input --argument output
          ffmpeg -f mp4 -i "$input" -vf scale=426:240 "$output"
 end
 
+# Split video file
+function splitVideoMinute --argument chunk_size --argument in --argument out
+		if test (count $argv) -lt 3
+		 	printf "%b" "$EM_R\e0USAGE: splitVideo <CHUNK_SIZE> <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
+			return 1
+		end
+
+		ffmpeg -i $in -c copy -map 0 -segment_time 00:{$chunk_size}:00 -f segment {$out}_%03d.mp4
+end
+
 # Record screen
 function recordScreen --argument path
          if test (count $argv) -lt 1
@@ -594,6 +604,15 @@ function recordScreen --argument path
             -f pulse -thread_queue_size 512k -i alsa_output.pci-0000_00_1f.3.analog-stereo.monitor \
             -filter_complex "[1]volume=+30dB;[1:a:0][2:a:0]amix=2[aout]" -map 0:V:0 -map "[aout]" $path
          end
+end
+
+###
+### Sox Functions
+###
+
+# Remove silence from audio files
+function removeSilence --argument in --argument out
+		sox $in $out silence -l 1 0.1 1% -1 2.0 1%
 end
 
 ###
