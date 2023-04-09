@@ -464,7 +464,8 @@ function dlAudiobook --argument url --argument output
             printf "%b" "$EM_R\e0USAGE: dlAudiobook <URL> <OUTPUT_FILE>$COLOR_RESET"
             return 1
          end
-         yt-dlp --extract-audio --audio-format mp3 --yes-playlist -i "$url" -o {$output}"-%(title)s_%(playlist_index)03d.%(ext)s"
+         yt-dlp --extract-audio --audio-format mp3 --yes-playlist -i "$url" -o - | sox - {$output}"-%(title)s_%(playlist_index)03d.%(ext)s" silence -l 1 0.1 1% -1 2.0 1%
+
 end
 
 # Download and cut video
@@ -553,21 +554,21 @@ function resizeVideo240p --argument input --argument output
             end
          else if test (count $argv) -lt 1
             printf "%b" "$EM_R\e0USAGE: resizeVideo240p <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
-            return 1
-         else if test (count $argv) -gt 1
-            if test ! -e $input
-                printf "%b" "$EM_R\e0FILE $input DOES NOT EXISTS$COLOR_REST"
-                return 1
-            end
-         end
+			return 1
+		 else if test (count $argv) -gt 1
+			if test ! -e $input
+				printf "%b" "$EM_R\e0FILE $input DOES NOT EXISTS$COLOR_REST"
+				return 1
+			end
+		 end
 
-         ffmpeg -f mp4 -i "$input" -vf scale=426:240 "$output"
+		 ffmpeg -f mp4 -i "$input" -vf scale=426:240 "$output"
 end
 
 # Split video file
 function splitVideoMinute --argument chunk_size --argument in --argument out
 		if test (count $argv) -lt 3
-		 	printf "%b" "$EM_R\e0USAGE: splitVideo <CHUNK_SIZE> <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
+			printf "%b" "$EM_R\e0USAGE: splitVideo <CHUNK_SIZE> <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
 			return 1
 		end
 
@@ -1271,6 +1272,9 @@ alias res="xdpyinfo | awk '/dimensions/{print $2}'"
 
 # wtfutil
 alias wtf="wtfutil"
+
+# MP3 Length
+alias mp3len="mp3info -p \"%m:%02s\n\" "
 
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
