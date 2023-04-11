@@ -1075,6 +1075,11 @@ end
 
 # Pastebin
 function pastebin --argument code
+	if test (count $argv) -lt 1 -o "$argv[1]" = "--help"
+        printf "%b" "$EM_R\e0USAGE: pastebin <CODE>$COLOR_RESET"
+        return 1
+    end
+
 	set pastebin_url (curl -sSL -X POST -d "api_dev_key=$PASTEBIN_API_KEY" -d "api_paste_code=$code" -d 'api_option=paste' "https://pastebin.com/api/api_post.php")
 	echo $pastebin_url | xclip -selection clipboard
 	echo $pastebin_url
