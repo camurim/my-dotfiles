@@ -93,6 +93,12 @@ set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
 ## Java Variables
 set -x JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
 
+#░█▀█░█▀█░▀█▀░░░█░█░█▀▀░█░█░█▀▀
+#░█▀█░█▀▀░░█░░░░█▀▄░█▀▀░░█░░▀▀█
+#░▀░▀░▀░░░▀▀▀░░░▀░▀░▀▀▀░░▀░░▀▀▀
+
+source $HOME/.config/fish/api_keys.fish
+
 #░█▀▀░█▄█░█▀█░█▀▀░█▀▀░░░█▀█░█▀▄░░░█░█░▀█▀░░░█▄█░█▀█░█▀▄░█▀▀
 #░█▀▀░█░█░█▀█░█░░░▀▀█░░░█░█░█▀▄░░░▀▄▀░░█░░░░█░█░█░█░█░█░█▀▀
 #░▀▀▀░▀░▀░▀░▀░▀▀▀░▀▀▀░░░▀▀▀░▀░▀░░░░▀░░▀▀▀░░░▀░▀░▀▀▀░▀▀░░▀▀▀
@@ -744,7 +750,12 @@ end
 function todaynote
          set VAULTTODAY ~/google-drive/obsidian_vaults/principal/00\ -\ Daily\ Notes/
          set DATE (date '+%Y-%m-%d')
-         glow $VAULTTODAY$DATE.md
+		 if test -f $VAULTTODAY$DATE.md
+         	glow $VAULTTODAY$DATE.md
+		 else
+            printf "%b" "$EM_R\e0The file  $VAULTTODAY$DATE.md does not exist.$COLOR_RESET"
+			return 1
+		 end
 end
 
 # Quicknote
@@ -1062,6 +1073,14 @@ function sinonimo --argument word
 	curl -sS https://www.sinonimos.com.br/$word/ | pup "div.content-detail text{}"
 end
 
+# Pastebin
+function pastebin --argument code
+	set pastebin_url (curl -sSL -X POST -d "api_dev_key=$PASTEBIN_API_KEY" -d "api_paste_code=$code" -d 'api_option=paste' "https://pastebin.com/api/api_post.php")
+	echo $pastebin_url | xclip -selection clipboard
+	echo $pastebin_url
+	notify-send "Pastebin" "URL $pastebin_url copiada para o clipboard!"
+end
+
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
 #░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 #░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
@@ -1263,9 +1282,7 @@ alias ytmusic="ytui_music run"
 # Alias to pgcli
 alias pg='pgcli'
 alias pgcmic='pgcli -h ARES -p 5432 -U postgres -d cmic'
-alias pgcmicnovo='pgcli -h 172.27.39.168 -p 5432 -U postgres -d cmic'
 alias pgcadbolsa='pgcli -h ARES -p 5433 -U postgres -d cadbolsa'
-alias pgcadbolsanovo='pgcli -h 172.27.39.168 -p 5433 -U postgres -d cadbolsa'
 
 # Current Screen Resolution
 alias res="xdpyinfo | awk '/dimensions/{print $2}'"
@@ -1282,6 +1299,18 @@ alias mp3len="mp3info -p \"%m:%02s\n\" "
 
 # Oh My Fish! Agnoster Theme
 set -g fish_git_prompt_untracked_files yes
+
+#function fish_prompt
+#	set -l project
+
+#	if echo (pwd) | grep -qEi "^/Users/$USER/Sites/"
+#	   set  project (echo (pwd) | sed "s#^/Users/$USER/Sites/\\([^/]*\\).*#\\1#")
+#	else
+#		set  project "Terminal"
+#	end
+
+#	wakatime --write --plugin "fish-wakatime/0.0.1" --entity-type app --project "$project" --entity (echo $history[1] | cut -d ' ' -f1) 2>&1 > /dev/null&
+#end
 
 #starship init fish | source
 # Powerline
