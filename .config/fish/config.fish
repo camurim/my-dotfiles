@@ -1070,7 +1070,7 @@ function sinonimo --argument word
         printf "%b" "$EM_R\e0USAGE: sinonimo <WORD>$COLOR_RESET"
         return 1
     end
-	curl -sS https://www.sinonimos.com.br/$word/ | pup "div.content-detail text{}" | tr --delete ',\n' | sed 's/\([A-Z]\)/\n\1/g; s/\.\([[:digit:]]\)/\n\1/g; s/\:\([[:digit:]]\)/\n\1/g; s/^ //g' | head -n -4
+	curl -sS https://www.sinonimos.com.br/$word/ | pup "div.content-detail text{}" | tr --delete ',\n' | sed 's/\([A-Z]\)/\n\1/g; s/\.\([[:digit:]]\)/\n\1/g; s/\:\([[:digit:]]\)/\:\n\1/g; s/^ //g' | head -n -4
 end
 
 # Pastebin
