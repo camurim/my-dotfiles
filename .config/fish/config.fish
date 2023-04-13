@@ -618,8 +618,31 @@ end
 ###
 
 # Remove silence from audio files
-function removeSilence --argument in --argument out
-		sox $in $out silence -l 1 0.1 1% -1 2.0 1%
+function removeSilence --argument input --argument output
+         if test (count $argv) -eq 1
+            if test "$argv[1]" = "--help"
+               printf "%b" "$EM_R\e0USAGE: removeSilence <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
+               return 1
+            else
+                if test ! -e $input
+                   printf "%b" "$EM_R\e0FILE $input DOES NOT EXISTS$COLOR_REST"
+                   return 1
+                end
+
+                set output (basename $input)
+                set output (echo $output | sed 's/\.[^.]*$//')
+                set output {$output}_wo_silence.mp3
+            end
+         else if test (count $argv) -lt 1
+            printf "%b" "$EM_R\e0USAGE: removeSilence <INPUT_FILE> <OUTPUT_FILE>$COLOR_RESET"
+			return 1
+		 else if test (count $argv) -gt 1
+			if test ! -e $input
+				printf "%b" "$EM_R\e0FILE $input DOES NOT EXISTS$COLOR_REST"
+				return 1
+			end
+		 end
+		sox $input $output silence -l 1 0.1 1% -1 2.0 1%
 end
 
 ###
@@ -748,7 +771,7 @@ end
 
 # Today Note
 function todaynote
-         set VAULTTODAY ~/google-drive/obsidian_vaults/principal/00\ -\ Daily\ Notes/
+         set VAULTTODAY $HOME/google-drive/obsidian_vaults/principal/00\ -\ Daily\ Notes/
          set DATE (date '+%Y-%m-%d')
 		 if test -f $VAULTTODAY$DATE.md
          	glow $VAULTTODAY$DATE.md
@@ -760,7 +783,12 @@ end
 
 # Quicknote
 function quicknote
-         vim /home/carlos/google-drive/obsidian_vaults/principal/03\ -\ Others/Quicknote.md
+		 if test -f "$HOME/google-drive/obsidian_vaults/principal/03\ -\ Others/Quicknote.md"
+         	vim $HOME/google-drive/obsidian_vaults/principal/03\ -\ Others/Quicknote.md
+		 else
+		 	printf "%b" "$EM_R\e0The file $HOME/google-drive/obsidian_vaults/principal/03\ -\ Others/Quicknote.md does not exist.$COLOR_RESET"
+			return 1
+		 end
 end
 
 # Cheat Sheet function
