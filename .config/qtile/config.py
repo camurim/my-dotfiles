@@ -176,6 +176,9 @@ keys = [
         lazy.shutdown(),
         desc="Shutdown Qtile"
     ),
+    ##
+    ## Help
+    ##
     Key(
         [mod],
         "r",
@@ -240,6 +243,18 @@ groups = [
     Group("SSH2", layout='max'), # SSH Session 2
     Group("MISC", layout='max') # Miscelaneos
 ]
+
+##
+## Move window to group
+##
+
+for i in groups:
+    keys.extend([
+        Key([mod], i.name, lazy.group[i.name].toscreen(),
+            desc="Switch to group {}".format(i.name)),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+            desc="Switch to & move focused window to group {}".format(i.name)),
+    ])
 
 ##
 ## ScratchPads
