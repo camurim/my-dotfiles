@@ -21,8 +21,9 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
-;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 13 )
+      doom-variable-pitch-font (font-spec :family "FiraCode Nerd Font" :size 14)
+      doom-big-font (font-spec :family "FicaCode Nerd Font Mono" :size 18))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -80,7 +81,7 @@
 (add-hook 'fish-mode-hook (lambda ()
   (add-hook 'before-save-hook 'fish_indent-before-save)))
 
-(use-package wakatime-mode
-  :ensure t)
+;; (use-package wakatime-mode
+;;  :ensure t)
 
-(global-wakatime-mode)
+;; (global-wakatime-mode)
