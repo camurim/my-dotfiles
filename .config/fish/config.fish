@@ -59,7 +59,7 @@ end
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.emacs.d/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/go/bin
+set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/go/bin $fish_user_paths
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
@@ -582,7 +582,7 @@ function splitVideoMinute --argument chunk_size --argument in --argument out
 end
 
 # Record screen
-function recordScreen --argument path
+function recordScreen --argument outpath
          if test (count $argv) -lt 1
             printf "%b" "$EM_R\e0USAGE: recordScreen <PATH> $COLOR_RESET"
             return 1
@@ -609,7 +609,7 @@ function recordScreen --argument path
             ffmpeg -video_size $videosize -framerate 25 -f x11grab -i :0.0 \
             -f pulse -thread_queue_size 512k -i alsa_input.pci-0000_00_1f.3.analog-stereo \
             -f pulse -thread_queue_size 512k -i alsa_output.pci-0000_00_1f.3.analog-stereo.monitor \
-            -filter_complex "[1]volume=+30dB;[1:a:0][2:a:0]amix=2[aout]" -map 0:V:0 -map "[aout]" $path
+            -filter_complex "[1]volume=+30dB;[1:a:0][2:a:0]amix=2[aout]" -map 0:V:0 -map "[aout]" $outpath
          end
 end
 
@@ -654,7 +654,7 @@ function countdown --argument cnt -d "Countdown"
     set start (math (date '+%s') + $cnt)
     while test $start -ge (date +%s)
         set time (math $start - (date +%s))
-        printf '%s\r' "$(date -u -d "@$time" +%H:%M:%S)"
+        printf '%s\r' "(date -u -d "@$time" +%H:%M:%S)"
         sleep 0.1
     end
 end
@@ -753,17 +753,17 @@ end
 ### Nala functions
 ###
 
-function apt
-         command nala $argv
-end
+#function apt
+#         command nala $argv
+#end
 
-function sudo
-         if test $argv[1] = "apt"
-            command sudo nala $argv[2..(count $argv)]
-         else
-            command sudo $argv
-         end
-end
+#function sudo
+#         if test $argv[1] = "apt"
+#            command sudo nala $argv[2..(count $argv)]
+#         else
+#            command sudo $argv
+#         end
+#end
 
 ###
 ### Obsidian Vaults functions
@@ -1340,6 +1340,10 @@ alias mp3len="mp3info -p \"%m:%02s\n\" "
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
 #░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░░░░▀░
 
+# Oh My Fish! Pure Theme
+set -g pure_show_jobs true
+set -g pure_show_system_time true
+
 # Oh My Fish! Agnoster Theme
 set -g fish_git_prompt_untracked_files yes
 
@@ -1366,7 +1370,7 @@ set -g fish_git_prompt_untracked_files yes
 #░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░░░▀░░░▀░▀░▀▀▀░▀▀▀░▀▀▀░░▀░░░░▀▀░░░▀░░░░▀░▀░▀░░
 
 #setxkbmap -layout br,apl,br -variant abnt2,dyalog -option grp:switch
-wal -i ~/.config/bspwm/wallpaper.png -q
+wal -i ~/.config/qtile/wallpaper6.jpg -q
 
 #░▀█▀░█▀█░█▀▀░▀█▀░█▀█░█░░░█░░░░░▀▀█░█▀█░█░█░▀█▀░█▀▄░█▀▀
 #░░█░░█░█░▀▀█░░█░░█▀█░█░░░█░░░░░▄▀░░█░█░▄▀▄░░█░░█░█░█▀▀
@@ -1407,3 +1411,7 @@ fzf_key_bindings
 source ~/.config/fish/conf.d/nix-env.fish
 
 cd $HOME
+
+# Generated for envman. Do not edit.
+test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.fish"
+

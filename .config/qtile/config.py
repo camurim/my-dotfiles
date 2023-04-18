@@ -197,8 +197,8 @@ keys = [
     Key(
         ["mod1"],
         "f",
-        lazy.spawn('dolphin'),
-        desc="Dolphin File Manager"
+        lazy.spawn('nautilus'),
+        desc="Nautilus File Manager"
     ),
     Key(
         ["mod1"],
@@ -240,8 +240,10 @@ groups = [
     Group("OBS", layout='monadtall',matches=[
         Match(wm_class=["obsidian"])
     ]), # Obsidian
-    Group("DEV", layout='monadtall',matches=[
-        Match(wm_class=["emacs"])
+    Group("DEV", layout='treetab',matches=[
+        Match(wm_class=["emacs"]),
+        Match(wm_class=["Eclipse"]),
+        Match(wm_class=["DBeaver"])
     ]), # Development
     Group("FSYS", layout='monadtall'), # File SystemExit
     Group("FTP", layout='monadtall'), # FTP
@@ -275,12 +277,12 @@ groups.append(
             ),
             DropDown(
                 'KeepPass',
-                'keepass2',
+                'keepassxc',
                 **dropdown_conf
             ),
             DropDown(
-                'Dolphin',
-                'dolphin',
+                'Nautilus',
+                'nautilus',
                 **dropdown_conf
             ),
             DropDown(
