@@ -319,10 +319,10 @@ groups.append(
 
 keys.extend(
     [
-        Key(
-            [], 'VoidSymbol',  # unmapped Caps_Lock
-            lazy.group['sp'].dropdown_toggle('Term')
-        ),
+        #Key(
+        #    [], 'VoidSymbol',  # unmapped Caps_Lock
+        #    lazy.group['sp'].dropdown_toggle('Term')
+        #),
         Key(
             [mod], 'z',
             lazy.group['sp'].dropdown_toggle('Emacs')
@@ -366,24 +366,27 @@ keys.extend(
     ]
 )
 
+##
+## Move windows to screen
+##
+#keys.extend([
+#    Key([mod,"shift"],  "comma",  lazy.function(window_to_next_screen)),
+#    Key([mod,"shift"],  "period", lazy.function(window_to_previous_screen)),
+#    Key([mod,"control"],"comma",  lazy.function(window_to_next_screen, switch_screen=True)),
+#    Key([mod,"control"],"period", lazy.function(window_to_previous_screen, switch_screen=True)),
+#])
+
+
 # Allow MODKEY+[0 through 9] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
 # MOD4 + index Number : Switch to Group[index]
 # MOD4 + shift + index Number : Send active window to another Group
 from libqtile.dgroups import simple_key_binder
 dgroups_key_binder = simple_key_binder("mod4")
 
-##
-## Move window to group
-##
 
-#for i in groups:
-#    keys.extend([
-#        Key([mod], i.name, lazy.group[i.name].toscreen(),
-#            desc="Switch to group {}".format(i.name)),
-#        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-#            desc="Switch to & move focused window to group {}".format(i.name)),
-#    ])
-
+##
+## Layouts
+##
 
 layout_theme = {"border_width": 2,
                 "margin": 8,

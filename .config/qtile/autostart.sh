@@ -38,6 +38,11 @@ fi
 
 compton --experimental-backends &
 
+pgrep emacs
+if [ $? -eq 1 ]; then
+  /usr/local/bin/emacs --daemon &
+fi
+
 pgrep conky
 if [ $? -eq 0 ]; then
 	killall conky &
@@ -58,4 +63,4 @@ if [ $? -eq 1 ]; then
 	xss-lock -l -- /usr/bin/gnome-screensaver-command --lock &
 fi
 
-/usr/bin/emacs --daemon &
+ 
