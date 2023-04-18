@@ -218,13 +218,13 @@ keys = [
     Key(
         [mod],
         "insert",
-        lazy.spawn(os.path.expanduser("~").join("/.local/bin/add-snippet")),
+        lazy.spawn('%s%s' % (os.path.expanduser("~"),"/.local/bin/add-snippet")),
         desc="Bookmark this"
     ),
     Key(
         [mod],
         "home",
-        lazy.spawn(os.path.expanduser("~").join("/.local/bin/show-snipets")),
+        lazy.spawn('%s%s' % (os.path.expanduser("~"),"/.local/bin/show-snipets")),
         desc="Show Bookmark"
     ),
 
