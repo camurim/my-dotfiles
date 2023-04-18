@@ -218,13 +218,13 @@ keys = [
     Key(
         [mod],
         "insert",
-        lazy.spawn("$HOME/.local/bin/add-snippet"),
+        lazy.spawn(os.path.expanduser("~").join("/.local/bin/add-snippet")),
         desc="Bookmark this"
     ),
     Key(
         [mod],
         "home",
-        lazy.spawn("$HOME/.local/bin/show-snipets"),
+        lazy.spawn(os.path.expanduser("~").join("/.local/bin/show-snipets")),
         desc="Show Bookmark"
     ),
 
@@ -232,10 +232,17 @@ keys = [
 
 #groups = [Group(i) for i in "123456789"]
 groups = [
-    Group("WWW", layout='monadtall'), # Browsers
-    Group("TER", layout='monadtall'), # Terminals
-    Group("OBS", layout='monadtall'), # Obsidian
-    Group("DEV", layout='monadtall'), # Development
+    Group("WWW", layout='monadtall',matches=[
+        Match(wm_class=["Firefox"]),
+        Match(wm_class=["Brave-browser"])
+    ]), # Browsers
+    Group("TER", layout='monadtall'),# Terminals
+    Group("OBS", layout='monadtall',matches=[
+        Match(wm_class=["obsidian"])
+    ]), # Obsidian
+    Group("DEV", layout='monadtall',matches=[
+        Match(wm_class=["emacs"])
+    ]), # Development
     Group("FSYS", layout='monadtall'), # File SystemExit
     Group("FTP", layout='monadtall'), # FTP
     Group("TXT", layout='max'), # Text Editor
@@ -243,18 +250,6 @@ groups = [
     Group("SSH2", layout='max'), # SSH Session 2
     Group("MISC", layout='max') # Miscelaneos
 ]
-
-##
-## Move window to group
-##
-
-for i in groups:
-    keys.extend([
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
-            desc="Switch to group {}".format(i.name)),
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
-    ])
 
 ##
 ## ScratchPads
@@ -376,6 +371,19 @@ keys.extend(
 # MOD4 + shift + index Number : Send active window to another Group
 from libqtile.dgroups import simple_key_binder
 dgroups_key_binder = simple_key_binder("mod4")
+
+##
+## Move window to group
+##
+
+#for i in groups:
+#    keys.extend([
+#        Key([mod], i.name, lazy.group[i.name].toscreen(),
+#            desc="Switch to group {}".format(i.name)),
+#        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
+#            desc="Switch to & move focused window to group {}".format(i.name)),
+#    ])
+
 
 layout_theme = {"border_width": 2,
                 "margin": 8,
