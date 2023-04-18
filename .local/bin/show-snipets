@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+xdotool type $(grep -v '^#' ~/.local/share/snippets | dmenu -i -l 50 | cut -d' ' -f1)
