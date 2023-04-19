@@ -250,7 +250,10 @@ groups = [
     Group("TXT", layout='max'), # Text Editor
     Group("SSH1", layout='max'), # SSH Session 1
     Group("SSH2", layout='max'), # SSH Session 2
-    Group("MISC", layout='max') # Miscelaneos
+    Group("MISC", layout='max', matches=[
+        Match(wm_class=["Steam"]),
+        Match(wm_class=["pritunl"]),
+    ]) # Miscelaneos
 ]
 
 ##
@@ -770,6 +773,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='kdenlive'),       # kdenlive
     Match(wm_class='pinentry-gtk-2'), # GPG key password entry
     Match(wm_class='KeePass2'),       # KeePass2 password manager
+    Match(wm_class='pritunl'),       # Pritunl VPN Client
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
