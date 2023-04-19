@@ -232,22 +232,29 @@ keys = [
 
 #groups = [Group(i) for i in "123456789"]
 groups = [
-    Group("WWW", layout='monadtall',matches=[
+    Group("WWW", layout='monadtall', matches=[
         Match(wm_class=["Firefox"]),
         Match(wm_class=["Brave-browser"])
     ]), # Browsers
     Group("TER", layout='monadtall'),# Terminals
-    Group("OBS", layout='monadtall',matches=[
+    Group("OBS", layout='monadtall', matches=[
         Match(wm_class=["obsidian"])
     ]), # Obsidian
-    Group("DEV", layout='treetab',matches=[
+    Group("DEV", layout='treetab', matches=[
         Match(wm_class=["emacs"]),
         Match(wm_class=["Eclipse"]),
         Match(wm_class=["DBeaver"])
     ]), # Development
-    Group("FSYS", layout='monadtall'), # File SystemExit
-    Group("FTP", layout='monadtall'), # FTP
-    Group("TXT", layout='max'), # Text Editor
+    Group("FSYS", layout='monadtall', matches=[
+        Match(wm_class=["org.gnome.Nautilus"]),
+        Match(wm_class=["dolphin"]),
+    ]), # File SystemExit
+    Group("FTP", layout='monadtall', matches =[
+        Match(wm_class=["filezilla"])
+    ]), # FTP
+    Group("TXT", layout='max', matches=[
+        Match(wm_class=["libreoffice-calc"]),
+    ]), # Text Editor
     Group("SSH1", layout='max'), # SSH Session 1
     Group("SSH2", layout='max'), # SSH Session 2
     Group("MISC", layout='max', matches=[
@@ -291,7 +298,9 @@ groups.append(
             DropDown(
                 'Perfmon',
                 f'{myTerm} -e btop',
-                **dropdown_conf
+                opacity=1,
+                warp_pointer=False,
+                height= 0.70,
             ),
             DropDown(
                 'Cmus',
@@ -300,7 +309,7 @@ groups.append(
             ),
             DropDown(
                 'Quicknote',
-                'ghostwriter "$HOME/google-drive/obsidian_vaults/principal/03 - Others/Quicknote.md',
+                'ghostwriter "%s/google-drive/obsidian_vaults/principal/03 - Others/Quicknote.md"' % (os.path.expanduser("~")),
                 **dropdown_conf
             ),
             DropDown(
@@ -315,7 +324,7 @@ groups.append(
             ),
             DropDown(
                 'Calendar',
-                f'{myTerm} -e cal',
+                f'{myTerm} -e calcurse',
                 **dropdown_conf
             )
         ]
@@ -342,11 +351,11 @@ keys.extend(
         ),
         Key(
             [mod], 'F3',  
-            lazy.group['sp'].dropdown_toggle('Dolphin')
+            lazy.group['sp'].dropdown_toggle('Nautilus')
         ),
         Key(
             [mod], 'F4',
-            lazy.group['sp'].dropdown_toggle('Perform')
+            lazy.group['sp'].dropdown_toggle('Perfmon')
         ),
         Key(
             [mod], 'F5', 
@@ -370,17 +379,6 @@ keys.extend(
         ),
     ]
 )
-
-##
-## Move windows to screen
-##
-#keys.extend([
-#    Key([mod,"shift"],  "comma",  lazy.function(window_to_next_screen)),
-#    Key([mod,"shift"],  "period", lazy.function(window_to_previous_screen)),
-#    Key([mod,"control"],"comma",  lazy.function(window_to_next_screen, switch_screen=True)),
-#    Key([mod,"control"],"period", lazy.function(window_to_previous_screen, switch_screen=True)),
-#])
-
 
 # Allow MODKEY+[0 through 9] to bind to groups, see https://docs.qtile.org/en/stable/manual/config/groups.html
 # MOD4 + index Number : Switch to Group[index]
