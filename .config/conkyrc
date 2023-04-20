@@ -2,7 +2,7 @@
 
 conky.config = {
     double_buffer = true,
-    alignment = 'top_left',
+    alignment = 'top_right',
     background = true,
     border_width = 1,
     cpu_avg_samples = 2,
@@ -16,7 +16,7 @@ conky.config = {
     use_xft = true,
     xftalpha = 0.8,
     font = 'DejaVu Sans Mono:size=12',
-    gap_x = 980,
+    gap_x = 20,
     gap_y = 60,
     minimum_height = 5,
 	minimum_width = 5,
@@ -27,7 +27,7 @@ conky.config = {
     extra_newline = false,
     own_window = true,
     own_window_class = 'Conky',
-    own_window_type = 'desktop',
+    own_window_type = 'override',
     own_window_transparent = true,
     own_window_argb_visual = true,
     stippled_borders = 0,
@@ -55,23 +55,20 @@ ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
 $hr
 ${font Impact:size=12}${color grey}Key binding${font DejaVu Sans Mono:size=12}
 
-${color lightgrey}SUPER + ESC       Reload sxhkdrc
-${color lightgrey}SUPER + ALT + q   End bspwm
-${color lightgrey}SUPER + ALT + r   Reload bspwm
+${color lightgrey}SUPER CTRL + ESC  Reload configuration
+${color lightgrey}SUPER + CTRL + q  End Qtile
 
 ${color lightgrey}ALT + B           Brave
 ${color lightgrey}ALT + C           Emacs
-${color lightgrey}ALT + F           Krusader
+${color lightgrey}ALT + F           Nautilus
 
-${color lightgrey}SUPER + F3        File browser
-${color lightgrey}SUPER + F6        Tetris
-${color lightgrey}SUPER + F7        Twitter
-${color lightgrey}SUPER + F8        CMUS
-${color lightgrey}SUPER + F9        btop
-${color lightgrey}SUPER + F10       Quicknotes
+${color lightgrey}SUPER + F2        Keepass
+${color lightgrey}SUPER + F3        Nautilus
+${color lightgrey}SUPER + F4        BTop
+${color lightgrey}SUPER + F5        Quicknotes
+${color lightgrey}SUPER + F6        Calendar
+${color lightgrey}SUPER + F7        CMus
+${color lightgrey}SUPER + F8        Volume
+${color lightgrey}SUPER + F9        Newsboat
 
-${color lightgrey}SUPER + t         Tiled
-${color lightgrey}SUPER + SHIFT + t Pseudo-Tiled
-${color lightgrey}SUPER + s         Floating
-${color lightgrey}SUPER + f         Full-scream
 ]]
