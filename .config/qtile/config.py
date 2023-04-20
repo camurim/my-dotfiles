@@ -442,6 +442,8 @@ def init_widgets_list():
             background=colors[0],
             mouse_callbacks={"Button1": lambda: qtile.cmd_spawn(myTerm + " -e htop")},
             fmt="Mem: {}",
+            measure_mem="G",
+            measure_swap="G",
             padding=5,
             decorations=[
                 BorderDecoration(
