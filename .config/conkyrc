@@ -55,7 +55,7 @@ ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
 $hr
 ${font Impact:size=12}${color grey}Key binding${font DejaVu Sans Mono:size=12}
 
-${color lightgrey}SUPER CTRL + ESC  Reload configuration
+${color lightgrey}SUPER CTRL + r    Reload configuration
 ${color lightgrey}SUPER + CTRL + q  End Qtile
 
 ${color lightgrey}ALT + B           Brave

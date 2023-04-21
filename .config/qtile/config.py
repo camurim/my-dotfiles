@@ -179,16 +179,21 @@ groups = [
             Match(wm_class=["libreoffice-calc"]),
         ],
     ),  # Text Editor
-    Group("SSH1", layout="max"),  # SSH Session 1
-    Group("SSH2", layout="max"),  # SSH Session 2
+    Group("SSH", layout="treetab"),  # SSH Session 1
     Group(
-        "MISC",
+        "MISC1",
+        layout="max",
+        matches=[
+            Match(wm_class=["pritunl"]),
+        ],
+    ),  # Miscelaneous 1
+    Group(
+        "MISC2",
         layout="max",
         matches=[
             Match(wm_class=["Steam"]),
-            Match(wm_class=["pritunl"]),
         ],
-    ),  # Miscelaneos
+    ),  # Miscelaneos 2
 ]
 
 ##
