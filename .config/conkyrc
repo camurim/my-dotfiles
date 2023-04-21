@@ -55,20 +55,21 @@ ${color lightgrey} ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
 $hr
 ${font Impact:size=12}${color grey}Key binding${font DejaVu Sans Mono:size=12}
 
-${color lightgrey}SUPER CTRL + r    Reload configuration
-${color lightgrey}SUPER + CTRL + q  End Qtile
+${color lightgrey}SUPER CTRL + r			  Reload
+${color lightgrey}SUPER + CTRL + q			  End Qtile
+${color lightgrey}SUPER + SHIFT + [0-9]	      Send win
 
-${color lightgrey}ALT + B           Brave
-${color lightgrey}ALT + C           Emacs
-${color lightgrey}ALT + F           Nautilus
+${color lightgrey}ALT + B			  Brave
+${color lightgrey}ALT + C			  Emacs
+${color lightgrey}ALT + F			  Nautilus
 
-${color lightgrey}SUPER + F2        Keepass
-${color lightgrey}SUPER + F3        Nautilus
-${color lightgrey}SUPER + F4        BTop
-${color lightgrey}SUPER + F5        Quicknotes
-${color lightgrey}SUPER + F6        Calendar
-${color lightgrey}SUPER + F7        CMus
-${color lightgrey}SUPER + F8        Volume
-${color lightgrey}SUPER + F9        Newsboat
+${color lightgrey}SUPER + F2			  Keepass
+${color lightgrey}SUPER + F3			  Nautilus
+${color lightgrey}SUPER + F4			  BTop
+${color lightgrey}SUPER + F5			  Quicknotes
+${color lightgrey}SUPER + F6			  Calendar
+${color lightgrey}SUPER + F7			  CMus
+${color lightgrey}SUPER + F8			  Volume
+${color lightgrey}SUPER + F9			  Newsboat
 
 ]]
