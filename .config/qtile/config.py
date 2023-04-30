@@ -141,6 +141,32 @@ keys = [
         lazy.spawn("%s%s" % (os.path.expanduser("~"), "/.local/bin/show-snipets")),
         desc="Show Bookmark",
     ),
+    ##
+    ## Lock Screen
+    ##
+    Key(
+        [mod, "mod1"],
+        "l",
+        lazy.spawn("gnome-screensaver-command -l"),
+        desc="Lock Screen",
+    ),
+    ##
+    ## Take Screenshots
+    ##
+    Key(
+        [],
+        "Print",
+        lazy.spawn(
+            "scrot '/home/carlos/Imagens/captures/%Y-%m-%d_$wx$h.png' -e 'xclip -selection clipboard -t image/png $f'"
+        ),
+        desc="Full screen screenshot",
+    ),
+    Key(
+        ["mod1"],
+        "Print",
+        lazy.spawn("flameshot gui -p '/home/carlos/Imagens/captures/'"),
+        desc="Select area screenshot",
+    ),
 ]
 
 # groups = [Group(i) for i in "123456789"]
@@ -491,7 +517,7 @@ def init_widgets_list():
         #         ],
         #         ),
         widget.Battery(
-            format=" {percent:2.0%} ({hour:d}:{min:02d})",
+            format="Bat: {percent:2.0%}",
             update_interval=5,
             low_percentage=0.10,
             unknown_char="",
