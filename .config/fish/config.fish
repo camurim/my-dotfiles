@@ -59,7 +59,7 @@ end
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/go/bin $fish_user_paths
+set -U fish_user_paths $HOME/.local/bin $HOME/scripts $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/go/bin $fish_user_paths
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
@@ -1342,7 +1342,7 @@ alias mp3len="mp3info -p \"%m:%02s\n\" "
 
 # Oh My Fish! Pure Theme
 set -g pure_show_jobs true
-set -g pure_show_system_time true
+#set -g pure_show_system_time true
 
 # Oh My Fish! Agnoster Theme
 set -g fish_git_prompt_untracked_files yes
