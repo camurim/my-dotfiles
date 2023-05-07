@@ -200,9 +200,10 @@ groups = [
     Group("FTP", layout="monadtall", matches=[Match(wm_class=["filezilla"])]),  # FTP
     Group(
         "TXT",
-        layout="max",
+        layout="treetab",
         matches=[
-            Match(wm_class=["libreoffice-calc"]),
+            Match(wm_class=["libreoffice"]),
+            Match(wm_class=["okular"]),
         ],
     ),  # Text Editor
     Group("SSH", layout="treetab"),  # SSH Session 1
@@ -566,9 +567,9 @@ def init_widgets_list():
 
 def init_widgets_screen1():
     widgets_screen1 = init_widgets_list()
-    del widgets_screen1[
-        9:10
-    ]  # Slicing removes unwanted widgets (systray) on Monitors 1,3
+    # del widgets_screen1[
+    #    9:10
+    # ]  # Slicing removes unwanted widgets (systray) on Monitors 1,3
     return widgets_screen1
 
 
@@ -667,6 +668,7 @@ floating_layout = layout.Floating(
         Match(wm_class="KeePass2"),  # KeePass2 password manager
         Match(wm_class="pritunl"),  # Pritunl VPN Client
         Match(wm_class="gcolor3"),  # Gnome Color Picker
+        Match(wm_class="feh"),  # Gnome Color Picker
     ]
 )
 auto_fullscreen = True
