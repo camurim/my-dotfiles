@@ -40,7 +40,7 @@ compton --experimental-backends &
 
 pgrep emacs
 if [ $? -eq 1 ]; then
-  /usr/local/bin/emacs --daemon &
+	/usr/local/bin/emacs --daemon &
 fi
 
 pgrep conky
@@ -49,6 +49,11 @@ if [ $? -eq 0 ]; then
 	sleep 3 && conky -b -c $HOME/.config/conkyrc &
 else
 	conky -b -c $HOME/.config/conkyrc &
+fi
+
+pgrep gromit-mpx
+if [ $? -eq 1 ]; then
+	gromit-mpx --key F10 &
 fi
 
 pgrep gnome-screensaver
@@ -62,5 +67,3 @@ if [ $? -eq 1 ]; then
 	xset s 600 # 10 minutos de inatividade
 	xss-lock -l -- /usr/bin/gnome-screensaver-command --lock &
 fi
-
- 
