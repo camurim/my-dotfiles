@@ -670,6 +670,7 @@ floating_layout = layout.Floating(
         Match(wm_class="gcolor3"),  # Gnome Color Picker
         Match(wm_class="feh"),  # Gnome Color Picker
         Match(wm_class="scrcpy"),  # Screen Copy
+        Match(wm_class="gnome-chess"),
     ]
 )
 auto_fullscreen = True
