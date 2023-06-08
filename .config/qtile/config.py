@@ -122,7 +122,7 @@ keys = [
         [mod],
         "F1",
         lazy.spawn(
-            'zenity --info --text="SUPER + CTRL + R\t\tReload configurations\nSUPER + CTRL + q\t\tEnd Qtile\nSUPER + F2\t\t\tKeepass2\nSUPER + F3\t\t\tFile Manager\nSUPER + F4\t\t\tPerformance Monitor\nSUPER + F5\t\t\tQuicknotes\nSUPER + F6\t\t\tCalendar\nSUPER + F7\t\t\tCMUS\nSUPER + F8\t\t\tValume Control\nSUPER + F9\t\t\tRSS\n" --title="Shortcuts" --width=400 --height=330'
+            'zenity --info --text="SUPER + CTRL + R\t\tReload configurations\nSUPER + CTRL + q\t\tEnd Qtile\nSUPER + F2\t\t\tKeepass2\nSUPER + F3\t\t\tFile Manager\nSUPER + F4\t\t\tPerformance Monitor\nSUPER + F5\t\t\tQuicknotes\nSUPER + F6\t\t\tCalendar\nSUPER + F7\t\t\tCMUS\nSUPER + F8\t\t\tValume Control\nSUPER + F9\t\t\tRSS\nSUPER + F10\t\t\tChess\n" --title="Shortcuts" --width=400 --height=330'
         ),
         desc="Help",
     ),
