@@ -258,6 +258,14 @@ groups.append(
             DropDown("Rss", f"{myTerm} -e newsboat", **dropdown_conf),
             DropDown("Volume", f"{myTerm} pulsemixer", **dropdown_conf),
             DropDown("Calendar", f"{myTerm} -e calcurse", **dropdown_conf),
+            DropDown(
+                "GnomeChess",
+                "gnome-chess",
+                opacity=1,
+                warp_pointer=False,
+                height=0.80,
+                width=0.40,
+            ),
         ],
     )
 )
@@ -278,6 +286,7 @@ keys.extend(
         Key([mod], "F7", lazy.group["sp"].dropdown_toggle("Cmus")),
         Key([mod], "F8", lazy.group["sp"].dropdown_toggle("Volume")),
         Key([mod], "F9", lazy.group["sp"].dropdown_toggle("Rss")),
+        Key([mod], "F10", lazy.group["sp"].dropdown_toggle("GnomeChess")),
     ]
 )
 
