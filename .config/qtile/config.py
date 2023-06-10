@@ -272,6 +272,7 @@ groups.append(
 
 keys.extend(
     [
+        Key([mod], "c", lazy.group["sp"].dropdown_toggle("GnomeChess")),
         Key([mod], "z", lazy.group["sp"].dropdown_toggle("Emacs")),
         Key(["control"], "apostrophe", lazy.group["sp"].dropdown_toggle("Term")),
         Key([mod], "F2", lazy.group["sp"].dropdown_toggle("KeepPass")),
@@ -282,7 +283,6 @@ keys.extend(
         Key([mod], "F7", lazy.group["sp"].dropdown_toggle("Cmus")),
         Key([mod], "F8", lazy.group["sp"].dropdown_toggle("Volume")),
         Key([mod], "F9", lazy.group["sp"].dropdown_toggle("Rss")),
-        Key([mod], "c", lazy.group["sp"].dropdown_toggle("GnomeChess")),
     ]
 )
 
