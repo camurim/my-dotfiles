@@ -272,10 +272,6 @@ groups.append(
 
 keys.extend(
     [
-        # Key(
-        #    [], 'VoidSymbol',  # unmapped Caps_Lock
-        #    lazy.group['sp'].dropdown_toggle('Term')
-        # ),
         Key([mod], "z", lazy.group["sp"].dropdown_toggle("Emacs")),
         Key(["control"], "apostrophe", lazy.group["sp"].dropdown_toggle("Term")),
         Key([mod], "F2", lazy.group["sp"].dropdown_toggle("KeepPass")),
@@ -286,7 +282,7 @@ keys.extend(
         Key([mod], "F7", lazy.group["sp"].dropdown_toggle("Cmus")),
         Key([mod], "F8", lazy.group["sp"].dropdown_toggle("Volume")),
         Key([mod], "F9", lazy.group["sp"].dropdown_toggle("Rss")),
-        Key([mod], "F10", lazy.group["sp"].dropdown_toggle("GnomeChess")),
+        Key([mod], "c", lazy.group["sp"].dropdown_toggle("GnomeChess")),
     ]
 )
 
@@ -511,21 +507,6 @@ def init_widgets_list():
             ],
         ),
         widget.Sep(linewidth=0, padding=6, foreground=colors[0], background=colors[0]),
-        # widget.KeyboardLayout(
-        #         foreground = colors[8],
-        #         background = colors[0],
-        #         configured_keyboards = ['BR ABNT2'],
-        #         fmt = 'Keyboard: {}',
-        #         padding = 5,
-        #         decorations=[
-        #             BorderDecoration(
-        #                 colour = colors[8],
-        #                 border_width = [0, 0, 2, 0],
-        #                 padding_x = 5,
-        #                 padding_y = None,
-        #             )
-        #         ],
-        #         ),
         widget.Battery(
             format="Bat: {percent:2.0%}",
             update_interval=5,
@@ -548,14 +529,6 @@ def init_widgets_list():
             ],
         ),
         widget.Sep(linewidth=0, padding=6, foreground=colors[0], background=colors[0]),
-        #              widget.AnalogueClock(
-        #                       background = colors[0],
-        #                       face_shape = "square",
-        #                       face_background = colors[6],
-        #                       face_border_colour = colors[6],
-        #                       face_border_width = 4,
-        #                       padding = 5
-        #                       ),
         widget.Clock(
             foreground=colors[6],
             background=colors[0],
