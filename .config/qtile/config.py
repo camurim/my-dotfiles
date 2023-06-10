@@ -272,9 +272,9 @@ groups.append(
 
 keys.extend(
     [
+        Key(["control"], "apostrophe", lazy.group["sp"].dropdown_toggle("Term")),
         Key([mod], "c", lazy.group["sp"].dropdown_toggle("GnomeChess")),
         Key([mod], "z", lazy.group["sp"].dropdown_toggle("Emacs")),
-        Key(["control"], "apostrophe", lazy.group["sp"].dropdown_toggle("Term")),
         Key([mod], "F2", lazy.group["sp"].dropdown_toggle("KeepPass")),
         Key([mod], "F3", lazy.group["sp"].dropdown_toggle("Nautilus")),
         Key([mod], "F4", lazy.group["sp"].dropdown_toggle("Perfmon")),
