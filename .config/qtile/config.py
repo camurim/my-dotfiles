@@ -265,6 +265,7 @@ groups.append(
                 warp_pointer=False,
                 height=0.80,
                 width=0.40,
+                x=0.6,
             ),
         ],
     )
