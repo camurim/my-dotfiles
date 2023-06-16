@@ -71,5 +71,8 @@ ${color lightgrey}SUPER + F6			  Calendar
 ${color lightgrey}SUPER + F7			  CMus
 ${color lightgrey}SUPER + F8			  Volume
 ${color lightgrey}SUPER + F9			  Newsboat
+${color lightgrey}SUPER + C			  Chess
+${color lightgrey}SUPER + Q			  Qalculate!
+${color lightgrey}SUPER + Z			  Emacs
 
 ]]

@@ -122,7 +122,7 @@ keys = [
         [mod],
         "F1",
         lazy.spawn(
-            'zenity --info --text="SUPER + CTRL + R\t\tReload configurations\nSUPER + CTRL + q\t\tEnd Qtile\nSUPER + F2\t\t\tKeepass2\nSUPER + F3\t\t\tFile Manager\nSUPER + F4\t\t\tPerformance Monitor\nSUPER + F5\t\t\tQuicknotes\nSUPER + F6\t\t\tCalendar\nSUPER + F7\t\t\tCMUS\nSUPER + F8\t\t\tValume Control\nSUPER + F9\t\t\tRSS\nSUPER + F10\t\t\tChess\n" --title="Shortcuts" --width=400 --height=330'
+            'zenity --info --text="SUPER + CTRL + R\t\tReload configurations\nSUPER + CTRL + q\t\tEnd Qtile\nSUPER + F2\t\t\tKeepass2\nSUPER + F3\t\t\tFile Manager\nSUPER + F4\t\t\tPerformance Monitor\nSUPER + F5\t\t\tQuicknotes\nSUPER + F6\t\t\tCalendar\nSUPER + F7\t\t\tCMUS\nSUPER + F8\t\t\tValume Control\nSUPER + F9\t\t\tRSS\nSUPER + c\t\t\tChess\nSUPER + q\t\t\tCalc\n" --title="Shortcuts" --width=400 --height=330'
         ),
         desc="Help",
     ),
@@ -218,7 +218,7 @@ groups = [
         "MISC2",
         layout="max",
         matches=[
-            Match(wm_class=["Steam"]),
+            Match(wm_class=["steam"]),
         ],
     ),  # Miscelaneos 2
 ]
@@ -267,6 +267,15 @@ groups.append(
                 width=0.40,
                 x=0.6,
             ),
+            DropDown(
+                "Qalculate",
+                "qalculate-gtk",
+                opacity=1,
+                warp_pointer=False,
+                height=0.75,
+                width=0.40,
+                x=0.46,
+            ),
         ],
     )
 )
@@ -275,6 +284,7 @@ keys.extend(
     [
         Key(["control"], "apostrophe", lazy.group["sp"].dropdown_toggle("Term")),
         Key([mod], "c", lazy.group["sp"].dropdown_toggle("GnomeChess")),
+        Key([mod], "q", lazy.group["sp"].dropdown_toggle("Qalculate")),
         Key([mod], "z", lazy.group["sp"].dropdown_toggle("Emacs")),
         Key([mod], "F2", lazy.group["sp"].dropdown_toggle("KeepPass")),
         Key([mod], "F3", lazy.group["sp"].dropdown_toggle("Nautilus")),
