@@ -220,7 +220,8 @@ groups = [
         "MISC2",
         layout="max",
         matches=[
-            Match(wm_class=["Steam"]),
+            Match(wm_class=["steam"]),
+            Match(wm_class=["steamwebhelper"]),
         ],
     ),  # Miscelaneos 2
 ]
