@@ -278,6 +278,14 @@ groups.append(
                 width=0.40,
                 x=0.46,
             ),
+            DropDown(
+                "Magnus",
+                "magnus",
+                opacity=1,
+                warp_pointer=False,
+                width=0.10,
+                x=0.51,
+            ),
         ],
     )
 )
@@ -287,6 +295,7 @@ keys.extend(
         Key(["control"], "apostrophe", lazy.group["sp"].dropdown_toggle("Term")),
         Key([mod], "c", lazy.group["sp"].dropdown_toggle("GnomeChess")),
         Key([mod], "q", lazy.group["sp"].dropdown_toggle("Qalculate")),
+        Key([mod], "m", lazy.group["sp"].dropdown_toggle("Magnus")),
         Key([mod], "z", lazy.group["sp"].dropdown_toggle("Emacs")),
         Key([mod], "F2", lazy.group["sp"].dropdown_toggle("KeepPass")),
         Key([mod], "F3", lazy.group["sp"].dropdown_toggle("Nautilus")),
@@ -666,6 +675,7 @@ floating_layout = layout.Floating(
         Match(wm_class="feh"),  # Gnome Color Picker
         Match(wm_class="scrcpy"),  # Screen Copy
         Match(wm_class="gnome-chess"),
+        Match(wm_class="magnus"),
     ]
 )
 auto_fullscreen = True
