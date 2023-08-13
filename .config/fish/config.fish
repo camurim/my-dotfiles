@@ -613,6 +613,119 @@ function recordScreen --argument outpath
          end
 end
 
+# Generate waveform based on audio file
+function convertToWaveform --argument input
+		 set fileext (path extension "$input")
+		 set inputwoext (basename "$input" "$fileext")
+		 set outputtmp {$inputwoext}.mp4
+		 set outputfinal {$inputwoext}_final.mp4
+		 ffmpeg -i "$input" -filter_complex "[0:a]showwaves=s=1280x720:mode=line:rate=25,format=yuv420p[v]" -map "[v]" "$outputtmp"
+		 ffmpeg -i "$outputtmp" -i "$input" -c:v copy -c:a aac -strict experimental "$outputfinal"
+end
+
+function convertToWaveformGraph --argument input
+		 set tmpgnuplot (mktemp /tmp/gnuplot_temp.XXXXXXXX)
+		 set fileext (path extension "$input")
+		 set inputwoext (basename "$input" "$fileext")
+		 set output {$inputwoext}.png
+
+		 echo >"$tmpgnuplot" "\
+		 set terminal png size 5000,500;
+		 set output '$output';
+
+		 unset key;
+		 unset tics;
+		 unset border;
+		 set lmargin 0;
+		 set rmargin 0;
+		 set tmargin 0;
+		 set bmargin 0;
+
+		 plot '<cat' binary filetype=bin format='%int16' endian=little array=1:0 with lines;"
+
+		 ffmpeg -i "$input" -ac 1 -filter:a aresample=8000 -map 0:a -c:a pcm_s16le -f data - | gnuplot "$tmpgnuplot"
+		 command rm -f "$tmpgnuplot"
+end
+
+
+###
+### GNU Plot Function
+###
+
+function spiderPlotMe --argument scale1 --argument scale2 --argument scale3 --argument scale4 --argument scale5 --argument datafile
+		 set tmpgnuplot (mktemp /tmp/gnuplot_temp.XXXXXXXX)
+		 set fileext (path extension "$datafile")
+		 set inputwoext (basename "$datafile" "$fileext")
+		 set output {$inputwoext}.png
+
+		 echo >"$tmpgnuplot" "\
+			set output '$output'
+			set datafile separator ';'
+			unset border
+			set key fixed right top vertical Right noreverse enhanced noautotitle nobox
+			unset parametric
+			set spiderplot
+			set style spiderplot  linewidth 1.000 dashtype solid pointtype 6 pointsize 2.500
+			set style spiderplot fillstyle   solid 0.30 border
+			set size ratio 1 1,1
+			set style data spiderplot
+			unset xtics
+			unset ytics
+			unset ztics
+			unset cbtics
+			unset rtics
+			set paxis 1 tics axis in scale 1,0.5 nomirror norotate  autojustify
+			set paxis 1 tics  norangelimit autofreq  font ',9'
+			set paxis 2 tics axis in scale 1,0.5 nomirror norotate  autojustify
+			set paxis 2 tics  norangelimit autofreq  font ',9'
+			set paxis 3 tics axis in scale 1,0.5 nomirror norotate  autojustify
+			set paxis 3 tics  norangelimit autofreq  font ',9'
+			set paxis 4 tics axis in scale 1,0.5 nomirror norotate  autojustify
+			set paxis 4 tics  norangelimit autofreq  font ',9'
+			set paxis 5 tics axis in scale 1,0.5 nomirror norotate  autojustify
+			set paxis 5 tics  norangelimit autofreq  font ',9'
+			unset paxis 6 tics
+			unset paxis 7 tics
+			unset paxis 8 tics
+			unset paxis 9 tics
+			unset paxis 10 tics
+			set title 'Character'
+			set xrange [ * : * ] noreverse writeback
+			set x2range [ * : * ] noreverse writeback
+			set yrange [ * : * ] noreverse writeback
+			set y2range [ * : * ] noreverse writeback
+			set zrange [ * : * ] noreverse writeback
+			set cbrange [ * : * ] noreverse writeback
+			set rrange [ * : * ] noreverse writeback
+			set paxis 1 range [ 0.00000 : 100.000 ]  noextend
+			set paxis 1 label '$scale1'
+			set paxis 1 label  font '' textcolor lt -1 norotate
+			set paxis 2 range [ 0.00000 : 100.000 ]  noextend
+			set paxis 2 label '$scale2'
+			set paxis 2 label  font '' textcolor lt -1 norotate
+			set paxis 3 range [ 0.00000 : 100.000 ]  noextend
+			set paxis 3 label '$scale3'
+			set paxis 3 label  font '' textcolor lt -1 norotate
+			set paxis 4 range [ 0.00000 : 100.000 ]  noextend
+			set paxis 4 label '$scale4'
+			set paxis 4 label  font '' textcolor lt -1 norotate
+			set paxis 5 range [ 0.00000 : 100.000 ]  noextend
+			set paxis 5 label '$scale5'
+			set paxis 5 label  font '' textcolor lt -1 norotate
+			set paxis 6 range [ 0.00000 : 100.000 ]  noextend
+			set paxis 7 range [ 0.00000 : 100.000 ]  noextend
+			set paxis 8 range [ 0.00000 : 100.000 ]  noextend
+			set paxis 9 range [ 0.00000 : 100.000 ]  noextend
+			set paxis 10 range [ 0.00000 : 100.000 ]  noextend
+			set colorbox vertical origin screen 0.9, 0.2 size screen 0.05, 0.6 front  noinvert bdefault
+			NO_ANIMATION = 1
+			plot for [i=1:5] '$datafile' using i:1 title columnhead
+			"
+
+		gnuplot $tmpgnuplot
+		command rm -f "$tmpgnuplot"
+end
+
 ###
 ### Sox Functions
 ###
@@ -753,17 +866,17 @@ end
 ### Nala functions
 ###
 
-#function apt
-#         command nala $argv
-#end
+function apt
+         command nala $argv
+end
 
-#function sudo
-#         if test $argv[1] = "apt"
-#            command sudo nala $argv[2..(count $argv)]
-#         else
-#            command sudo $argv
-#         end
-#end
+function sudo
+         if test $argv[1] = "apt"
+            command sudo nala $argv[2..(count $argv)]
+         else
+            command sudo $argv
+         end
+end
 
 ###
 ### Obsidian Vaults functions
