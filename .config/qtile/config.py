@@ -50,7 +50,7 @@ from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 
 mod = "mod4"
-myTerm = "kitty"  # My terminal of choice
+myTerm = "alacritty"  # My terminal of choice
 myBrowser = "brave-browser"  # My browser of choice
 myWallpaper = "~/.config/qtile/wallpaper6.jpg"
 
@@ -249,7 +249,7 @@ groups.append(
                 f"{myTerm} -e btop",
                 opacity=1,
                 warp_pointer=False,
-                height=0.70,
+                height=0.75,
             ),
             DropDown("Cmus", f"{myTerm} -e cmus", **dropdown_conf),
             DropDown(
@@ -259,7 +259,7 @@ groups.append(
                 **dropdown_conf,
             ),
             DropDown("Rss", f"{myTerm} -e newsboat", **dropdown_conf),
-            DropDown("Volume", f"{myTerm} pulsemixer", **dropdown_conf),
+            DropDown("Volume", f"{myTerm} -e pulsemixer", **dropdown_conf),
             DropDown("Calendar", f"{myTerm} -e calcurse", **dropdown_conf),
             DropDown(
                 "GnomeChess",
@@ -284,7 +284,7 @@ groups.append(
                 "magnus",
                 opacity=1,
                 warp_pointer=False,
-                width=0.10,
+                width=0.20,
                 x=0.51,
             ),
         ],
