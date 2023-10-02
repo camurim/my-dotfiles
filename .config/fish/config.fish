@@ -59,7 +59,7 @@ end
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/scripts $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/go/bin $fish_user_paths
+set -U fish_user_paths $HOME/.local/bin $HOME/scripts $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin /usr/local/go/bin $fish_user_paths
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
@@ -231,14 +231,15 @@ function ex --argument file
                         gunzip $file
                    case '*.tar'
                         tar xf $file
-                   case '*.tbz'
-                        tar xjf $file
                    case '*.tbz2'
                         tar xjf $file
                    case '*.tgz'
                         tar xzf $file
                    case '*.zip'
-                        unzip $file
+		 		   		set fileext (path extension "$file")
+		 				set filewoext (basename "$file" "$fileext")
+						mkdir -p $filewoext
+                        unzip $file -d $filewoext
                    case '*.Z'
                         uncompress $file
                    case '*.7z'
@@ -249,6 +250,8 @@ function ex --argument file
                         tar xf $file
                    case '*.tar.zst'
                         unzstd $file
+				   case '*.xz'
+				   		xz -d $file
                    case '*'
                         echo "'$file' cannot be extracted via ex()"
             end
@@ -1235,6 +1238,11 @@ function pastebin --argument code
 	echo $pastebin_url | xclip -selection clipboard
 	echo $pastebin_url
 	notify-send "Pastebin" "URL $pastebin_url copiada para o clipboard!"
+end
+
+# Remove extracted files
+function rmExtractedFromZip --argument zipfile
+	 for x in (unzip -l $zipfile | awk '{print $4}'); command rm -rf $x; end
 end
 
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
