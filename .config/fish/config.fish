@@ -59,7 +59,7 @@ end
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/scripts $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin /usr/local/go/bin $fish_user_paths
+set -U fish_user_paths $HOME/.local/bin $HOME/scripts $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/.bun/bin /usr/local/go/bin $fish_user_paths
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
@@ -1461,6 +1461,12 @@ alias wtf="wtfutil"
 
 # MP3 Length
 alias mp3len="mp3info -p \"%m:%02s\n\" "
+
+# USB device speed
+alias usbspeed="lsusb -vvv | grep -i -B5 -A5 bcdUSB"
+
+# Random password generator
+alias pwgen="gpg --gen-random --armor 1 14"
 
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
