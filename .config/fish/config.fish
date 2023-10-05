@@ -1242,7 +1242,7 @@ end
 
 # Remove extracted files
 function rmExtractedFromZip --argument zipfile
-	 for x in (unzip -l $zipfile | awk '{print $4}'); command rm -rf $x; end
+	 for x in (unzip -l "$zipfile" | sed '1d;2d' | awk '{if ($4 != "----") print $4}'); command rm -rf $x; end
 end
 
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
