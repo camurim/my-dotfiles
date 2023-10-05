@@ -1242,6 +1242,11 @@ end
 
 # Remove extracted files
 function rmExtractedFromZip --argument zipfile
+	if test (count $argv) -lt 1 -o "$argv[1]" = "--help"
+        printf "%b" "$EM_R\e0USAGE: rmExtractedFromZip <ZIPFILE>$COLOR_RESET"
+        return 1
+    end
+
 	 for x in (unzip -l "$zipfile" | sed '1d;2d' | awk '{if ($4 != "----") print $4}'); command rm -rf $x; end
 end
 
