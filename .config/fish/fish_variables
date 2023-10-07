@@ -26,6 +26,7 @@ SETUVAR EM_R:\x5c033\x5b1\x3b31m
 SETUVAR EM_W:\x5c033\x5b1\x3b37m
 SETUVAR EM_Y:\x5c033\x5b1\x3b33m
 SETUVAR PASTEBIN_API_KEY:SxU\x2d5esJUJRGPQIbtu\x2dyIAPfj1o9oZDH
+SETUVAR --export --path PATH:/home/carlos/\x2elocal/bin\x1e/home/carlos/scripts\x1e/home/carlos/\x2ecargo/bin\x1e/home/carlos/opt/eclipse/jee\x2d2021\x2d09/eclipse\x1e/home/carlos/\x2econfig/emacs/bin\x1e/home/carlos/\x2ewakatime\x1e/home/carlos/\x2elocal/share/coursier/bin\x1e/home/carlos/opt/apache\x2dmaven\x2d3\x2e8\x2e6/bin\x1e/home/carlos/go/bin\x1e/home/linuxbrew/\x2elinuxbrew/bin\x1e/home/linuxbrew/\x2elinuxbrew/sbin\x1e/usr/local/bin\x1e/usr/bin\x1e/bin\x1e/usr/local/games\x1e/usr/games\x1e/usr/local/go/bin
 SETUVAR __fish_initialized:3400
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR budspencer_colors:000000\x1e333333\x1e666666\x1effffff\x1effff00\x1eff6600\x1eff0000\x1eff0033\x1e3300ff\x1e0000ff\x1e00ffff\x1e00ff00
@@ -66,7 +67,7 @@ SETUVAR fish_pager_color_description:B3A06D\x1eyellow
 SETUVAR fish_pager_color_prefix:white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR fish_user_paths:/home/carlos/\x2elocal/bin\x1e/home/carlos/scripts\x1e/home/carlos/\x2ecargo/bin\x1e/home/carlos/opt/eclipse/jee\x2d2021\x2d09/eclipse\x1e/home/carlos/\x2econfig/emacs/bin\x1e/home/carlos/\x2ewakatime\x1e/home/carlos/\x2elocal/share/coursier/bin\x1e/home/carlos/opt/apache\x2dmaven\x2d3\x2e8\x2e6/bin\x1e/home/carlos/go/bin
+SETUVAR fish_user_paths:/home/carlos/\x2elocal/bin\x1e/home/carlos/scripts\x1e/home/carlos/\x2ecargo/bin\x1e/home/carlos/opt/eclipse/jee\x2d2021\x2d09/eclipse\x1e/home/carlos/\x2econfig/emacs/bin\x1e/home/carlos/\x2ewakatime\x1e/home/carlos/\x2elocal/share/coursier/bin\x1e/home/carlos/opt/apache\x2dmaven\x2d3\x2e8\x2e6/bin\x1e/home/carlos/\x2ebun/bin\x1e/usr/local/go/bin
 SETUVAR pure_begin_prompt_with_current_directory:true
 SETUVAR pure_check_for_new_release:false
 SETUVAR pure_color_at_sign:pure_color_mute

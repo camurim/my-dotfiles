@@ -430,13 +430,16 @@ function grived --argument stat -d "Controls grive service"
             case status
                 systemctl --user status grive@(systemd-escape /home/carlos/google-drive).service
             case start
-                killall -9 grive
+                for x in (pgrep grive); kill $x; end
+                  #killall -9 grive
                 systemctl --user start grive@(systemd-escape /home/carlos/google-drive).service
             case stop
-                killall -9 grive
+                for x in (pgrep grive); kill $x; end
+                  #killall -9 grive
                 systemctl --user stop grive@(systemd-escape /home/carlos/google-drive).service
             case restart
-                killall -9 grive
+                for x in (pgrep grive); kill $x; end
+                  #killall -9 grive
                 systemctl --user restart grive@(systemd-escape /home/carlos/google-drive).service
             case log
                  tail -n 5000 /var/log/syslog | grep 'grive'
@@ -1467,6 +1470,9 @@ alias usbspeed="lsusb -vvv | grep -i -B5 -A5 bcdUSB"
 
 # Random password generator
 alias pwgen="gpg --gen-random --armor 1 14"
+
+# Better du
+alias mydu="ncdu -x -q"
 
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
