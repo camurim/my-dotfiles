@@ -236,8 +236,8 @@ function ex --argument file
                    case '*.tgz'
                         tar xzf $file
                    case '*.zip'
-		 		   		set fileext (path extension "$file")
-		 				set filewoext (basename "$file" "$fileext")
+                   	   set fileext (path extension "$file")
+                   	   set filewoext (basename "$file" "$fileext")
 						mkdir -p $filewoext
                         unzip $file -d $filewoext
                    case '*.Z'
@@ -658,77 +658,101 @@ end
 ### GNU Plot Function
 ###
 
-function spiderPlotMe --argument scale1 --argument scale2 --argument scale3 --argument scale4 --argument scale5 --argument datafile
-		 set tmpgnuplot (mktemp /tmp/gnuplot_temp.XXXXXXXX)
-		 set fileext (path extension "$datafile")
-		 set inputwoext (basename "$datafile" "$fileext")
-		 set output {$inputwoext}.png
+function spiderPlotMe --argument datafile --argument name --argument color
+        if test (count $argv) -lt 3
+        	printf "%b" "$EM_R\e0USAGE: spiderPlotMe <DATAFILE> <NAME> <COLOR> $COLOR_RESET"
+            return 1
+        end
 
-		 echo >"$tmpgnuplot" "\
-			set output '$output'
-			set datafile separator ';'
-			unset border
-			set key fixed right top vertical Right noreverse enhanced noautotitle nobox
-			unset parametric
-			set spiderplot
-			set style spiderplot  linewidth 1.000 dashtype solid pointtype 6 pointsize 2.500
-			set style spiderplot fillstyle   solid 0.30 border
-			set size ratio 1 1,1
-			set style data spiderplot
-			unset xtics
-			unset ytics
-			unset ztics
-			unset cbtics
-			unset rtics
-			set paxis 1 tics axis in scale 1,0.5 nomirror norotate  autojustify
-			set paxis 1 tics  norangelimit autofreq  font ',9'
-			set paxis 2 tics axis in scale 1,0.5 nomirror norotate  autojustify
-			set paxis 2 tics  norangelimit autofreq  font ',9'
-			set paxis 3 tics axis in scale 1,0.5 nomirror norotate  autojustify
-			set paxis 3 tics  norangelimit autofreq  font ',9'
-			set paxis 4 tics axis in scale 1,0.5 nomirror norotate  autojustify
-			set paxis 4 tics  norangelimit autofreq  font ',9'
-			set paxis 5 tics axis in scale 1,0.5 nomirror norotate  autojustify
-			set paxis 5 tics  norangelimit autofreq  font ',9'
-			unset paxis 6 tics
-			unset paxis 7 tics
-			unset paxis 8 tics
-			unset paxis 9 tics
-			unset paxis 10 tics
-			set title 'Character'
-			set xrange [ * : * ] noreverse writeback
-			set x2range [ * : * ] noreverse writeback
-			set yrange [ * : * ] noreverse writeback
-			set y2range [ * : * ] noreverse writeback
-			set zrange [ * : * ] noreverse writeback
-			set cbrange [ * : * ] noreverse writeback
-			set rrange [ * : * ] noreverse writeback
-			set paxis 1 range [ 0.00000 : 100.000 ]  noextend
-			set paxis 1 label '$scale1'
-			set paxis 1 label  font '' textcolor lt -1 norotate
-			set paxis 2 range [ 0.00000 : 100.000 ]  noextend
-			set paxis 2 label '$scale2'
-			set paxis 2 label  font '' textcolor lt -1 norotate
-			set paxis 3 range [ 0.00000 : 100.000 ]  noextend
-			set paxis 3 label '$scale3'
-			set paxis 3 label  font '' textcolor lt -1 norotate
-			set paxis 4 range [ 0.00000 : 100.000 ]  noextend
-			set paxis 4 label '$scale4'
-			set paxis 4 label  font '' textcolor lt -1 norotate
-			set paxis 5 range [ 0.00000 : 100.000 ]  noextend
-			set paxis 5 label '$scale5'
-			set paxis 5 label  font '' textcolor lt -1 norotate
-			set paxis 6 range [ 0.00000 : 100.000 ]  noextend
-			set paxis 7 range [ 0.00000 : 100.000 ]  noextend
-			set paxis 8 range [ 0.00000 : 100.000 ]  noextend
-			set paxis 9 range [ 0.00000 : 100.000 ]  noextend
-			set paxis 10 range [ 0.00000 : 100.000 ]  noextend
-			set colorbox vertical origin screen 0.9, 0.2 size screen 0.05, 0.6 front  noinvert bdefault
-			NO_ANIMATION = 1
-			plot for [i=1:5] '$datafile' using i:1 title columnhead
-			"
+		set tmpgnuplot (mktemp /tmp/gnuplot_temp.XXXXXXXX)
 
-		gnuplot $tmpgnuplot
+		set start "
+			reset session
+			set size square
+			unset tics
+			set angles degree
+			set key top left
+
+			# Data
+			\$Data <<EOD
+			SpiderData     \"$name\"
+			Colors         $color"
+
+		set end 'EOD
+
+			HeaderLines = 2
+
+			# Settings for scale and offset adjustments
+			# axis min max tics axisLabelXoff axisLabelYoff ticLabelXoff ticLabelYoff
+			$Settings <<EOD
+			1     0    100  0.1  0.00 -0.02 -0.05  0.00
+			2     0    100  0.1  0.00  0.05  0.00  0.05
+			3     0    100  0.1  0.00  0.00  0.05  0.03
+			4     0    100  0.1  0.00  0.00  0.09 -0.02
+			5     0    100  0.1  0.00  0.05  0.00 -0.05
+			EOD
+		
+			# General settings
+			DataColCount = words($Data[1])-1
+			AxesCount = |$Data|-HeaderLines
+			AngleOffset = 90
+			Max = 1
+			d=0.1*Max
+			Direction = -1   # counterclockwise=1, clockwise = -1
+
+			# Tic settings
+			TicCount = 6
+			TicValue(axis,i) = real(i)*(word($Settings[axis],3)-word($Settings[axis],2)) \
+          	  	  	  / word($Settings[axis],4)+word($Settings[axis],2)
+			TicLabelPosX(axis,i) = PosX(axis,i/TicCount) + word($Settings[axis],7)
+			TicLabelPosY(axis,i) = PosY(axis,i/TicCount) + word($Settings[axis],8)
+			TicLen = 0.03
+			TicdX(axis,i) = 0.5*TicLen*cos(alpha(axis)-90)
+			TicdY(axis,i) = 0.5*TicLen*sin(alpha(axis)-90)
+
+			# Functions
+			alpha(axis) = (axis-1)*Direction*360.0/AxesCount+AngleOffset
+			PosX(axis,R) = R*cos(alpha(axis))
+			PosY(axis,R) = R*sin(alpha(axis))
+			Scale(axis,value) = real(value-word($Settings[axis],2))/(word($Settings[axis],3)-word($Settings[axis],2))
+
+			# Spider settings
+			set style arrow 1 dt 1 lw 1.0 lc -1 head     # style for axes
+			set style arrow 2 dt 2 lw 0.5 lc -1 nohead   # style for weblines
+			set style arrow 3 dt 1 lw 1 lc -1 nohead     # style for axis tics
+			set samples AxesCount
+			set isosamples TicCount
+			set urange[1:AxesCount]
+			set vrange[1:TicCount]
+			do for [i=1:DataColCount] {                  # set linetypes/colors
+    			set linetype i lc rgb word($Data[2],i+1)
+			}
+			set style fill transparent solid 0.2
+
+			set xrange[-Max-4*d:Max+4*d]
+			set yrange[-Max-4*d:Max+4*d]
+			plot \
+    			\'+\' u (0):(0):(PosX($0,Max+d)):(PosY($0,Max+d)) w vec as 1 not, \
+    			$Data u (PosX($0+1,Max+2*d)+word($Settings[$0+1],5)): \
+        			(PosY($0+1,Max+2*d)+word($Settings[$0+1],6)):1 every ::HeaderLines w labels center enhanced not, \
+    			\'++\' u (PosX($1,$2/TicCount)):(PosY($1,$2/TicCount)): \
+        			(PosX($1+1,$2/TicCount)-PosX($1,$2/TicCount)):  \
+        			(PosY($1+1,$2/TicCount)-PosY($1,$2/TicCount)) w vec as 2 not, \
+    			\'++\' u (PosX($1,$2/TicCount)-TicdX($1,$2/TicCount)): \
+        			(PosY($1,$2/TicCount)-TicdY($1,$2/TicCount)): \
+        			(2*TicdX($1,$2/TicCount)):(2*TicdY($1,$2/TicCount)) \
+        			w vec as 3 not, \
+    			for [i=1:DataColCount] $Data u (PosX($0+1,Scale($0+1,column(i+1)))): \
+        			(PosY($0+1,Scale($0+1,column(i+1)))) every ::HeaderLines w filledcurves lt i title word($Data[1],i+1), \
+    			\'++\' u (TicLabelPosX($1,$2)):(TicLabelPosY($1,$2)): \
+        			(sprintf("%g",TicValue($1,$2))) w labels font ",8" not
+			### end of code
+		'
+		echo -e "$start" | sed -e 's/^[ \t]*//' > "$tmpgnuplot"
+		command cat "$datafile" >> "$tmpgnuplot"
+		echo "$end" | sed -e 's/^[ \t]*//' >> "$tmpgnuplot"
+
+		gnuplot $tmpgnuplot -p
 		command rm -f "$tmpgnuplot"
 end
 
