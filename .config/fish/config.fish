@@ -653,11 +653,9 @@ function convertToWaveformGraph --argument input
 		 command rm -f "$tmpgnuplot"
 end
 
-
 ###
-### GNU Plot Function
+### GNU Plot Functions
 ###
-
 function spiderPlotMe --argument datafile --argument name --argument color
         if test (count $argv) -lt 3
         	printf "%b" "$EM_R\e0USAGE: spiderPlotMe <DATAFILE> <NAME> <COLOR> $COLOR_RESET"
@@ -685,11 +683,11 @@ function spiderPlotMe --argument datafile --argument name --argument color
 			# Settings for scale and offset adjustments
 			# axis min max tics axisLabelXoff axisLabelYoff ticLabelXoff ticLabelYoff
 			$Settings <<EOD
-			1     0    100  0.1  0.00 -0.02 -0.05  0.00
-			2     0    100  0.1  0.00  0.05  0.00  0.05
-			3     0    100  0.1  0.00  0.00  0.05  0.03
-			4     0    100  0.1  0.00  0.00  0.09 -0.02
-			5     0    100  0.1  0.00  0.05  0.00 -0.05
+			1     0    100  6  0.00 -0.02 -0.05  0.00
+			2     0    100  6  0.00  0.05  0.00  0.05
+			3     0    100  6  0.00  0.00  0.05  0.03
+			4     0    100  6  0.00  0.00  0.09 -0.02
+			5     0    100  6  0.00  0.05  0.00 -0.05
 			EOD
 		
 			# General settings
@@ -731,6 +729,8 @@ function spiderPlotMe --argument datafile --argument name --argument color
 
 			set xrange[-Max-4*d:Max+4*d]
 			set yrange[-Max-4*d:Max+4*d]
+			set format x "%.0f"
+			set format y "%.0f"
 			plot \
     			\'+\' u (0):(0):(PosX($0,Max+d)):(PosY($0,Max+d)) w vec as 1 not, \
     			$Data u (PosX($0+1,Max+2*d)+word($Settings[$0+1],5)): \
@@ -745,7 +745,7 @@ function spiderPlotMe --argument datafile --argument name --argument color
     			for [i=1:DataColCount] $Data u (PosX($0+1,Scale($0+1,column(i+1)))): \
         			(PosY($0+1,Scale($0+1,column(i+1)))) every ::HeaderLines w filledcurves lt i title word($Data[1],i+1), \
     			\'++\' u (TicLabelPosX($1,$2)):(TicLabelPosY($1,$2)): \
-        			(sprintf("%g",TicValue($1,$2))) w labels font ",8" not
+        			(sprintf("%.0f",TicValue($1,$2))) w labels font ",8" not
 			### end of code
 		'
 		echo -e "$start" | sed -e 's/^[ \t]*//' > "$tmpgnuplot"
