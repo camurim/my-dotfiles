@@ -1278,7 +1278,7 @@ function rmExtractedFromZip --argument zipfile
 end
 
 # Extract page from an PDF file
-function extractPageFromPdf --argument input --argument pages --argument output
+function extractPageFromPdf --argument input --argument pages
 	if test (count $argv) -lt 2 -o "$argv[1]" = "--help"
         printf "%b" "$EM_R\e0USAGE: extractPageFromPdf <INPUT_FILE> <PAGES>$COLOR_RESET"
         return 1
