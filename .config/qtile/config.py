@@ -117,7 +117,7 @@ keys = [
     ##
     Key(["mod1"], "b", lazy.spawn(myBrowser), desc="Brave Browser"),
     Key(["mod1"], "f", lazy.spawn("nautilus"), desc="Nautilus File Manager"),
-    Key(["mod1"], "c", lazy.spawn("emacs"), desc="Emacs"),
+    Key(["mod1"], "c", lazy.spawn(f"{myTerm} -T NVim -e nvim"), desc="Nvim"),
     Key(
         [mod],
         "F1",
@@ -241,7 +241,7 @@ groups.append(
         "sp",
         [
             DropDown("Term", myTerm, **dropdown_conf),
-            DropDown("Emacs", "emacs", **dropdown_conf),
+            DropDown("Nvim", f"{myTerm} -T NVim -e nvim", **dropdown_conf),
             DropDown("KeepPass", "keepassxc", **dropdown_conf),
             DropDown("Nautilus", "nautilus", **dropdown_conf),
             DropDown(
@@ -297,7 +297,7 @@ keys.extend(
         Key([mod], "c", lazy.group["sp"].dropdown_toggle("GnomeChess")),
         Key([mod], "q", lazy.group["sp"].dropdown_toggle("Qalculate")),
         Key([mod], "m", lazy.group["sp"].dropdown_toggle("Magnus")),
-        Key([mod], "z", lazy.group["sp"].dropdown_toggle("Emacs")),
+        Key([mod], "z", lazy.group["sp"].dropdown_toggle("Nvim")),
         Key([mod], "F2", lazy.group["sp"].dropdown_toggle("KeepPass")),
         Key([mod], "F3", lazy.group["sp"].dropdown_toggle("Nautilus")),
         Key([mod], "F4", lazy.group["sp"].dropdown_toggle("Perfmon")),
