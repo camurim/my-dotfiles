@@ -926,10 +926,10 @@ end
 
 # Quicknote
 function quicknote
-		 if test -f "$HOME/google-drive/obsidian_vaults/principal/03\ -\ Others/Quicknote.md"
+		 if test -f "$HOME/google-drive/obsidian_vaults/principal/03 - Others/Quicknote.md"
          	vim $HOME/google-drive/obsidian_vaults/principal/03\ -\ Others/Quicknote.md
 		 else
-		 	printf "%b" "$EM_R\e0The file $HOME/google-drive/obsidian_vaults/principal/03\ -\ Others/Quicknote.md does not exist.$COLOR_RESET"
+		 	printf "%b" "$EM_R\e0The file $HOME/google-drive/obsidian_vaults/principal/03 - Others/Quicknote.md does not exist.$COLOR_RESET"
 			return 1
 		 end
 end
