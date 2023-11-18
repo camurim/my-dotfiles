@@ -60,7 +60,7 @@ ${color lightgrey}SUPER + CTRL + q			  End Qtile
 ${color lightgrey}SUPER + SHIFT + [0-9]	      Send win
 
 ${color lightgrey}ALT + B			  Brave
-${color lightgrey}ALT + C			  Emacs
+${color lightgrey}ALT + C			  NVim
 ${color lightgrey}ALT + F			  Nautilus
 
 ${color lightgrey}SUPER + F2			  Keepass
@@ -73,6 +73,6 @@ ${color lightgrey}SUPER + F8			  Volume
 ${color lightgrey}SUPER + F9			  Newsboat
 ${color lightgrey}SUPER + C			  Chess
 ${color lightgrey}SUPER + Q			  Qalculate!
-${color lightgrey}SUPER + Z			  Emacs
+${color lightgrey}SUPER + Z			  NVim
 
 ]]
