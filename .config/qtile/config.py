@@ -52,6 +52,7 @@ from qtile_extras.widget.decorations import BorderDecoration
 mod = "mod4"
 myTerm = "alacritty"  # My terminal of choice
 myBrowser = "brave-browser"  # My browser of choice
+myEditor = str(os.path.expanduser("~/.cargo/bin/neovide"))
 myWallpaper = "~/.config/qtile/wallpaper6.jpg"
 
 keys = [
@@ -117,7 +118,8 @@ keys = [
     ##
     Key(["mod1"], "b", lazy.spawn(myBrowser), desc="Brave Browser"),
     Key(["mod1"], "f", lazy.spawn("nautilus"), desc="Nautilus File Manager"),
-    Key(["mod1"], "c", lazy.spawn(f"{myTerm} -T NVim -e nvim"), desc="Nvim"),
+    # Key(["mod1"], "c", lazy.spawn(f"{myTerm} -T NVim -e nvim"), desc="Nvim"),
+    Key(["mod1"], "c", lazy.spawn(myEditor), desc="Nvim"),
     Key(
         [mod],
         "F1",
@@ -185,6 +187,7 @@ groups = [
         layout="treetab",
         matches=[
             Match(wm_class=["emacs"]),
+            Match(wm_class=["neovide"]),
             Match(wm_class=["Eclipse"]),
             Match(wm_class=["DBeaver"]),
         ],

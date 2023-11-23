@@ -75,8 +75,11 @@ set -x POMODORO_FILE $TODO_DIR/pomo.txt
 
 #set fish_greeting                                 # Supresses fish's intro message
 set -x TERM "xterm-256color"                         # Sets the terminal type
-set -x EDITOR "emacsclient -t -a ''"                 # $EDITOR use Emacs in terminal
-set -x VISUAL "emacsclient -c -a emacs"              # $VISUAL use Emacs in GUI mode
+# set -x EDITOR "emacsclient -t -a ''"                 # $EDITOR use Emacs in terminal
+# set -x VISUAL "emacsclient -c -a emacs"              # $VISUAL use Emacs in GUI mode
+set -x EDITOR "nvim"                 				# $EDITOR use Emacs in terminal
+set -x VISUAL "neovide" 							# $VISUAL use Emacs in GUI mode
+
 
 ### SET MANPAGER
 ### Uncomment only one of these!
