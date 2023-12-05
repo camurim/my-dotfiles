@@ -1517,6 +1517,13 @@ alias mydu="ncdu -x -q"
 # Get window WM_CLASS
 alias wclass="xprop WM_CLASS"
 
+#
+# Dual monitor alias
+#
+
+alias hdmion="xrandr --output HDMI-1 --primary --mode 1360x768 --left-of eDP-1"
+alias hdmioff="xrandr --output eDP-1 --primary --mode 1366x768 --output HDMI-1 --off"
+
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
 #░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░░░░▀░
