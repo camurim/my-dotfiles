@@ -287,9 +287,11 @@ groups.append(
                 "magnus",
                 opacity=1,
                 warp_pointer=False,
+                height=0.20,
                 width=0.20,
                 x=0.51,
             ),
+            DropDown("Clock", f"{myTerm} -e {os.path.expanduser('~/.cargo/bin/tclock')}", **dropdown_conf),
         ],
     )
 )
@@ -300,6 +302,7 @@ keys.extend(
         Key([mod], "c", lazy.group["sp"].dropdown_toggle("GnomeChess")),
         Key([mod], "q", lazy.group["sp"].dropdown_toggle("Qalculate")),
         Key([mod], "m", lazy.group["sp"].dropdown_toggle("Magnus")),
+        Key([mod], "t", lazy.group["sp"].dropdown_toggle("Clock")),
         Key([mod], "z", lazy.group["sp"].dropdown_toggle("Nvim")),
         Key([mod], "F2", lazy.group["sp"].dropdown_toggle("KeepPass")),
         Key([mod], "F3", lazy.group["sp"].dropdown_toggle("Nautilus")),
