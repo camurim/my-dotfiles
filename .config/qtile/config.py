@@ -25,7 +25,6 @@
 # SOFTWARE.
 
 import os
-import re
 import socket
 import subprocess
 from libqtile import qtile
@@ -33,7 +32,6 @@ from libqtile.config import (
     Click,
     Drag,
     Group,
-    KeyChord,
     Key,
     Match,
     Screen,
@@ -43,7 +41,6 @@ from libqtile.config import (
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
 from typing import List  # noqa: F401
 
 from qtile_extras import widget
@@ -159,14 +156,14 @@ keys = [
         [],
         "Print",
         lazy.spawn(
-            "scrot '/home/carlos/Imagens/captures/%Y-%m-%d_$wx$h.png' -e 'xclip -selection clipboard -t image/png $f'"
+            f"scrot '{os.path.expanduser('~/Imagens/captures')}/%Y-%m-%d_$wx$h.png' -e 'xclip -selection clipboard -t image/png $f'"
         ),
         desc="Full screen screenshot",
     ),
     Key(
         ["mod1"],
         "Print",
-        lazy.spawn("flameshot gui -p '/home/carlos/Imagens/captures/'"),
+        lazy.spawn(f"flameshot gui -p '{os.path.expanduser('~/Imagens/captures/')}'"),
         desc="Select area screenshot",
     ),
 ]
@@ -287,8 +284,8 @@ groups.append(
                 "magnus",
                 opacity=1,
                 warp_pointer=False,
-                height=0.20,
-                width=0.20,
+                height=0.30,
+                width=0.30,
                 x=0.51,
             ),
             DropDown("Clock", f"{myTerm} -e {os.path.expanduser('~/.cargo/bin/tclock')}", **dropdown_conf),
@@ -335,15 +332,6 @@ layout_theme = {
 }
 
 layouts = [
-    # layout.MonadWide(**layout_theme),
-    # layout.Bsp(**layout_theme),
-    # layout.Stack(stacks=2, **layout_theme),
-    # layout.Columns(**layout_theme),
-    # layout.RatioTile(**layout_theme),
-    # layout.Tile(shift_windows=True, **layout_theme),
-    # layout.VerticalTile(**layout_theme),
-    # layout.Matrix(**layout_theme),
-    # layout.Zoomy(**layout_theme),
     layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
     layout.Stack(num_stacks=2),
