@@ -39,7 +39,7 @@ set -U BG_W "\033[47m"
 
 function fish_greeting
         set termcnt (pgrep -c (basename (readlink -f (which x-terminal-emulator))))
-        if test $termcnt -lt 3
+        if test $termcnt -lt 2
             neofetch
         else
             set cols (tput cols)
@@ -78,7 +78,7 @@ set -x TERM "xterm-256color"                         # Sets the terminal type
 # set -x EDITOR "emacsclient -t -a ''"                 # $EDITOR use Emacs in terminal
 # set -x VISUAL "emacsclient -c -a emacs"              # $VISUAL use Emacs in GUI mode
 set -x EDITOR "nvim"                 				# $EDITOR use Emacs in terminal
-set -x VISUAL "neovide" 							# $VISUAL use Emacs in GUI mode
+set -x VISUAL "nvim" 								# $VISUAL use Emacs in GUI mode
 
 
 ### SET MANPAGER
