@@ -201,6 +201,16 @@ end
 #░█▀▀░█░█░█░█░█░░░░█░░░█░░█░█░█░█░▀▀█
 #░▀░░░▀▀▀░▀░▀░▀▀▀░░▀░░▀▀▀░▀▀▀░▀░▀░▀▀▀
 
+# Reload Fish Shell Config
+function reload-config --on-variable _reload_config
+	for term in /dev/pts/*
+		if string match -qr '[0-9]' -- "$term"
+			echo "Configurações recarregadas!" 1> "$term"
+		end
+	end
+	source $HOME/.config/fish/config.fish
+end
+
 ### Navigation function
 # usage: up <limit>
 function up --argument limit
@@ -1517,12 +1527,13 @@ alias mydu="ncdu -x -q"
 # Get window WM_CLASS
 alias wclass="xprop WM_CLASS"
 
-#
 # Dual monitor alias
-#
-
 alias hdmion="xrandr --output HDMI-1 --primary --mode 1360x768 --left-of eDP-1"
 alias hdmioff="xrandr --output eDP-1 --primary --mode 1366x768 --output HDMI-1 --off"
+
+# Mirror image files
+alias flip="convert -flip"
+alias flop="convert -flop"
 
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
