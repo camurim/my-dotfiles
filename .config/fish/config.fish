@@ -59,7 +59,7 @@ end
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/scripts $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/.bun/bin /usr/local/go/bin $fish_user_paths
+set -U fish_user_paths $HOME/.local/bin $HOME/scripts $HOME/.cargo/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/.bun/bin /usr/local/go/bin /sbin
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
@@ -1301,6 +1301,36 @@ function extractPageFromPdf --argument input --argument pages
 	set inputwoext (basename "$input" "$fileext")
 
 	pdftk "$input" cat "$pages" output (string join " " "$inputwoext" "$pages.pdf")
+end
+
+#
+# Figlet/Toilet functions
+# 
+function comment --argument text
+	if test (count $argv) -lt 1 -o "$argv[1]" = "-?" -o "$argv[1]" = "--help"
+        printf "%b" "$EM_R\e0USAGE: comment <TEXT>$COLOR_RESET"
+		return 1
+	end
+
+	toilet -f pagga "$text" | sed 's/^/#/' | xclip -selection clipboard
+end
+
+function asciiimg --argument text
+	if test (count $argv) -lt 1 -o "$argv[1]" = "-?" -o "$argv[1]" = "--help"
+        printf "%b" "$EM_R\e0USAGE: asciiimg <TEXT>$COLOR_RESET"
+		return 1
+	end
+
+	toilet -w 200 -f "DOS Rebel" -E tga "$text" | convert tga:- -background '#2b2239' -alpha remove -alpha off png:- | xclip -selection clipboard -t image/png  
+end
+
+function asciiimg-rainbow --argument text
+	if test (count $argv) -lt 1 -o "$argv[1]" = "-?" -o "$argv[1]" = "--help"
+        printf "%b" "$EM_R\e0USAGE: asciiimg <TEXT>$COLOR_RESET"
+		return 1
+	end
+
+	toilet -w 200 -f "DOS Rebel" --gay -E tga "$text" | convert tga:- -background '#2b2239' -alpha remove -alpha off png:- | xclip -selection clipboard -t image/png 
 end
 
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
