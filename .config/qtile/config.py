@@ -27,22 +27,13 @@
 import os
 import socket
 import subprocess
-from libqtile import qtile
-from libqtile.config import (
-    Click,
-    Drag,
-    Group,
-    Key,
-    Match,
-    Screen,
-    ScratchPad,
-    DropDown,
-)
-from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook
-from libqtile.lazy import lazy
 from typing import List  # noqa: F401
 
+from libqtile import bar, hook, layout, qtile, widget
+from libqtile.command import lazy
+from libqtile.config import (Click, Drag, DropDown, Group, Key, Match,
+                             ScratchPad, Screen)
+from libqtile.lazy import lazy
 from qtile_extras import widget
 from qtile_extras.widget.decorations import BorderDecoration
 
@@ -121,7 +112,7 @@ keys = [
         [mod],
         "F1",
         lazy.spawn(
-            'zenity --info --text="SUPER + CTRL + R\t\tReload configurations\nSUPER + CTRL + q\t\tEnd Qtile\nSUPER + F2\t\t\tKeepass2\nSUPER + F3\t\t\tFile Manager\nSUPER + F4\t\t\tPerformance Monitor\nSUPER + F5\t\t\tQuicknotes\nSUPER + F6\t\t\tCalendar\nSUPER + F7\t\t\tCMUS\nSUPER + F8\t\t\tValume Control\nSUPER + F9\t\t\tRSS\nSUPER + c\t\t\tChess\nSUPER + q\t\t\tChess\n" --title="Shortcuts" --width=400 --height=330'
+            'zenity --info --text="SUPER + CTRL + R\t\tReload configurations\nSUPER + CTRL + q\t\tEnd Qtile\nSUPER + F2\t\t\tKeepass2\nSUPER + F3\t\t\tFile Manager\nSUPER + F4\t\t\tPerformance Monitor\nSUPER + F5\t\t\tQuicknotes\nSUPER + F6\t\t\tCalendar\nSUPER + F7\t\t\tCMUS\nSUPER + F8\t\t\tValume Control\nSUPER + F9\t\t\tRSS\nSUPER + c\t\t\tChess\nSUPER + q\t\t\tQalculate\n" --title="Shortcuts" --width=400 --height=330'
         ),
         desc="Help",
     ),
@@ -288,7 +279,11 @@ groups.append(
                 width=0.30,
                 x=0.51,
             ),
-            DropDown("Clock", f"{myTerm} -e {os.path.expanduser('~/.cargo/bin/tclock')}", **dropdown_conf),
+            DropDown(
+                "Clock",
+                f"{myTerm} -e {os.path.expanduser('~/.cargo/bin/tclock')}",
+                **dropdown_conf,
+            ),
         ],
     )
 )
@@ -567,7 +562,7 @@ def init_widgets_list():
 def init_widgets_screen1():
     widgets_screen1 = init_widgets_list()
     del widgets_screen1[
-       9:10
+        9:10
     ]  # Slicing removes unwanted widgets (systray) on Monitors 1,3
     return widgets_screen1
 

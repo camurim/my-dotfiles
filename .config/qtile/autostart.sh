@@ -11,6 +11,7 @@ HOME=${HOME:-/home/$USER}
 setxkbmap -layout br -variant abnt2 -option grp:switch
 setxkbmap -option caps:super
 xmodmap -e 'keycode 78='
+xmodmap -e "pointer = 1 25 3 4 5 6 7 8 9"
 
 #░█░█░█▀█░█░░░█░░░█▀█░█▀█░█▀█░█▀▀░█▀▄
 #░█▄█░█▀█░█░░░█░░░█▀▀░█▀█░█▀▀░█▀▀░█▀▄
