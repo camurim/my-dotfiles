@@ -178,6 +178,7 @@ groups = [
             Match(wm_class=["neovide"]),
             Match(wm_class=["Eclipse"]),
             Match(wm_class=["DBeaver"]),
+            Match(wm_class=["processing-app-Base"]),
         ],
     ),  # Development
     Group(
