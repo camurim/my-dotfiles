@@ -667,6 +667,7 @@ floating_layout = layout.Floating(
         Match(wm_class="scrcpy"),  # Screen Copy
         Match(wm_class="gnome-chess"),
         Match(wm_class="magnus"),
+        Match(wm_class="kronometer"),
     ]
 )
 auto_fullscreen = True
