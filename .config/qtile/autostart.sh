@@ -68,3 +68,14 @@ if [ $? -eq 1 ]; then
 	xset s 600 # 10 minutos de inatividade
 	xss-lock -l -- /usr/bin/gnome-screensaver-command --lock &
 fi
+
+horaAtual=$(date '+%H')
+periodo="bom dia"
+
+if ((horaAtual >= 12 && horaAtual < 18)); then
+	periodo="boa tarde"
+elif ((horaAtual >= 18)); then
+	periodo="boa noite"
+fi
+
+speak-ng -v mb/mb-br4 -s 124 -a 200 "$periodo Carlos, seja bem vindo!"
