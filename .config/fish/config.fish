@@ -471,7 +471,7 @@ function dlVideo --argument url --argument output -d "Download video"
             printf "%b" "$EM_R\e0USAGE: dlVideo <URL> <OUTPUT_FILE>$COLOR_RESET"
             return 1
          end
-         yt-dlp -f mp4 -i "$url" -o - | ffmpeg -f mp4 -i - "$output"
+         yt-dlp -f mp4 -f "bestvideo*+bestaudio/best" -i "$url" -o - | ffmpeg -f mp4 -i - "$output"
 end
 
 # Download playlist
