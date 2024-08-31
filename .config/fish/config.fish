@@ -1565,6 +1565,12 @@ alias hdmioff="xrandr --output eDP-1 --primary --mode 1366x768 --output HDMI-1 -
 alias flip="convert -flip"
 alias flop="convert -flop"
 
+# Kill process by file
+alias killbyfile="sudo fuser -vik -TERM"
+
+# Disk usage sort by size
+alias dus="du -h . | sort -h -r"
+
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
 #░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░░░░▀░
