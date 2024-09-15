@@ -59,7 +59,7 @@ end
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/scripts $HOME/.cargo/bin $HOME/go/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/.bun/bin /usr/local/go/bin /sbin
+set -U fish_user_paths $HOME/.local/bin $HOME/scripts $HOME/.cargo/bin $HOME/go/bin $HOME/opt/eclipse/jee-2021-09/eclipse $HOME/.config/emacs/bin $HOME/.wakatime $HOME/.local/share/coursier/bin $HOME/opt/apache-maven-3.8.6/bin $HOME/.bun/bin /usr/local/go/bin /sbin $HOME/.platformio/penv/bin/
 eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 #░█▀▀░█░█░█▀█░█▀█░█▀▄░▀█▀
