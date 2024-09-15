@@ -1571,6 +1571,9 @@ alias killbyfile="sudo fuser -vik -TERM"
 # Disk usage sort by size
 alias dus="du -h . | sort -h -r"
 
+# PlatformIO
+alias platformio="pio"
+
 #░▀█▀░█▀▀░█▀▄░█▄█░▀█▀░█▀█░█▀█░█░░░░░█▀█░█▀▄░█▀█░█▄█░█▀█░▀█▀
 #░░█░░█▀▀░█▀▄░█░█░░█░░█░█░█▀█░█░░░░░█▀▀░█▀▄░█░█░█░█░█▀▀░░█░
 #░░▀░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀▀▀░░░▀░░░▀░▀░▀▀▀░▀░▀░▀░░░░▀░
