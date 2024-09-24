@@ -1333,6 +1333,26 @@ function asciiimg-rainbow --argument text
 	toilet -w 200 -f "DOS Rebel" --gay -E tga "$text" | convert tga:- -background '#2b2239' -alpha remove -alpha off png:- | xclip -selection clipboard -t image/png 
 end
 
+#
+# Configure Wacom Tablet
+#
+function configWacom
+	xsetwacom --list devices | grep -q 'Wacom Intuos S Pad'
+	if test $status -eq 0 
+		set firstDevice (xsetwacom --list devices | head -n 1 | awk -F ':' '{print $2}' | cut -c '1-3')
+
+		xsetwacom --set "Wacom Intuos S Pen stylus" Button 2 "pan"
+		xsetwacom --set "Wacom Intuos S Pen stylus" "PanScrollThreshold" 200
+		xsetwacom --set (math $firstDevice + 0) MapToOutput DP-2
+		xsetwacom --set (math $firstDevice + 1) MapToOutput DP-2
+		xsetwacom --set (math $firstDevice + 2) MapToOutput DP-2
+
+		echo "Tablet Wacom Intuos S Pen configurado!"
+	else
+		echo "Tablet Wacom Intuos S Pen não encontrado!"	
+	end
+end
+
 #░█▀█░█░░░▀█▀░█▀█░█▀▀░█▀▀░█▀▀
 #░█▀█░█░░░░█░░█▀█░▀▀█░█▀▀░▀▀█
 #░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀▀▀░▀▀▀
@@ -1526,7 +1546,8 @@ alias webcam='mpv /dev/video1'
 alias tw='rainbowstream'
 
 # Copy current path to clipboard
-alias copycurrpath='pwd | xclip -selection clipboard && notify-send "Clipboard" "Current path copied to clipboard!"'
+# alias copycurrpath='pwd | xclip -selection clipboard && notify-send "Clipboard" "Current path copied to clipboard!"'
+alias copycurrpath='pwd | xclip -selection clipboard'
 
 # YouTube Music TUI client
 alias ytmusic="ytui_music run"

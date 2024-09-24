@@ -57,6 +57,7 @@ if [ $? -eq 1 ]; then
 	gromit-mpx --key F10 &
 fi
 
+# Screensaver
 pgrep gnome-screensaver
 if [ $? -eq 1 ]; then
 	gnome-screensaver &
@@ -69,6 +70,18 @@ if [ $? -eq 1 ]; then
 	xss-lock -l -- /usr/bin/gnome-screensaver-command --lock &
 fi
 
+# Configurações do Tablet Wacom
+if xsetwacom --list devices | grep -q 'Wacom Intuos S Pad'; then
+	firstDevice=$(xsetwacom --list devices | head -n 1 | awk -F ':' '{print $2}' | cut -c '1-3')
+	
+	xsetwacom --set "Wacom Intuos S Pen stylus" Button 2 "pan"
+	xsetwacom --set "Wacom Intuos S Pen stylus" "PanScrollThreshold" 200
+	xsetwacom --set "$((firstDevice + 0))" MapToOutput DP-2
+	xsetwacom --set "$((firstDevice + 1))" MapToOutput DP-2
+	xsetwacom --set "$((firstDevice + 2))" MapToOutput DP-2
+fi
+
+# Saudações ao iniciar o sistema
 horaAtual=$(date '+%H')
 periodo="bom dia"
 
