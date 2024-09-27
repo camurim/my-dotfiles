@@ -1340,16 +1340,16 @@ function configWacom
 	xsetwacom --list devices | grep -q 'Wacom Intuos S Pad'
 	if test $status -eq 0 
 		set firstDevice (xsetwacom --list devices | head -n 1 | awk -F ':' '{print $2}' | cut -c '1-3')
+		set secondDevice (xsetwacom --list devices | sed -n '2p' | awk -F ':' '{print $2}' | cut -c '1-3')
+		set thirdDevice (xsetwacom --list devices | sed -n '3p' | awk -F ':' '{print $2}' | cut -c '1-3')
 
 		xsetwacom --set "Wacom Intuos S Pen stylus" Button 2 "pan"
 		xsetwacom --set "Wacom Intuos S Pen stylus" "PanScrollThreshold" 200
 		xsetwacom --set (math $firstDevice + 0) MapToOutput DP-2
-		xsetwacom --set (math $firstDevice + 1) MapToOutput DP-2
-		xsetwacom --set (math $firstDevice + 2) MapToOutput DP-2
+		xsetwacom --set (math $secondDevice + 0) MapToOutput DP-2
+		xsetwacom --set (math $thirdDevice + 0) MapToOutput DP-2
 
 		echo "Tablet Wacom Intuos S Pen configurado!"
-	else
-		echo "Tablet Wacom Intuos S Pen não encontrado!"	
 	end
 end
 

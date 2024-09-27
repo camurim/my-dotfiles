@@ -73,12 +73,14 @@ fi
 # Configurações do Tablet Wacom
 if xsetwacom --list devices | grep -q 'Wacom Intuos S Pad'; then
 	firstDevice=$(xsetwacom --list devices | head -n 1 | awk -F ':' '{print $2}' | cut -c '1-3')
-	
+	secondDevice=$(xsetwacom --list devices | sed -n '2p' | awk -F ':' '{print $2}' | cut -c '1-3')
+	thirdDevice=$(xsetwacom --list devices | sed -n '3p' | awk -F ':' '{print $2}' | cut -c '1-3')
+
 	xsetwacom --set "Wacom Intuos S Pen stylus" Button 2 "pan"
 	xsetwacom --set "Wacom Intuos S Pen stylus" "PanScrollThreshold" 200
 	xsetwacom --set "$((firstDevice + 0))" MapToOutput DP-2
-	xsetwacom --set "$((firstDevice + 1))" MapToOutput DP-2
-	xsetwacom --set "$((firstDevice + 2))" MapToOutput DP-2
+	xsetwacom --set "$((secondDevice + 0))" MapToOutput DP-2
+	xsetwacom --set "$((thirdDevice + 0))" MapToOutput DP-2
 fi
 
 # Saudações ao iniciar o sistema
