@@ -1345,9 +1345,9 @@ function configWacom
 
 		xsetwacom --set "Wacom Intuos S Pen stylus" Button 2 "pan"
 		xsetwacom --set "Wacom Intuos S Pen stylus" "PanScrollThreshold" 200
-		xsetwacom --set (math $firstDevice + 0) MapToOutput DP-2
-		xsetwacom --set (math $secondDevice + 0) MapToOutput DP-2
-		xsetwacom --set (math $thirdDevice + 0) MapToOutput DP-2
+		xsetwacom --set (math $firstDevice + 0) MapToOutput HDMI-1
+		xsetwacom --set (math $secondDevice + 0) MapToOutput HDMI-1
+		xsetwacom --set (math $thirdDevice + 0) MapToOutput HDMI-1
 
 		echo "Tablet Wacom Intuos S Pen configurado!"
 	end

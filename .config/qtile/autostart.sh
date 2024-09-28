@@ -78,9 +78,9 @@ if xsetwacom --list devices | grep -q 'Wacom Intuos S Pad'; then
 
 	xsetwacom --set "Wacom Intuos S Pen stylus" Button 2 "pan"
 	xsetwacom --set "Wacom Intuos S Pen stylus" "PanScrollThreshold" 200
-	xsetwacom --set "$((firstDevice + 0))" MapToOutput DP-2
-	xsetwacom --set "$((secondDevice + 0))" MapToOutput DP-2
-	xsetwacom --set "$((thirdDevice + 0))" MapToOutput DP-2
+	xsetwacom --set "$((firstDevice + 0))" MapToOutput HDMI-1
+	xsetwacom --set "$((secondDevice + 0))" MapToOutput HDMI-1
+	xsetwacom --set "$((thirdDevice + 0))" MapToOutput HDMI-1
 fi
 
 # Saudações ao iniciar o sistema
