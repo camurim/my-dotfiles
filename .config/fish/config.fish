@@ -1541,6 +1541,7 @@ alias t='todo.sh'
 
 # View WebCam stream
 alias webcam='mpv /dev/video1'
+alias microscop='mpv av://v4l2:/dev/video2'
 
 # Twitter CLI client
 alias tw='rainbowstream'
