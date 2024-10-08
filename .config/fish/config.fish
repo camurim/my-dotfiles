@@ -1540,8 +1540,8 @@ alias icat='kitty +kitten icat --place 1x1@95x0'
 alias t='todo.sh'
 
 # View WebCam stream
-alias webcam='mpv /dev/video1'
-alias microscop='mpv av://v4l2:/dev/video2'
+alias webcam='mpv av://v4l2:/dev/video0'
+alias microscope='mpv av://v4l2:/dev/video2'
 
 # Twitter CLI client
 alias tw='rainbowstream'
