@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+PIDFILE="$HOME/tmp/gdrive-sync.pid"
+WEEKDAY=$(date '+%u')
+HOUR=$(date +'%H')
+
+if [ -f "$PIDFILE" ]; then
+	PID=$(cat "$PIDFILE")
+	ps -p "$PID" >/dev/null 2>&1
+	if [ "$?" -eq 0 ]; then
+		echo "Process already running"
+		exit 1
+	else
+		## Process not found assume not running
+		echo $$ >"$PIDFILE"
+		if [ "$?" -ne 0 ]; then
+			echo "Could not create PID file"
+			exit 1
+		fi
+	fi
+else
+	echo $$ >"$PIDFILE"
+	if [ "$?" -ne 0 ]; then
+		echo "Could not create PID file"
+		exit 1
+	fi
+fi
+
+if pgrep rclone; then
+	killall -9 rclone
+fi
+
+if [ "$WEEKDAY" -gt 0 ] && [ "$WEEKDAY" -lt 6 ]; then
+	if [ "$HOUR" -lt 18 ]; then
+		rclone sync -v gdrive:/ ~/google-drive/
+	else
+		rclone sync -v ~/google-drive/ gdrive:/
+	fi
+else
+	rclone sync -v ~/google-drive/ gdrive:/
+fi
+
+rm -f "$PIDFILE"
