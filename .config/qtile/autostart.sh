@@ -2,6 +2,8 @@
 
 USER=${USER:-carlos}
 HOME=${HOME:-/home/$USER}
+WEEKDAY=$(date '+%u')
+HOUR=$(date +'%H')
 
 #░█░█░█▀▀░█░█░█▀▄░█▀█░█▀█░█▀▄░█▀▄░░░█▀▄░█▀▀░█▄█░█▀█░█▀█
 #░█▀▄░█▀▀░░█░░█▀▄░█░█░█▀█░█▀▄░█░█░░░█▀▄░█▀▀░█░█░█▀█░█▀▀
@@ -32,6 +34,22 @@ numlockx on
 
 unclutter &
 
+# Google Drive Sync
+if pgrep rclone; then
+	killall -9 rclone
+fi
+
+if [ "$WEEKDAY" -gt 0 ] && [ "$WEEKDAY" -lt 6 ]; then
+	if [ "$HOUR" -lt 18 ]; then
+		rclone sync -v gdrive:/ ~/google-drive/
+	else
+		rclone sync -v ~/google-drive/ gdrive:/
+	fi
+else
+	rclone sync -v ~/google-drive/ gdrive:/
+fi
+
+# Composer
 pgrep compton
 if [ $? -eq 0 ]; then
 	pkill -USR1 -x compton
@@ -39,11 +57,12 @@ fi
 
 compton --experimental-backends &
 
-pgrep emacs
-if [ $? -eq 1 ]; then
-	/usr/local/bin/emacs --daemon &
-fi
+# pgrep emacs
+# if [ $? -eq 1 ]; then
+# 	/usr/local/bin/emacs --daemon &
+# fi
 
+# Conky
 pgrep conky
 if [ $? -eq 0 ]; then
 	killall conky &
@@ -52,6 +71,7 @@ else
 	conky -b -c $HOME/.config/conkyrc &
 fi
 
+# Gromit-Mpx
 pgrep gromit-mpx
 if [ $? -eq 1 ]; then
 	gromit-mpx --key F10 &
