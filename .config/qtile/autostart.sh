@@ -40,13 +40,13 @@ if pgrep rclone; then
 fi
 
 if [ "$WEEKDAY" -gt 0 ] && [ "$WEEKDAY" -lt 6 ]; then
-	if [ "$HOUR" -lt 18 ]; then
-		rclone sync -v gdrive:/ ~/google-drive/
+	if [ "$HOUR" -lt 19 ]; then
+		rclone sync -v gdrive:/ ~/google-drive/ &
 	else
-		rclone sync -v ~/google-drive/ gdrive:/
+		rclone sync -v ~/google-drive/ gdrive:/ &
 	fi
 else
-	rclone sync -v ~/google-drive/ gdrive:/
+	rclone sync -v ~/google-drive/ gdrive:/ &
 fi
 
 # Composer
